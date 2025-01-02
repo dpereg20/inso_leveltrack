@@ -1,18 +1,20 @@
 import dao.UserDAOImpl;
 import model.UserBase;
+import util.DatabaseConnection;
+
+import java.sql.Connection;
 
 public class Main {
     public static void main(String[] args) {
         try {
-            UserDAOImpl userDAO = new UserDAOImpl();
-            UserBase user = userDAO.findById(1);
-            if (user != null) {
-                System.out.println("User found: " + user.getName());
-            } else {
-                System.out.println("User not found.");
+            Connection connection = DatabaseConnection.getInstance().getConnection();
+            if (connection != null) {
+                System.out.println("¡Conexión exitosa a la base de datos!");
             }
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
 }
+
+
