@@ -1,4 +1,4 @@
-package util;
+package main.java.com.leveltrack.util;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -22,4 +22,3 @@ public class QueryLoader {
         return queries.getProperty(key);
     }
 }
-

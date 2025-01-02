@@ -1,4 +1,4 @@
-package model;
+package main.java.com.leveltrack.model;
 
 public class UserBase {
     private int id;

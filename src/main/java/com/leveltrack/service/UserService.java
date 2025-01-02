@@ -1,8 +1,8 @@
-package service;
+package main.java.com.leveltrack.service;
 
-import dao.UserDAO;
-import dao.UserDAOImpl;
-import model.UserBase;
+import main.java.com.leveltrack.dao.UserDAO;
+import main.java.com.leveltrack.dao.UserDAOImpl;
+import main.java.com.leveltrack.model.UserBase;
 
 public class UserService {
     private final UserDAO userDAO;

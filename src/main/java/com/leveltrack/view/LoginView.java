@@ -1,6 +1,6 @@
-package view;
+package main.java.com.leveltrack.view;
 
-import controller.LoginController;
+import main.java.com.leveltrack.controller.LoginController;
 
 import java.util.Scanner;
 

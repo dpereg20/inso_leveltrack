@@ -1,4 +1,4 @@
-package util;
+package main.java.com.leveltrack.util;
 
 import java.sql.Connection;
 import java.sql.DriverManager;

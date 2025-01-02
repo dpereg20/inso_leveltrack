@@ -1,6 +1,6 @@
-package dao;
+package main.java.com.leveltrack.dao;
 
-import model.UserBase;
+import main.java.com.leveltrack.model.UserBase;
 import java.util.List;
 
 public interface UserDAO {
