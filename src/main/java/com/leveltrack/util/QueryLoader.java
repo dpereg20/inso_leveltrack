@@ -1,4 +1,4 @@
-package main.java.com.leveltrack.util;
+package com.leveltrack.util;
 
 import java.io.IOException;
 import java.io.InputStream;

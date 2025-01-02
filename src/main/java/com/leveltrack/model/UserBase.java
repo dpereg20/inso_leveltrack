@@ -1,4 +1,4 @@
-package main.java.com.leveltrack.model;
+package com.leveltrack.model;
 
 public class UserBase {
     private int id;
@@ -25,6 +25,10 @@ public class UserBase {
     public void setRole(String role) { this.role = role; }
 
     public String getPassword() { return this.password; }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
 }
 
 

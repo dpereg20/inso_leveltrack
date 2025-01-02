@@ -1,8 +1,8 @@
-package main.java.com.leveltrack.dao;
+package com.leveltrack.dao;
 
-import main.java.com.leveltrack.model.UserBase;
-import main.java.com.leveltrack.util.DatabaseConnection;
-import main.java.com.leveltrack.util.QueryLoader;
+import com.leveltrack.model.UserBase;
+import com.leveltrack.util.DatabaseConnection;
+import com.leveltrack.util.QueryLoader;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;

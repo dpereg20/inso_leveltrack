@@ -1,7 +1,7 @@
-package main.java.com.leveltrack.controller;
+package com.leveltrack.controller;
 
-import main.java.com.leveltrack.model.UserBase;
-import main.java.com.leveltrack.service.UserService;
+import com.leveltrack.model.UserBase;
+import com.leveltrack.service.UserService;
 
 public class LoginController {
     private final UserService userService;
