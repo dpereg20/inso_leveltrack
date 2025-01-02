@@ -9,7 +9,7 @@ public class Main {
         try {
             Connection connection = DatabaseConnection.getInstance().getConnection();
             if (connection != null) {
-                System.out.println("¡Conexión exitosa a la base de datos!");
+                System.out.println("¡Conexión exitosa a la base de datos !");
             }
         } catch (Exception e) {
             e.printStackTrace();
