@@ -9,5 +9,6 @@ public interface UserDAO {
     boolean insert(UserBase user);
     boolean update(UserBase user);
     boolean delete(int id);
+    UserBase findByEmailAndPassword(String email, String password);
 }
 
