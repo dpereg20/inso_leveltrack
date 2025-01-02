@@ -107,4 +107,20 @@ public class UserDAOImpl implements UserDAO {
         }
         return false;
     }
+
+    @Override
+    public boolean createUser(UserBase user) {
+        String query = QueryLoader.getQuery("user.insert");
+        try (PreparedStatement stmt = connection.prepareStatement(query)) {
+            stmt.setString(1, user.getName());
+            stmt.setString(2, user.getEmail());
+            stmt.setString(3, user.getPassword());
+            stmt.setString(4, user.getRole());
+            return stmt.executeUpdate() > 0;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+
 }
