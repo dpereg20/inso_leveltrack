@@ -123,4 +123,19 @@ public class UserDAOImpl implements UserDAO {
         return false;
     }
 
+    @Override
+    public boolean updateProfile(UserBase user) {
+        String query = QueryLoader.getQuery("user.updateProfile");
+        try (PreparedStatement stmt = connection.prepareStatement(query)) {
+            stmt.setString(1, user.getName());
+            stmt.setString(2, user.getEmail());
+            stmt.setString(3, user.getPassword());
+            stmt.setInt(4, user.getId());
+            return stmt.executeUpdate() > 0;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+
 }

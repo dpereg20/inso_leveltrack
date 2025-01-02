@@ -26,6 +26,16 @@ public class UserService {
         return userDAO.createUser(user);
     }
 
+    public boolean updateUserProfile(int id, String name, String email, String password) {
+        // Validaciones básicas
+        if (name.isEmpty() || email.isEmpty() || password.isEmpty()) {
+            throw new IllegalArgumentException("Todos los campos son obligatorios.");
+        }
+        UserBase user = new UserBase(id, name, email, null);
+        user.setPassword(password); // Establece la contraseña
+        return userDAO.updateProfile(user);
+    }
+
 }
 
 
