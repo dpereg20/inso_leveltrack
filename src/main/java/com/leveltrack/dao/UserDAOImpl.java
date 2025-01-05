@@ -1,5 +1,8 @@
 package com.leveltrack.dao;
 
+import com.leveltrack.model.Administrator;
+import com.leveltrack.model.Moderator;
+import com.leveltrack.model.Regular_User;
 import com.leveltrack.model.UserBase;
 import com.leveltrack.util.DatabaseConnection;
 import com.leveltrack.util.QueryLoader;
@@ -27,11 +30,12 @@ public class UserDAOImpl implements UserDAO {
             stmt.setString(2, password);
             ResultSet rs = stmt.executeQuery();
             if (rs.next()) {
-                user = new UserBase(
+                String role = rs.getString("role");
+                user = createUserInstance(
+                        role,
                         rs.getInt("id"),
                         rs.getString("name"),
-                        rs.getString("email"),
-                        rs.getString("role")
+                        rs.getString("email")
                 );
             }
         } catch (SQLException e) {
@@ -39,6 +43,21 @@ public class UserDAOImpl implements UserDAO {
         }
         return user;
     }
+
+    private UserBase createUserInstance(String role, int id, String name, String email) {
+        switch (role) {
+            case "Administrator":
+                return new Administrator(id, name, email);
+            case "Moderator":
+                return new Moderator(id, name, email);
+            default:
+                return new Regular_User(id, name, email);
+        }
+    }
+
+
+
+
 
     @Override
     public UserBase findById(int id) {
@@ -52,11 +71,12 @@ public class UserDAOImpl implements UserDAO {
         try (PreparedStatement stmt = connection.prepareStatement(query);
              ResultSet rs = stmt.executeQuery()) {
             while (rs.next()) {
-                users.add(new UserBase(
+                String role = rs.getString("role");
+                users.add(createUserInstance(
+                        role,
                         rs.getInt("id"),
                         rs.getString("name"),
-                        rs.getString("email"),
-                        rs.getString("role")
+                        rs.getString("email")
                 ));
             }
         } catch (SQLException e) {
@@ -64,6 +84,7 @@ public class UserDAOImpl implements UserDAO {
         }
         return users;
     }
+
 
     @Override
     public boolean insert(UserBase user) {
@@ -137,5 +158,33 @@ public class UserDAOImpl implements UserDAO {
         }
         return false;
     }
+
+    @Override
+    public boolean updateUserRole(int userId, String newRole) {
+        String query = QueryLoader.getQuery("user.updateRole");
+        try (PreparedStatement stmt = connection.prepareStatement(query)) {
+            stmt.setString(1, newRole);
+            stmt.setInt(2, userId);
+            int rowsUpdated = stmt.executeUpdate();
+            return rowsUpdated > 0;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+    @Override
+    public boolean emailExists(String email) {
+        String query = QueryLoader.getQuery("user.emailExists");
+        try (PreparedStatement stmt = connection.prepareStatement(query)) {
+            stmt.setString(1, email);
+            ResultSet rs = stmt.executeQuery();
+            return rs.next(); // Returns true if a row is found
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
 
 }

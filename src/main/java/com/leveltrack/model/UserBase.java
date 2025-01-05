@@ -1,6 +1,6 @@
 package com.leveltrack.model;
 
-public class UserBase {
+public abstract class UserBase {
     private int id;
     private String name;
     private String email;
@@ -55,6 +55,7 @@ public class UserBase {
     public void setRole(String role) {
         this.role = role;
     }
+    public abstract void performAction();
 }
 
 

@@ -3,6 +3,8 @@ package com.leveltrack.controller;
 import com.leveltrack.model.UserBase;
 import com.leveltrack.service.UserService;
 
+import javax.swing.*;
+
 public class LoginController {
     private final UserService userService;
 
@@ -10,12 +12,16 @@ public class LoginController {
         this.userService = new UserService();
     }
 
-    public String login(String email, String password) {
-        UserBase user = userService.authenticate(email, password);
-        if (user != null) {
-            return "Login exitoso. Bienvenido, " + user.getName() + "!";
-        } else {
-            return "Credenciales incorrectas. Intenta de nuevo.";
+    public UserBase login(String email, String password) {
+        try {
+            UserBase user = userService.authenticate(email, password);
+            if (user != null) {
+                return user;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
         }
+        return null; // Return null if authentication fails
     }
+
 }

@@ -2,6 +2,8 @@ package com.leveltrack.controller;
 
 import com.leveltrack.service.UserService;
 
+import javax.swing.*;
+
 public class RegisterController {
     private final UserService userService;
 
@@ -9,19 +11,18 @@ public class RegisterController {
         this.userService = new UserService();
     }
 
-    public String register(String name, String email, String password, String role) {
+    public boolean register(String name, String email, String password) {
+        JOptionPane JOptionPane = new JOptionPane();
         try {
-            boolean success = userService.registerUser(name, email, password, role);
-            if (success) {
-                return "Usuario registrado con éxito.";
-            } else {
-                return "Error al registrar el usuario.";
+            if (userService.emailExists(email)) {
+                JOptionPane.showMessageDialog(null, "Email already in use. Please use a different email.", "Error", JOptionPane.ERROR_MESSAGE);
+                return false;
             }
+            return userService.registerUser(name, email, password, "REGULAR_USER");
         } catch (IllegalArgumentException e) {
-            return "Error: " + e.getMessage();
-        } catch (Exception e) {
-            e.printStackTrace();
-            return "Ocurrió un error inesperado.";
+            JOptionPane.showMessageDialog(null, "Error: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+            return false;
         }
     }
+    
 }

@@ -12,5 +12,9 @@ public interface UserDAO {
     UserBase findByEmailAndPassword(String email, String password);
     boolean createUser(UserBase user);
     boolean updateProfile(UserBase user);
+
+    boolean updateUserRole(int userId, String newRole);
+
+    boolean emailExists(String email);
 }
 
