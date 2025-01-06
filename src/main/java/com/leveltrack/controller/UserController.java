@@ -5,11 +5,11 @@ import com.leveltrack.model.UserBase;
 import com.leveltrack.service.UserService;
 
 
-public class UserManagementController {
+public class UserController {
     private final UserService userService;
 
 
-    public UserManagementController() throws Exception {
+    public UserController() throws Exception {
         this.userService = new UserService();
     }
 
@@ -35,6 +35,17 @@ public class UserManagementController {
             return "Ocurrió un error inesperado.";
         }
     }
+
+    public boolean partialUpdateProfile(int userId, String name, String email, String password) {
+        try {
+            return userService.partialUpdateUserProfile(userId, name, email, password);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+
 }
 
 

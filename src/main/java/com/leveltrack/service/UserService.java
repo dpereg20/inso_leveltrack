@@ -86,7 +86,7 @@ public class UserService {
         user.setEmail(email);
         user.setPassword(password);
 
-        return userDAO.updateProfile(user);
+        return userDAO.updateProfiled(user);
     }
 
     /**
@@ -115,6 +115,24 @@ public class UserService {
         }
         return userDAO.updateUserRole(userId, newRole);
     }
+
+    public boolean partialUpdateUserProfile(int id, String name, String email, String password) {
+        // Fetch the current user details
+        UserBase existingUser = userDAO.findById(id);
+
+        if (existingUser == null) {
+            throw new IllegalArgumentException("User not found.");
+        }
+
+        // Use existing values if new ones are empty
+        String updatedName = (name == null || name.isEmpty()) ? existingUser.getName() : name;
+        String updatedEmail = (email == null || email.isEmpty()) ? existingUser.getEmail() : email;
+        String updatedPassword = (password == null || password.isEmpty()) ? existingUser.getPassword() : password;
+
+        return userDAO.updateProfile(id, updatedName, updatedEmail, updatedPassword);
+    }
+
+
 
     public boolean isValidRole(String role) {
         return role.equalsIgnoreCase("ADMINISTRATOR") ||

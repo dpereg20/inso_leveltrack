@@ -1,67 +1,65 @@
 package com.leveltrack.view;
 
 import com.leveltrack.controller.LoginController;
-import com.leveltrack.model.UserBase;
+import com.leveltrack.controller.RegisterController;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 
-class LoginPanel extends JPanel {
-    public interface LoginCallback {
-        void onLoginSuccess(UserBase user) throws Exception;
-    }
+class RegisterPanel extends JPanel {
+    private final RegisterController registerController = new RegisterController();
 
-    private final LoginController loginController;
+    public RegisterPanel(JFrame parentFrame) throws Exception {
+        setLayout(new GridLayout(5, 1));
 
-    public LoginPanel(JFrame parentFrame, LoginController loginController, LoginCallback callback) {
-        this.loginController = loginController;
-        setLayout(new GridLayout(4, 1));
-
+        JLabel nameLabel = new JLabel("Name:");
+        JTextField nameField = new JTextField();
         JLabel emailLabel = new JLabel("Email:");
         JTextField emailField = new JTextField();
         JLabel passwordLabel = new JLabel("Password:");
         JPasswordField passwordField = new JPasswordField();
 
-        JButton loginButton = new JButton("Login");
-        JButton registerButton = new JButton("Create Account");
+        JButton createButton = new JButton("Create Account");
+        JButton backButton = new JButton("Back");
 
-        loginButton.addActionListener((ActionEvent e) -> {
-            String email = emailField.getText().trim();
-            String password = new String(passwordField.getPassword()).trim();
-
-            if (email.isEmpty() || password.isEmpty()) {
-                JOptionPane.showMessageDialog(this, "Email and password are required.", "Error", JOptionPane.ERROR_MESSAGE);
-                return;
-            }
-
-            UserBase user = loginController.login(email, password);
-            if (user != null) {
+        createButton.addActionListener((ActionEvent e) -> {
+            String name = nameField.getText();
+            String email = emailField.getText();
+            String password = new String(passwordField.getPassword());
+            if (registerController.register(name, email, password)) {
+                JOptionPane.showMessageDialog(this, "Account created successfully. Please login.");
+                parentFrame.getContentPane().removeAll();
                 try {
-                    callback.onLoginSuccess(user);
+                    parentFrame.add(new LoginPanel(parentFrame, new LoginController(), null));
                 } catch (Exception ex) {
                     throw new RuntimeException(ex);
                 }
+                parentFrame.revalidate();
             } else {
-                JOptionPane.showMessageDialog(this, "Invalid credentials.", "Error", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(this, "Error creating account.", "Error", JOptionPane.ERROR_MESSAGE);
             }
         });
 
-        registerButton.addActionListener((ActionEvent e) -> {
+        backButton.addActionListener((ActionEvent e) -> {
             parentFrame.getContentPane().removeAll();
             try {
-                parentFrame.add(new RegisterPanel(parentFrame));
+                parentFrame.add(new LoginPanel(parentFrame, new LoginController(), null));
             } catch (Exception ex) {
                 throw new RuntimeException(ex);
             }
             parentFrame.revalidate();
         });
 
+        add(nameLabel);
+        add(nameField);
         add(emailLabel);
         add(emailField);
         add(passwordLabel);
         add(passwordField);
-        add(loginButton);
-        add(registerButton);
+        add(createButton);
+        add(backButton);
     }
+
+
 }

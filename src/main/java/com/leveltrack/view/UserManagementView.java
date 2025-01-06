@@ -1,7 +1,7 @@
 package com.leveltrack.view;
 
 
-import com.leveltrack.controller.UserManagementController;
+import com.leveltrack.controller.UserController;
 
 
 import java.util.Scanner;
@@ -10,7 +10,7 @@ import java.util.Scanner;
 public class UserManagementView {
     public static void main(String[] args) {
         try {
-            UserManagementController controller = new UserManagementController();
+            UserController controller = new UserController();
             Scanner scanner = new Scanner(System.in);
 
 

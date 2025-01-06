@@ -56,13 +56,47 @@ public class UserDAOImpl implements UserDAO {
     }
 
 
-
-
-
     @Override
     public UserBase findById(int id) {
+        String query = QueryLoader.getQuery("user.findById");
+        try (PreparedStatement stmt = connection.prepareStatement(query)) {
+            stmt.setInt(1, id);
+            ResultSet rs = stmt.executeQuery();
+            if (rs.next()) {
+                String role = rs.getString("role");
+                return createUserInstance(
+                        role,
+                        rs.getInt("id"),
+                        rs.getString("name"),
+                        rs.getString("email"),
+                        rs.getString("password")
+                );
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
         return null;
     }
+
+    private UserBase createUserInstance(String role, int id, String name, String email, String password) {
+        UserBase user;
+        switch (role) {
+            case "Administrator":
+                user = new Administrator(id, name, email);
+                break;
+            case "Moderator":
+                user = new Moderator(id, name, email);
+                break;
+            case "Regular_User":
+            default:
+                user = new Regular_User(id, name, email);
+                break;
+        }
+        user.setPassword(password);
+        return user;
+    }
+
+
 
     @Override
     public List<UserBase> findAll() {
@@ -145,7 +179,7 @@ public class UserDAOImpl implements UserDAO {
     }
 
     @Override
-    public boolean updateProfile(UserBase user) {
+    public boolean updateProfiled(UserBase user) {
         String query = QueryLoader.getQuery("user.updateProfile");
         try (PreparedStatement stmt = connection.prepareStatement(query)) {
             stmt.setString(1, user.getName());
@@ -158,6 +192,23 @@ public class UserDAOImpl implements UserDAO {
         }
         return false;
     }
+
+    @Override
+    public boolean updateProfile(int id, String name, String email, String password) {
+        String query = QueryLoader.getQuery("user.updateProfile");
+        try (PreparedStatement stmt = connection.prepareStatement(query)) {
+            stmt.setString(1, name);
+            stmt.setString(2, email);
+            stmt.setString(3, password);
+            stmt.setInt(4, id);
+            return stmt.executeUpdate() > 0;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+
 
     @Override
     public boolean updateUserRole(int userId, String newRole) {
