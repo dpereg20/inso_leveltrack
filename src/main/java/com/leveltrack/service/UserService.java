@@ -101,14 +101,27 @@ public class UserService {
 
     /**
      * Helper method to validate the role input.
-     * @param role The role to validate.
+     * @param userId The role to validate.
      * @return True if the role is valid, false otherwise.
      */
-    public boolean isValidRole(String role) {
-        return role.equalsIgnoreCase("Administrator") ||
-                role.equalsIgnoreCase("Moderator") ||
-                role.equalsIgnoreCase("Regular_User");
+    public boolean isAdmin(int userId) {
+        UserBase user = userDAO.findById(userId);
+        return user != null && "ADMINISTRATOR".equalsIgnoreCase(user.getRole());
     }
+
+    public boolean updateUserRole(int userId, String newRole) {
+        if (!isValidRole(newRole)) {
+            throw new IllegalArgumentException("Invalid role: " + newRole);
+        }
+        return userDAO.updateUserRole(userId, newRole);
+    }
+
+    public boolean isValidRole(String role) {
+        return role.equalsIgnoreCase("ADMINISTRATOR") ||
+                role.equalsIgnoreCase("MODERATOR") ||
+                role.equalsIgnoreCase("REGULAR_USER");
+    }
+
 
     /**
      * Helper method to create an instance of a UserBase subclass based on role.
@@ -155,17 +168,6 @@ public class UserService {
     }
 
 
-    public boolean updateUserRole(int userId, String newRole) {
-        if (userId <= 0 || newRole == null || newRole.isEmpty()) {
-            throw new IllegalArgumentException("User ID and role are required.");
-        }
-
-        if (!isValidRole(newRole)) {
-            throw new IllegalArgumentException("Invalid role. Accepted roles: Administrator, Moderator, Regular_User.");
-        }
-
-        return userDAO.updateUserRole(userId, newRole);
-    }
 
 
     public boolean emailExists(String email) {
@@ -175,10 +177,6 @@ public class UserService {
         return userDAO.emailExists(email);
     }
 
-    public boolean isAdmin(int userId) {
-        UserBase user = userDAO.findById(userId);
-        return user != null && "Administrator".equalsIgnoreCase(user.getRole());
-    }
 
     public List<UserBase> findAllUsers() {
         return userDAO.findAll();
