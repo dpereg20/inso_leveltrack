@@ -149,8 +149,8 @@ public class UserService {
      */
     private UserBase createUserInstance(String role, UserBase user) {
         return switch (role) {
-            case "Administrator" -> new Administrator(user.getId(), user.getName(), user.getEmail());
-            case "Moderator" -> new Moderator(user.getId(), user.getName(), user.getEmail());
+            case "ADMINISTRATOR" -> new Administrator(user.getId(), user.getName(), user.getEmail());
+            case "MODERATOR" -> new Moderator(user.getId(), user.getName(), user.getEmail());
             default -> new Regular_User(user.getId(), user.getName(), user.getEmail());
         };
     }
@@ -169,10 +169,10 @@ public class UserService {
 
 
         switch (role) {
-            case "Administrator":
+            case "ADMINISTRATOR":
                 user = new Administrator(id, name, email);
                 break;
-            case "Moderator":
+            case "MODERATOR":
                 user = new Moderator(id, name, email);
                 break;
             default:

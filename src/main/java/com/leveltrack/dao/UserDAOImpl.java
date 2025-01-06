@@ -46,9 +46,9 @@ public class UserDAOImpl implements UserDAO {
 
     private UserBase createUserInstance(String role, int id, String name, String email) {
         switch (role) {
-            case "Administrator":
+            case "ADMINISTRATOR":
                 return new Administrator(id, name, email);
-            case "Moderator":
+            case "MODERATOR":
                 return new Moderator(id, name, email);
             default:
                 return new Regular_User(id, name, email);
@@ -81,13 +81,13 @@ public class UserDAOImpl implements UserDAO {
     private UserBase createUserInstance(String role, int id, String name, String email, String password) {
         UserBase user;
         switch (role) {
-            case "Administrator":
+            case "ADMINISTRATOR":
                 user = new Administrator(id, name, email);
                 break;
-            case "Moderator":
+            case "MODERATOR":
                 user = new Moderator(id, name, email);
                 break;
-            case "Regular_User":
+            case "REGULAR_USER":
             default:
                 user = new Regular_User(id, name, email);
                 break;
