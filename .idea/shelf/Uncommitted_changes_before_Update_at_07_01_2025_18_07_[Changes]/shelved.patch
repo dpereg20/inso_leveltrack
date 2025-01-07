@@ -1,0 +1,239 @@
+Index: .idea/workspace.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n<project version=\"4\">\r\n  <component name=\"AutoImportSettings\">\r\n    <option name=\"autoReloadType\" value=\"SELECTIVE\" />\r\n  </component>\r\n  <component name=\"ChangeListManager\">\r\n    <list default=\"true\" id=\"83ec2d2c-8ca2-4ce5-863a-fac5b017337d\" name=\"Changes\" comment=\"aa\">\r\n      <change beforePath=\"$PROJECT_DIR$/.idea/misc.xml\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/.idea/misc.xml\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/.idea/workspace.xml\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/.idea/workspace.xml\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/out/production/inso_leveltrack/.idea/inso_leveltrack.iml\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/out/production/inso_leveltrack/.idea/inso_leveltrack.iml\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/src/.idea/inso_leveltrack.iml\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/src/.idea/inso_leveltrack.iml\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/src/main/java/com/leveltrack/controller/LoginController.java\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/src/main/java/com/leveltrack/controller/LoginController.java\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/src/main/java/com/leveltrack/controller/registrar usuario\" beforeDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/src/main/java/com/leveltrack/dao/UserDAO.java\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/src/main/java/com/leveltrack/dao/UserDAO.java\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/src/main/java/com/leveltrack/dao/UserDAOImpl.java\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/src/main/java/com/leveltrack/dao/UserDAOImpl.java\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/src/main/java/com/leveltrack/model/UserBase.java\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/src/main/java/com/leveltrack/model/UserBase.java\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/src/main/java/com/leveltrack/service/ELIMINAR.java\" beforeDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/src/main/java/com/leveltrack/service/UserService.java\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/src/main/java/com/leveltrack/service/UserService.java\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/src/main/java/com/leveltrack/util/DatabaseConnection.java\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/src/main/java/com/leveltrack/util/DatabaseConnection.java\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/src/main/java/com/leveltrack/util/QueryLoader.java\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/src/main/java/com/leveltrack/util/QueryLoader.java\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/src/main/java/com/leveltrack/view/LoginView.java\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/src/main/java/com/leveltrack/view/LoginView.java\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/src/main/java/com/leveltrack/view/vista registrar\" beforeDir=\"false\" />\r\n    </list>\r\n    <option name=\"SHOW_DIALOG\" value=\"false\" />\r\n    <option name=\"HIGHLIGHT_CONFLICTS\" value=\"true\" />\r\n    <option name=\"HIGHLIGHT_NON_ACTIVE_CHANGELIST\" value=\"false\" />\r\n    <option name=\"LAST_RESOLUTION\" value=\"IGNORE\" />\r\n  </component>\r\n  <component name=\"FileTemplateManagerImpl\">\r\n    <option name=\"RECENT_TEMPLATES\">\r\n      <list>\r\n        <option value=\"Class\" />\r\n      </list>\r\n    </option>\r\n  </component>\r\n  <component name=\"Git.Settings\">\r\n    <option name=\"RECENT_GIT_ROOT_PATH\" value=\"$PROJECT_DIR$\" />\r\n  </component>\r\n  <component name=\"GitHubPullRequestSearchHistory\">{\r\n  &quot;lastFilter&quot;: {\r\n    &quot;state&quot;: &quot;OPEN&quot;,\r\n    &quot;assignee&quot;: &quot;eondig00&quot;\r\n  }\r\n}</component>\r\n  <component name=\"GithubPullRequestsUISettings\">{\r\n  &quot;selectedUrlAndAccountId&quot;: {\r\n    &quot;url&quot;: &quot;https://github.com/dpereg20/inso_leveltrack.git&quot;,\r\n    &quot;accountId&quot;: &quot;938377b4-04bc-4c99-a0e5-3c8288569e79&quot;\r\n  }\r\n}</component>\r\n  <component name=\"ProblemsViewState\">\r\n    <option name=\"selectedTabId\" value=\"ProjectErrors\" />\r\n  </component>\r\n  <component name=\"ProjectColorInfo\">{\r\n  &quot;associatedIndex&quot;: 4\r\n}</component>\r\n  <component name=\"ProjectId\" id=\"2r4RtESkdPHzenpy3OiGezxsPVo\" />\r\n  <component name=\"ProjectLevelVcsManager\">\r\n    <ConfirmationsSetting value=\"1\" id=\"Add\" />\r\n  </component>\r\n  <component name=\"ProjectViewState\">\r\n    <option name=\"hideEmptyMiddlePackages\" value=\"true\" />\r\n    <option name=\"showLibraryContents\" value=\"true\" />\r\n  </component>\r\n  <component name=\"PropertiesComponent\"><![CDATA[{\r\n  \"keyToString\": {\r\n    \"Application.LoginView.executor\": \"Run\",\r\n    \"Application.RegisterView.executor\": \"Run\",\r\n    \"RunOnceActivity.ShowReadmeOnStart\": \"true\",\r\n    \"RunOnceActivity.git.unshallow\": \"true\",\r\n    \"SHARE_PROJECT_CONFIGURATION_FILES\": \"true\",\r\n    \"git-widget-placeholder\": \"main\",\r\n    \"kotlin-language-version-configured\": \"true\",\r\n    \"last_opened_file_path\": \"C:/Users/elena/Documents/GitHub/inso_leveltrack\",\r\n    \"node.js.detected.package.eslint\": \"true\",\r\n    \"node.js.detected.package.tslint\": \"true\",\r\n    \"node.js.selected.package.eslint\": \"(autodetect)\",\r\n    \"node.js.selected.package.tslint\": \"(autodetect)\",\r\n    \"nodejs_package_manager_path\": \"npm\",\r\n    \"project.structure.last.edited\": \"Modules\",\r\n    \"project.structure.proportion\": \"0.15\",\r\n    \"project.structure.side.proportion\": \"0.2\",\r\n    \"settings.editor.selected.configurable\": \"preferences.pluginManager\",\r\n    \"vue.rearranger.settings.migration\": \"true\"\r\n  }\r\n}]]></component>\r\n  <component name=\"RecentsManager\">\r\n    <key name=\"CopyFile.RECENT_KEYS\">\r\n      <recent name=\"C:\\Users\\elena\\Documents\\GitHub\\inso_leveltrack\" />\r\n    </key>\r\n  </component>\r\n  <component name=\"RunManager\" selected=\"Application.com.leveltrack.view.RegisterView\">\r\n    <configuration name=\"LoginView\" type=\"Application\" factoryName=\"Application\" temporary=\"true\" nameIsGenerated=\"true\">\r\n      <option name=\"MAIN_CLASS_NAME\" value=\"main.java.com.leveltrack.view.LoginView\" />\r\n      <module name=\"inso_leveltrack\" />\r\n      <extension name=\"coverage\">\r\n        <pattern>\r\n          <option name=\"PATTERN\" value=\"main.java.com.leveltrack.view.*\" />\r\n          <option name=\"ENABLED\" value=\"true\" />\r\n        </pattern>\r\n      </extension>\r\n      <method v=\"2\">\r\n        <option name=\"Make\" enabled=\"true\" />\r\n      </method>\r\n    </configuration>\r\n    <configuration name=\"RegisterView\" type=\"Application\" factoryName=\"Application\" temporary=\"true\" nameIsGenerated=\"true\">\r\n      <option name=\"MAIN_CLASS_NAME\" value=\"main.java.com.leveltrack.view.RegisterView\" />\r\n      <module name=\"inso_leveltrack\" />\r\n      <extension name=\"coverage\">\r\n        <pattern>\r\n          <option name=\"PATTERN\" value=\"main.java.com.leveltrack.view.*\" />\r\n          <option name=\"ENABLED\" value=\"true\" />\r\n        </pattern>\r\n      </extension>\r\n      <method v=\"2\">\r\n        <option name=\"Make\" enabled=\"true\" />\r\n      </method>\r\n    </configuration>\r\n    <configuration name=\"com.leveltrack.view.LoginView\" type=\"Application\" factoryName=\"Application\" temporary=\"true\" nameIsGenerated=\"true\">\r\n      <option name=\"MAIN_CLASS_NAME\" value=\"com.leveltrack.view.LoginView\" />\r\n      <module name=\"inso_leveltrack\" />\r\n      <extension name=\"coverage\">\r\n        <pattern>\r\n          <option name=\"PATTERN\" value=\"com.leveltrack.view.*\" />\r\n          <option name=\"ENABLED\" value=\"true\" />\r\n        </pattern>\r\n      </extension>\r\n      <method v=\"2\">\r\n        <option name=\"Make\" enabled=\"true\" />\r\n      </method>\r\n    </configuration>\r\n    <configuration name=\"com.leveltrack.view.RegisterView\" type=\"Application\" factoryName=\"Application\" temporary=\"true\" nameIsGenerated=\"true\">\r\n      <option name=\"MAIN_CLASS_NAME\" value=\"com.leveltrack.view.RegisterView\" />\r\n      <module name=\"inso_leveltrack\" />\r\n      <extension name=\"coverage\">\r\n        <pattern>\r\n          <option name=\"PATTERN\" value=\"com.leveltrack.view.*\" />\r\n          <option name=\"ENABLED\" value=\"true\" />\r\n        </pattern>\r\n      </extension>\r\n      <method v=\"2\">\r\n        <option name=\"Make\" enabled=\"true\" />\r\n      </method>\r\n    </configuration>\r\n    <list>\r\n      <item itemvalue=\"Application.RegisterView\" />\r\n      <item itemvalue=\"Application.com.leveltrack.view.LoginView\" />\r\n      <item itemvalue=\"Application.com.leveltrack.view.RegisterView\" />\r\n      <item itemvalue=\"Application.LoginView\" />\r\n    </list>\r\n    <recent_temporary>\r\n      <list>\r\n        <item itemvalue=\"Application.com.leveltrack.view.RegisterView\" />\r\n        <item itemvalue=\"Application.com.leveltrack.view.LoginView\" />\r\n        <item itemvalue=\"Application.LoginView\" />\r\n        <item itemvalue=\"Application.RegisterView\" />\r\n      </list>\r\n    </recent_temporary>\r\n  </component>\r\n  <component name=\"SharedIndexes\">\r\n    <attachedChunks>\r\n      <set>\r\n        <option value=\"bundled-jdk-9823dce3aa75-fdfe4dae3a2d-intellij.indexing.shared.core-IU-243.22562.218\" />\r\n        <option value=\"bundled-js-predefined-d6986cc7102b-deb605915726-JavaScript-IU-243.22562.218\" />\r\n      </set>\r\n    </attachedChunks>\r\n  </component>\r\n  <component name=\"SpellCheckerSettings\" RuntimeDictionaries=\"0\" Folders=\"0\" CustomDictionaries=\"0\" DefaultDictionary=\"application-level\" UseSingleDictionary=\"true\" transferred=\"true\" />\r\n  <component name=\"TaskManager\">\r\n    <task active=\"true\" id=\"Default\" summary=\"Default task\">\r\n      <changelist id=\"83ec2d2c-8ca2-4ce5-863a-fac5b017337d\" name=\"Changes\" comment=\"\" />\r\n      <created>1735816575957</created>\r\n      <option name=\"number\" value=\"Default\" />\r\n      <option name=\"presentableId\" value=\"Default\" />\r\n      <updated>1735816575957</updated>\r\n      <workItem from=\"1735816577947\" duration=\"1808000\" />\r\n      <workItem from=\"1735822993394\" duration=\"973000\" />\r\n      <workItem from=\"1735824212155\" duration=\"1277000\" />\r\n      <workItem from=\"1735848420748\" duration=\"28000\" />\r\n      <workItem from=\"1735848470328\" duration=\"44000\" />\r\n      <workItem from=\"1735848555890\" duration=\"177000\" />\r\n      <workItem from=\"1735848906037\" duration=\"368000\" />\r\n    </task>\r\n    <task id=\"LOCAL-00001\" summary=\"prueba login\">\r\n      <option name=\"closed\" value=\"true\" />\r\n      <created>1735824475349</created>\r\n      <option name=\"number\" value=\"00001\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00001\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1735824475349</updated>\r\n    </task>\r\n    <option name=\"localTasksCounter\" value=\"2\" />\r\n    <servers />\r\n  </component>\r\n  <component name=\"TypeScriptGeneratedFilesManager\">\r\n    <option name=\"version\" value=\"3\" />\r\n  </component>\r\n  <component name=\"Vcs.Log.Tabs.Properties\">\r\n    <option name=\"TAB_STATES\">\r\n      <map>\r\n        <entry key=\"MAIN\">\r\n          <value>\r\n            <State />\r\n          </value>\r\n        </entry>\r\n      </map>\r\n    </option>\r\n  </component>\r\n  <component name=\"VcsManagerConfiguration\">\r\n    <MESSAGE value=\"prueba login\" />\r\n    <MESSAGE value=\"aa\" />\r\n    <option name=\"LAST_COMMIT_MESSAGE\" value=\"aa\" />\r\n  </component>\r\n</project>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/workspace.xml b/.idea/workspace.xml
+--- a/.idea/workspace.xml	(revision cc1abf97f93d18c9ab0eab2a911a129b27011ed8)
++++ b/.idea/workspace.xml	(date 1736246428701)
+@@ -4,22 +4,8 @@
+     <option name="autoReloadType" value="SELECTIVE" />
+   </component>
+   <component name="ChangeListManager">
+-    <list default="true" id="83ec2d2c-8ca2-4ce5-863a-fac5b017337d" name="Changes" comment="aa">
+-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
++    <list default="true" id="83ec2d2c-8ca2-4ce5-863a-fac5b017337d" name="Changes" comment="friend request">
+       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/out/production/inso_leveltrack/.idea/inso_leveltrack.iml" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/inso_leveltrack/.idea/inso_leveltrack.iml" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/src/.idea/inso_leveltrack.iml" beforeDir="false" afterPath="$PROJECT_DIR$/src/.idea/inso_leveltrack.iml" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/src/main/java/com/leveltrack/controller/LoginController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/leveltrack/controller/LoginController.java" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/src/main/java/com/leveltrack/controller/registrar usuario" beforeDir="false" />
+-      <change beforePath="$PROJECT_DIR$/src/main/java/com/leveltrack/dao/UserDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/leveltrack/dao/UserDAO.java" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/src/main/java/com/leveltrack/dao/UserDAOImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/leveltrack/dao/UserDAOImpl.java" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/src/main/java/com/leveltrack/model/UserBase.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/leveltrack/model/UserBase.java" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/src/main/java/com/leveltrack/service/ELIMINAR.java" beforeDir="false" />
+-      <change beforePath="$PROJECT_DIR$/src/main/java/com/leveltrack/service/UserService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/leveltrack/service/UserService.java" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/src/main/java/com/leveltrack/util/DatabaseConnection.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/leveltrack/util/DatabaseConnection.java" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/src/main/java/com/leveltrack/util/QueryLoader.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/leveltrack/util/QueryLoader.java" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/src/main/java/com/leveltrack/view/LoginView.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/leveltrack/view/LoginView.java" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/src/main/java/com/leveltrack/view/vista registrar" beforeDir="false" />
+     </list>
+     <option name="SHOW_DIALOG" value="false" />
+     <option name="HIGHLIGHT_CONFLICTS" value="true" />
+@@ -64,20 +50,25 @@
+   </component>
+   <component name="PropertiesComponent"><![CDATA[{
+   "keyToString": {
++    "Application.LibraryView.executor": "Run",
+     "Application.LoginView.executor": "Run",
++    "Application.MainApp.executor": "Run",
+     "Application.RegisterView.executor": "Run",
++    "Application.UserManagementView.executor": "Run",
++    "Application.com.leveltrack.view.LoginView.executor": "Run",
++    "Application.com.leveltrack.view.RegisterView.executor": "Run",
+     "RunOnceActivity.ShowReadmeOnStart": "true",
+     "RunOnceActivity.git.unshallow": "true",
+     "SHARE_PROJECT_CONFIGURATION_FILES": "true",
+     "git-widget-placeholder": "main",
+     "kotlin-language-version-configured": "true",
+-    "last_opened_file_path": "C:/Users/elena/Documents/GitHub/inso_leveltrack",
++    "last_opened_file_path": "C:/Users/elena/Downloads/coneec/json-20241224.jar",
+     "node.js.detected.package.eslint": "true",
+     "node.js.detected.package.tslint": "true",
+     "node.js.selected.package.eslint": "(autodetect)",
+     "node.js.selected.package.tslint": "(autodetect)",
+     "nodejs_package_manager_path": "npm",
+-    "project.structure.last.edited": "Modules",
++    "project.structure.last.edited": "Libraries",
+     "project.structure.proportion": "0.15",
+     "project.structure.side.proportion": "0.2",
+     "settings.editor.selected.configurable": "preferences.pluginManager",
+@@ -89,13 +80,13 @@
+       <recent name="C:\Users\elena\Documents\GitHub\inso_leveltrack" />
+     </key>
+   </component>
+-  <component name="RunManager" selected="Application.com.leveltrack.view.RegisterView">
+-    <configuration name="LoginView" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+-      <option name="MAIN_CLASS_NAME" value="main.java.com.leveltrack.view.LoginView" />
++  <component name="RunManager" selected="Application.MainApp">
++    <configuration name="LibraryView" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
++      <option name="MAIN_CLASS_NAME" value="com.leveltrack.view.LibraryView" />
+       <module name="inso_leveltrack" />
+       <extension name="coverage">
+         <pattern>
+-          <option name="PATTERN" value="main.java.com.leveltrack.view.*" />
++          <option name="PATTERN" value="com.leveltrack.view.*" />
+           <option name="ENABLED" value="true" />
+         </pattern>
+       </extension>
+@@ -103,12 +94,12 @@
+         <option name="Make" enabled="true" />
+       </method>
+     </configuration>
+-    <configuration name="RegisterView" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+-      <option name="MAIN_CLASS_NAME" value="main.java.com.leveltrack.view.RegisterView" />
++    <configuration name="LoginPanel" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
++      <option name="MAIN_CLASS_NAME" value="com.leveltrack.view.LoginPanel" />
+       <module name="inso_leveltrack" />
+       <extension name="coverage">
+         <pattern>
+-          <option name="PATTERN" value="main.java.com.leveltrack.view.*" />
++          <option name="PATTERN" value="com.leveltrack.view.*" />
+           <option name="ENABLED" value="true" />
+         </pattern>
+       </extension>
+@@ -116,8 +107,8 @@
+         <option name="Make" enabled="true" />
+       </method>
+     </configuration>
+-    <configuration name="com.leveltrack.view.LoginView" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+-      <option name="MAIN_CLASS_NAME" value="com.leveltrack.view.LoginView" />
++    <configuration name="MainApp" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
++      <option name="MAIN_CLASS_NAME" value="com.leveltrack.view.MainApp" />
+       <module name="inso_leveltrack" />
+       <extension name="coverage">
+         <pattern>
+@@ -129,8 +120,21 @@
+         <option name="Make" enabled="true" />
+       </method>
+     </configuration>
+-    <configuration name="com.leveltrack.view.RegisterView" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+-      <option name="MAIN_CLASS_NAME" value="com.leveltrack.view.RegisterView" />
++    <configuration name="RegisterPanel" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
++      <option name="MAIN_CLASS_NAME" value="com.leveltrack.view.RegisterPanel" />
++      <module name="inso_leveltrack" />
++      <extension name="coverage">
++        <pattern>
++          <option name="PATTERN" value="com.leveltrack.view.*" />
++          <option name="ENABLED" value="true" />
++        </pattern>
++      </extension>
++      <method v="2">
++        <option name="Make" enabled="true" />
++      </method>
++    </configuration>
++    <configuration name="UserManagementView" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
++      <option name="MAIN_CLASS_NAME" value="com.leveltrack.view.UserManagementView" />
+       <module name="inso_leveltrack" />
+       <extension name="coverage">
+         <pattern>
+@@ -143,17 +147,19 @@
+       </method>
+     </configuration>
+     <list>
+-      <item itemvalue="Application.RegisterView" />
+-      <item itemvalue="Application.com.leveltrack.view.LoginView" />
+-      <item itemvalue="Application.com.leveltrack.view.RegisterView" />
+-      <item itemvalue="Application.LoginView" />
++      <item itemvalue="Application.LibraryView" />
++      <item itemvalue="Application.LoginPanel" />
++      <item itemvalue="Application.MainApp" />
++      <item itemvalue="Application.RegisterPanel" />
++      <item itemvalue="Application.UserManagementView" />
+     </list>
+     <recent_temporary>
+       <list>
+-        <item itemvalue="Application.com.leveltrack.view.RegisterView" />
+-        <item itemvalue="Application.com.leveltrack.view.LoginView" />
+-        <item itemvalue="Application.LoginView" />
+-        <item itemvalue="Application.RegisterView" />
++        <item itemvalue="Application.MainApp" />
++        <item itemvalue="Application.LibraryView" />
++        <item itemvalue="Application.LoginPanel" />
++        <item itemvalue="Application.UserManagementView" />
++        <item itemvalue="Application.RegisterPanel" />
+       </list>
+     </recent_temporary>
+   </component>
+@@ -189,7 +195,63 @@
+       <option name="project" value="LOCAL" />
+       <updated>1735824475349</updated>
+     </task>
+-    <option name="localTasksCounter" value="2" />
++    <task id="LOCAL-00002" summary="register succesful">
++      <option name="closed" value="true" />
++      <created>1735850472234</created>
++      <option name="number" value="00002" />
++      <option name="presentableId" value="LOCAL-00002" />
++      <option name="project" value="LOCAL" />
++      <updated>1735850472234</updated>
++    </task>
++    <task id="LOCAL-00003" summary="gestionar perfil">
++      <option name="closed" value="true" />
++      <created>1735851691797</created>
++      <option name="number" value="00003" />
++      <option name="presentableId" value="LOCAL-00003" />
++      <option name="project" value="LOCAL" />
++      <updated>1735851691797</updated>
++    </task>
++    <task id="LOCAL-00004" summary="pruebas libreria, añadir desde API (no implementado, modificar perfil en pruebas)">
++      <option name="closed" value="true" />
++      <created>1735989022939</created>
++      <option name="number" value="00004" />
++      <option name="presentableId" value="LOCAL-00004" />
++      <option name="project" value="LOCAL" />
++      <updated>1735989022939</updated>
++    </task>
++    <task id="LOCAL-00005" summary="admin, mod, regular_user">
++      <option name="closed" value="true" />
++      <created>1736081853688</created>
++      <option name="number" value="00005" />
++      <option name="presentableId" value="LOCAL-00005" />
++      <option name="project" value="LOCAL" />
++      <updated>1736081853688</updated>
++    </task>
++    <task id="LOCAL-00006" summary="admin, mod, regular_user">
++      <option name="closed" value="true" />
++      <created>1736186642930</created>
++      <option name="number" value="00006" />
++      <option name="presentableId" value="LOCAL-00006" />
++      <option name="project" value="LOCAL" />
++      <updated>1736186642930</updated>
++    </task>
++    <task id="LOCAL-00007" summary="biblioteca">
++      <option name="closed" value="true" />
++      <created>1736188616291</created>
++      <option name="number" value="00007" />
++      <option name="presentableId" value="LOCAL-00007" />
++      <option name="project" value="LOCAL" />
++      <updated>1736188616291</updated>
++    </task>
++    <task id="LOCAL-00008" summary="friend request">
++      <option name="closed" value="true" />
++      <created>1736189874769</created>
++      <option name="number" value="00008" />
++      <option name="presentableId" value="LOCAL-00008" />
++      <option name="project" value="LOCAL" />
++      <updated>1736189874770</updated>
++    </task>
++    <option name="localTasksCounter" value="9" />
+     <servers />
+   </component>
+   <component name="TypeScriptGeneratedFilesManager">
+@@ -209,6 +271,12 @@
+   <component name="VcsManagerConfiguration">
+     <MESSAGE value="prueba login" />
+     <MESSAGE value="aa" />
+-    <option name="LAST_COMMIT_MESSAGE" value="aa" />
++    <MESSAGE value="register succesful" />
++    <MESSAGE value="gestionar perfil" />
++    <MESSAGE value="pruebas libreria, añadir desde API (no implementado, modificar perfil en pruebas)" />
++    <MESSAGE value="admin, mod, regular_user" />
++    <MESSAGE value="biblioteca" />
++    <MESSAGE value="friend request" />
++    <option name="LAST_COMMIT_MESSAGE" value="friend request" />
+   </component>
+ </project>
+\ No newline at end of file
