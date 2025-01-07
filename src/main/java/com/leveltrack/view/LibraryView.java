@@ -12,95 +12,63 @@ class LibraryView extends JPanel {
     private final LibraryController libraryController;
     private final int userId;
 
-    public LibraryView(int userId, JFrame parentFrame) {
+    public LibraryView(int userId, JFrame parentFrame) throws Exception {
         this.userId = userId;
+        this.libraryController = new LibraryController();
+
         setLayout(new BorderLayout());
 
-        try {
-            libraryController = new LibraryController();
-        } catch (Exception e) {
-            throw new RuntimeException("Failed to initialize LibraryController", e);
-        }
+        JTextArea gamesList = new JTextArea();
+        gamesList.setEditable(false);
+        refreshGamesList(gamesList);
 
-        // Game List Panel
-        JTextArea gameList = new JTextArea();
-        gameList.setEditable(false);
-        refreshGameList(gameList);
-
-        JScrollPane scrollPane = new JScrollPane(gameList);
+        JScrollPane scrollPane = new JScrollPane(gamesList);
         add(scrollPane, BorderLayout.CENTER);
 
-        // Control Panel
-        JPanel controlPanel = new JPanel(new GridLayout(4, 1));
+        JPanel controls = new JPanel(new GridLayout(1, 2));
         JButton addGameButton = new JButton("Add Game");
-        JButton removeGameButton = new JButton("Remove Game");
-        JButton updateGameStateButton = new JButton("Change Game State");
-        JButton backButton = new JButton("Back");
+        JButton filterButton = new JButton("Filter by Genre");
 
         addGameButton.addActionListener((ActionEvent e) -> {
-            String name = JOptionPane.showInputDialog("Enter Game Name:");
-            String genre = JOptionPane.showInputDialog("Enter Game Genre:");
-            String priceInput = JOptionPane.showInputDialog("Enter Game Price:");
-            String state = JOptionPane.showInputDialog("Enter Game State (Available, Playing, Completed):");
-
-            try {
-                double price = Double.parseDouble(priceInput);
-                Game game = new Game(0, name, genre, price, state);
-                boolean success = libraryController.addGame(userId, game);
-                JOptionPane.showMessageDialog(this, success ? "Game added successfully!" : "Failed to add game.");
-                refreshGameList(gameList);
-            } catch (NumberFormatException ex) {
-                JOptionPane.showMessageDialog(this, "Invalid price format.", "Error", JOptionPane.ERROR_MESSAGE);
-            }
-        });
-
-        removeGameButton.addActionListener((ActionEvent e) -> {
-            String gameIdInput = JOptionPane.showInputDialog("Enter Game ID to Remove:");
+            String gameIdInput = JOptionPane.showInputDialog("Enter Game ID to Add:");
             try {
                 int gameId = Integer.parseInt(gameIdInput);
-                boolean success = libraryController.removeGame(userId, gameId);
-                JOptionPane.showMessageDialog(this, success ? "Game removed successfully!" : "Failed to remove game.");
-                refreshGameList(gameList);
+                if (libraryController.addGameToLibrary(userId, gameId)) {
+                    JOptionPane.showMessageDialog(this, "Game added to library!");
+                    refreshGamesList(gamesList);
+                } else {
+                    JOptionPane.showMessageDialog(this, "Failed to add game.");
+                }
             } catch (NumberFormatException ex) {
                 JOptionPane.showMessageDialog(this, "Invalid Game ID.", "Error", JOptionPane.ERROR_MESSAGE);
             }
         });
 
-        updateGameStateButton.addActionListener((ActionEvent e) -> {
-            String gameIdInput = JOptionPane.showInputDialog("Enter Game ID:");
-            String newState = JOptionPane.showInputDialog("Enter New State (Available, Playing, Completed):");
-
-            try {
-                int gameId = Integer.parseInt(gameIdInput);
-                boolean success = libraryController.changeGameState(gameId, newState);
-                JOptionPane.showMessageDialog(this, success ? "Game state updated successfully!" : "Failed to update game state.");
-                refreshGameList(gameList);
-            } catch (NumberFormatException ex) {
-                JOptionPane.showMessageDialog(this, "Invalid Game ID.", "Error", JOptionPane.ERROR_MESSAGE);
-            }
+        filterButton.addActionListener((ActionEvent e) -> {
+            String genre = JOptionPane.showInputDialog("Enter Genre to Filter:");
+            refreshGamesList(gamesList, genre);
         });
 
-        backButton.addActionListener((ActionEvent e) -> {
-            parentFrame.getContentPane().removeAll();
-            parentFrame.add(new UserDashboard(parentFrame, userId));
-            parentFrame.revalidate();
-            parentFrame.repaint();
-        });
-
-        controlPanel.add(addGameButton);
-        controlPanel.add(removeGameButton);
-        controlPanel.add(updateGameStateButton);
-        controlPanel.add(backButton);
-        add(controlPanel, BorderLayout.EAST);
+        controls.add(addGameButton);
+        controls.add(filterButton);
+        add(controls, BorderLayout.SOUTH);
     }
 
-    private void refreshGameList(JTextArea gameList) {
-        List<Game> games = libraryController.getGames(userId);
+    private void refreshGamesList(JTextArea gamesList) {
+        List<Game> games = libraryController.getAllGames();
+        displayGames(games, gamesList);
+    }
+
+    private void refreshGamesList(JTextArea gamesList, String genre) {
+        List<Game> games = libraryController.getGamesByGenre(genre);
+        displayGames(games, gamesList);
+    }
+
+    private void displayGames(List<Game> games, JTextArea gamesList) {
         StringBuilder sb = new StringBuilder();
         for (Game game : games) {
             sb.append(game).append("\n");
         }
-        gameList.setText(sb.toString());
+        gamesList.setText(sb.toString());
     }
 }
-

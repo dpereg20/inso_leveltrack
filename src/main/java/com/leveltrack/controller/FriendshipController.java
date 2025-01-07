@@ -28,5 +28,12 @@ public class FriendshipController {
     public boolean respondToFriendRequest(int friendshipId, String status) {
         return friendshipService.respondToFriendRequest(friendshipId, status);
     }
+
+    public List<UserBase> getFriends(int userId) {
+        return friendshipService.getFriends(userId);
+    }
+
+
 }
+
 

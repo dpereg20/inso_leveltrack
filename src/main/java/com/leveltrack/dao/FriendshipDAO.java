@@ -10,4 +10,5 @@ public interface FriendshipDAO {
     boolean sendFriendRequest(int requesterId, int receiverId);
     List<Friendship> getFriendRequests(int userId);
     boolean updateFriendRequestStatus(int friendshipId, String status);
+    List<UserBase> getFriends(int userId); // New method
 }

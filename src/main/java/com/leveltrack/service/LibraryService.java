@@ -13,24 +13,23 @@ public class LibraryService {
         this.libraryDAO = new LibraryDAOImpl();
     }
 
-    public List<Game> getGamesByUserId(int userId) {
-        return libraryDAO.getGamesByUserId(userId);
+    public List<Game> getAllGames() {
+        return libraryDAO.getAllGames();
     }
 
-    public boolean addGameToLibrary(int libraryId, Game game) {
-        return libraryDAO.addGameToLibrary(libraryId, game);
+    public List<Game> getGamesByGenre(String genre) {
+        return libraryDAO.getGamesByGenre(genre);
     }
 
-    public boolean removeGameFromLibrary(int libraryId, int gameId) {
-        return libraryDAO.removeGameFromLibrary(libraryId, gameId);
+    public List<Game> getUserLibraryGames(int userId) {
+        return libraryDAO.getUserLibraryGames(userId);
     }
 
-    public boolean updateGameState(int gameId, String newState) {
-        return libraryDAO.updateGameState(gameId, newState);
+    public boolean isGameInLibrary(int userId, int gameId) {
+        return libraryDAO.isGameInLibrary(userId, gameId);
+    }
+
+    public boolean addGameToLibrary(int userId, int gameId) {
+        return libraryDAO.addGameToLibrary(userId, gameId);
     }
 }
-
-
-
-
-

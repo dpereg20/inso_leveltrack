@@ -13,6 +13,7 @@ public class FriendshipService {
     public FriendshipService() throws Exception {
         this.friendshipDAO = new FriendshipDAOImpl();
     }
+    
 
     public List<UserBase> searchUsers(String keyword) {
         return friendshipDAO.searchUsers(keyword);
@@ -29,4 +30,9 @@ public class FriendshipService {
     public boolean respondToFriendRequest(int friendshipId, String status) {
         return friendshipDAO.updateFriendRequestStatus(friendshipId, status);
     }
+
+    public List<UserBase> getFriends(int userId) {
+        return friendshipDAO.getFriends(userId);
+    }
+
 }

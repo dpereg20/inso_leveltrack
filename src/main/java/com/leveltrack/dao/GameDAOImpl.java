@@ -32,6 +32,40 @@ public class GameDAOImpl implements GameDAO {
         return false;
     }
 
+    @Override
+    public boolean isGameInDatabase(String gameName) {
+        String query = QueryLoader.getQuery("game.existsByName");
+        try (PreparedStatement stmt = connection.prepareStatement(query)) {
+            stmt.setString(1, gameName);
+            ResultSet rs = stmt.executeQuery();
+            return rs.next();
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+    @Override
+    public Game getGameByName(String gameName) {
+        String query = QueryLoader.getQuery("game.findByName");
+        try (PreparedStatement stmt = connection.prepareStatement(query)) {
+            stmt.setString(1, gameName);
+            ResultSet rs = stmt.executeQuery();
+            if (rs.next()) {
+                return new Game(
+                        rs.getInt("id"),
+                        rs.getString("name"),
+                        rs.getString("genre"),
+                        rs.getDouble("price"),
+                        "Available" // Default state for a game being added
+                );
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        throw new IllegalArgumentException("Game not found in the database.");
+    }
+
 
     @Override
     public Game findGameBySteamAppId(int steamAppId) {

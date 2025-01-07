@@ -12,69 +12,19 @@ public class LibraryController {
         this.libraryService = new LibraryService();
     }
 
-    /**
-     * Retrieve all games in the user's library.
-     *
-     * @param userId The ID of the user.
-     * @return A list of games in the library.
-     */
-    public List<Game> getGames(int userId) {
-        return libraryService.getGamesByUserId(userId);
+    public List<Game> getAllGames() {
+        return libraryService.getAllGames();
     }
 
-    /**
-     * Add a new game to the user's library.
-     *
-     * @param libraryId The ID of the user's library.
-     * @param game  	The game to add.
-     * @return True if the game was added successfully, false otherwise.
-     */
-    public boolean addGame(int libraryId, Game game) {
-        if (game == null || game.getName().isEmpty()) {
-            throw new IllegalArgumentException("Game cannot be null, and its name cannot be empty.");
-        }
-
-        return libraryService.addGameToLibrary(libraryId, game);
+    public List<Game> getGamesByGenre(String genre) {
+        return libraryService.getGamesByGenre(genre);
     }
 
-    /**
-     * Remove a game from the user's library.
-     *
-     * @param libraryId The ID of the user's library.
-     * @param gameId	The ID of the game to remove.
-     * @return True if the game was removed successfully, false otherwise.
-     */
-    public boolean removeGame(int libraryId, int gameId) {
-        if (gameId <= 0) {
-            throw new IllegalArgumentException("Game ID must be greater than 0.");
-        }
-
-        return libraryService.removeGameFromLibrary(libraryId, gameId);
+    public List<Game> getUserLibraryGames(int userId) {
+        return libraryService.getUserLibraryGames(userId);
     }
 
-    /**
-     * Change the state of a game in the user's library.
-     *
-     * @param gameId  The ID of the game.
-     * @param newState The new state of the game.
-     * @return True if the game state was updated successfully, false otherwise.
-     */
-    public boolean changeGameState(int gameId, String newState) {
-        if (gameId <= 0 || newState.isEmpty()) {
-            throw new IllegalArgumentException("Game ID must be greater than 0, and new state cannot be empty.");
-        }
-
-        return libraryService.updateGameState(gameId, newState);
+    public boolean addGameToLibrary(int userId, int gameId) {
+        return libraryService.addGameToLibrary(userId, gameId);
     }
 }
-
-
-
-
-
-
-
-
-
-
-

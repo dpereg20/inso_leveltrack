@@ -4,22 +4,73 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="83ec2d2c-8ca2-4ce5-863a-fac5b017337d" name="Changes" comment="aa">
+    <list default="true" id="83ec2d2c-8ca2-4ce5-863a-fac5b017337d" name="Changes" comment="friend request">
       <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/inso_leveltrack/.idea/inso_leveltrack.iml" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/inso_leveltrack/.idea/inso_leveltrack.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/.idea/inso_leveltrack.iml" beforeDir="false" afterPath="$PROJECT_DIR$/src/.idea/inso_leveltrack.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/leveltrack/controller/LoginController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/leveltrack/controller/LoginController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/leveltrack/controller/registrar usuario" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/leveltrack/dao/UserDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/leveltrack/dao/UserDAO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/leveltrack/dao/UserDAOImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/leveltrack/dao/UserDAOImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/leveltrack/model/UserBase.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/leveltrack/model/UserBase.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/leveltrack/service/ELIMINAR.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/leveltrack/service/UserService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/leveltrack/service/UserService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/leveltrack/util/DatabaseConnection.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/leveltrack/util/DatabaseConnection.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/leveltrack/util/QueryLoader.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/leveltrack/util/QueryLoader.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/leveltrack/view/LoginView.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/leveltrack/view/LoginView.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/leveltrack/view/vista registrar" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/inso_leveltrack/Main.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/inso_leveltrack/com/leveltrack/controller/AdminController.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/inso_leveltrack/com/leveltrack/controller/FriendshipController.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/inso_leveltrack/com/leveltrack/controller/LibraryController.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/inso_leveltrack/com/leveltrack/controller/LoginController.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/inso_leveltrack/com/leveltrack/controller/RegisterController.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/inso_leveltrack/com/leveltrack/controller/UserController.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/inso_leveltrack/com/leveltrack/dao/FriendshipDAO.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/inso_leveltrack/com/leveltrack/dao/FriendshipDAOImpl.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/inso_leveltrack/com/leveltrack/dao/GameDAO.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/inso_leveltrack/com/leveltrack/dao/GameDAOImpl.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/inso_leveltrack/com/leveltrack/dao/LibraryDAO.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/inso_leveltrack/com/leveltrack/dao/LibraryDAOImpl.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/inso_leveltrack/com/leveltrack/dao/UserDAO.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/inso_leveltrack/com/leveltrack/dao/UserDAOImpl.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/inso_leveltrack/com/leveltrack/model/Administrator.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/inso_leveltrack/com/leveltrack/model/Friendship.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/inso_leveltrack/com/leveltrack/model/Game.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/inso_leveltrack/com/leveltrack/model/Library.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/inso_leveltrack/com/leveltrack/model/Moderator.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/inso_leveltrack/com/leveltrack/model/Regular_User.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/inso_leveltrack/com/leveltrack/model/UserBase.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/inso_leveltrack/com/leveltrack/service/FriendshipService.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/inso_leveltrack/com/leveltrack/service/GameService.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/inso_leveltrack/com/leveltrack/service/LibraryService.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/inso_leveltrack/com/leveltrack/service/UserService.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/inso_leveltrack/com/leveltrack/util/DatabaseConnection.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/inso_leveltrack/com/leveltrack/util/GameAPIClient.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/inso_leveltrack/com/leveltrack/util/QueryLoader.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/inso_leveltrack/com/leveltrack/view/AdminDashboard.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/inso_leveltrack/com/leveltrack/view/FriendshipView.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/inso_leveltrack/com/leveltrack/view/LibraryView.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/inso_leveltrack/com/leveltrack/view/LoginPanel$LoginCallback.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/inso_leveltrack/com/leveltrack/view/LoginPanel.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/inso_leveltrack/com/leveltrack/view/MainApp.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/inso_leveltrack/com/leveltrack/view/RegisterPanel.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/inso_leveltrack/com/leveltrack/view/UserDashboard.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/inso_leveltrack/com/leveltrack/view/UserManagementView.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/inso_leveltrack/controller/LoginController.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/inso_leveltrack/dao/UserDAO.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/inso_leveltrack/dao/UserDAOImpl.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/inso_leveltrack/main/resources/queries.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/inso_leveltrack/model/UserBase.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/inso_leveltrack/queries.properties" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/inso_leveltrack/queries.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/inso_leveltrack/resources/queries.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/inso_leveltrack/service/ELIMINAR.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/inso_leveltrack/service/UserService.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/inso_leveltrack/util/DatabaseConnection.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/inso_leveltrack/util/QueryLoader.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/inso_leveltrack/view/LoginView.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/leveltrack/controller/FriendshipController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/leveltrack/controller/FriendshipController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/leveltrack/controller/LibraryController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/leveltrack/controller/LibraryController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/leveltrack/dao/FriendshipDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/leveltrack/dao/FriendshipDAO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/leveltrack/dao/FriendshipDAOImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/leveltrack/dao/FriendshipDAOImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/leveltrack/dao/GameDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/leveltrack/dao/GameDAO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/leveltrack/dao/GameDAOImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/leveltrack/dao/GameDAOImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/leveltrack/dao/LibraryDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/leveltrack/dao/LibraryDAO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/leveltrack/dao/LibraryDAOImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/leveltrack/dao/LibraryDAOImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/leveltrack/service/FriendshipService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/leveltrack/service/FriendshipService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/leveltrack/service/LibraryService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/leveltrack/service/LibraryService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/leveltrack/view/FriendshipView.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/leveltrack/view/FriendshipView.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/leveltrack/view/LibraryView.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/leveltrack/view/LibraryView.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/leveltrack/view/UserDashboard.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/leveltrack/view/UserDashboard.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/queries.properties" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/queries.properties" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -45,8 +96,12 @@
   <component name="GithubPullRequestsUISettings">{
   &quot;selectedUrlAndAccountId&quot;: {
     &quot;url&quot;: &quot;https://github.com/dpereg20/inso_leveltrack.git&quot;,
-    &quot;accountId&quot;: &quot;938377b4-04bc-4c99-a0e5-3c8288569e79&quot;
+    &quot;accountId&quot;: &quot;228f39f6-8df9-4bd8-8591-6d5be5a00f01&quot;
   }
+}</component>
+  <component name="KubernetesApiPersistence">{}</component>
+  <component name="KubernetesApiProvider">{
+  &quot;isMigrated&quot;: true
 }</component>
   <component name="ProblemsViewState">
     <option name="selectedTabId" value="ProjectErrors" />
@@ -65,13 +120,15 @@
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
     "Application.LoginView.executor": "Run",
+    "Application.MainApp.executor": "Run",
     "Application.RegisterView.executor": "Run",
+    "Docker.docker-compose.yml: Compose Deployment.executor": "Run",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "RunOnceActivity.git.unshallow": "true",
     "SHARE_PROJECT_CONFIGURATION_FILES": "true",
     "git-widget-placeholder": "main",
     "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "C:/Users/elena/Documents/GitHub/inso_leveltrack",
+    "last_opened_file_path": "C:/Users/elena/Downloads/coneec/json-20241224.jar",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
@@ -82,14 +139,21 @@
     "project.structure.side.proportion": "0.2",
     "settings.editor.selected.configurable": "preferences.pluginManager",
     "vue.rearranger.settings.migration": "true"
+  },
+  "keyToStringList": {
+    "DatabaseDriversLRU": [
+      "mysql"
+    ]
   }
 }]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\elena\IdeaProjects\inso_leveltrack\" />
+      <recent name="C:\Users\elena\IdeaProjects\inso_leveltrack\src\main" />
       <recent name="C:\Users\elena\Documents\GitHub\inso_leveltrack" />
     </key>
   </component>
-  <component name="RunManager" selected="Application.com.leveltrack.view.RegisterView">
+  <component name="RunManager" selected="Application.MainApp">
     <configuration name="LoginView" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="main.java.com.leveltrack.view.LoginView" />
       <module name="inso_leveltrack" />
@@ -103,12 +167,12 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="RegisterView" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="main.java.com.leveltrack.view.RegisterView" />
+    <configuration name="MainApp" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="com.leveltrack.view.MainApp" />
       <module name="inso_leveltrack" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="main.java.com.leveltrack.view.*" />
+          <option name="PATTERN" value="com.leveltrack.view.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
@@ -142,18 +206,34 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <configuration default="true" type="docker-deploy" factoryName="docker-compose.yml" temporary="true">
+      <deployment type="docker-compose.yml">
+        <settings />
+      </deployment>
+      <method v="2" />
+    </configuration>
+    <configuration name="docker-compose.yml: Compose Deployment" type="docker-deploy" factoryName="docker-compose.yml" temporary="true" server-name="Docker">
+      <deployment type="docker-compose.yml">
+        <settings>
+          <option name="sourceFilePath" value="docker-compose.yml" />
+        </settings>
+      </deployment>
+      <method v="2" />
+    </configuration>
     <list>
-      <item itemvalue="Application.RegisterView" />
+      <item itemvalue="Application.MainApp" />
       <item itemvalue="Application.com.leveltrack.view.LoginView" />
       <item itemvalue="Application.com.leveltrack.view.RegisterView" />
       <item itemvalue="Application.LoginView" />
+      <item itemvalue="Docker.docker-compose.yml: Compose Deployment" />
     </list>
     <recent_temporary>
       <list>
+        <item itemvalue="Application.MainApp" />
+        <item itemvalue="Docker.docker-compose.yml: Compose Deployment" />
         <item itemvalue="Application.com.leveltrack.view.RegisterView" />
         <item itemvalue="Application.com.leveltrack.view.LoginView" />
         <item itemvalue="Application.LoginView" />
-        <item itemvalue="Application.RegisterView" />
       </list>
     </recent_temporary>
   </component>
@@ -180,6 +260,8 @@
       <workItem from="1735848470328" duration="44000" />
       <workItem from="1735848555890" duration="177000" />
       <workItem from="1735848906037" duration="368000" />
+      <workItem from="1736274163106" duration="306000" />
+      <workItem from="1736274783108" duration="145000" />
     </task>
     <task id="LOCAL-00001" summary="prueba login">
       <option name="closed" value="true" />
@@ -189,7 +271,15 @@
       <option name="project" value="LOCAL" />
       <updated>1735824475349</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="friend request">
+      <option name="closed" value="true" />
+      <created>1736269748121</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1736269748121</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -209,6 +299,7 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="prueba login" />
     <MESSAGE value="aa" />
-    <option name="LAST_COMMIT_MESSAGE" value="aa" />
+    <MESSAGE value="friend request" />
+    <option name="LAST_COMMIT_MESSAGE" value="friend request" />
   </component>
 </project>

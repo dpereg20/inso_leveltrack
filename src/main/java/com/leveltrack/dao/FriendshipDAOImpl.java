@@ -55,6 +55,30 @@ public class FriendshipDAOImpl implements FriendshipDAO {
     }
 
 
+    @Override
+    public List<UserBase> getFriends(int userId) {
+        List<UserBase> friends = new ArrayList<>();
+        String query = QueryLoader.getQuery("friendship.getFriends");
+        try (PreparedStatement stmt = connection.prepareStatement(query)) {
+            stmt.setInt(1, userId);
+            stmt.setInt(2, userId);
+            stmt.setInt(3, userId); // To exclude the current user from the friends list
+            ResultSet rs = stmt.executeQuery();
+            while (rs.next()) {
+                String role = rs.getString("role");
+                UserBase user = createUserInstance(
+                        role,
+                        rs.getInt("id"),
+                        rs.getString("name"),
+                        rs.getString("email")
+                );
+                friends.add(user);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return friends;
+    }
 
 
     @Override

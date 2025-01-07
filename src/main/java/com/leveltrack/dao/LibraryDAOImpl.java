@@ -19,19 +19,18 @@ public class LibraryDAOImpl implements LibraryDAO {
     }
 
     @Override
-    public List<Game> getGamesByUserId(int userId) {
+    public List<Game> getAllGames() {
         List<Game> games = new ArrayList<>();
-        String query = QueryLoader.getQuery("library.getGamesByUserId");
-        try (PreparedStatement stmt = connection.prepareStatement(query)) {
-            stmt.setInt(1, userId);
-            ResultSet rs = stmt.executeQuery();
+        String query = QueryLoader.getQuery("game.findAll");
+        try (PreparedStatement stmt = connection.prepareStatement(query);
+             ResultSet rs = stmt.executeQuery()) {
             while (rs.next()) {
                 games.add(new Game(
                         rs.getInt("id"),
                         rs.getString("name"),
                         rs.getString("genre"),
                         rs.getDouble("price"),
-                        rs.getString("state")
+                        "Available"
                 ));
             }
         } catch (SQLException e) {
@@ -41,39 +40,68 @@ public class LibraryDAOImpl implements LibraryDAO {
     }
 
     @Override
-    public boolean addGameToLibrary(int libraryId, Game game) {
+    public List<Game> getGamesByGenre(String genre) {
+        List<Game> games = new ArrayList<>();
+        String query = QueryLoader.getQuery("game.findByGenre");
+        try (PreparedStatement stmt = connection.prepareStatement(query)) {
+            stmt.setString(1, genre);
+            ResultSet rs = stmt.executeQuery();
+            while (rs.next()) {
+                games.add(new Game(
+                        rs.getInt("id"),
+                        rs.getString("name"),
+                        rs.getString("genre"),
+                        rs.getDouble("price"),
+                        "Available"
+                ));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return games;
+    }
+
+    @Override
+    public List<Game> getUserLibraryGames(int userId) {
+        List<Game> games = new ArrayList<>();
+        String query = QueryLoader.getQuery("library.findByUserId");
+        try (PreparedStatement stmt = connection.prepareStatement(query)) {
+            stmt.setInt(1, userId);
+            ResultSet rs = stmt.executeQuery();
+            while (rs.next()) {
+                games.add(new Game(
+                        rs.getInt("id"),
+                        rs.getString("name"),
+                        rs.getString("genre"),
+                        rs.getDouble("price"),
+                        "Owned"
+                ));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return games;
+    }
+
+    @Override
+    public boolean isGameInLibrary(int userId, int gameId) {
+        String query = QueryLoader.getQuery("library.isGameInLibrary");
+        try (PreparedStatement stmt = connection.prepareStatement(query)) {
+            stmt.setInt(1, userId);
+            stmt.setInt(2, gameId);
+            ResultSet rs = stmt.executeQuery();
+            return rs.next();
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+    @Override
+    public boolean addGameToLibrary(int userId, int gameId) {
         String query = QueryLoader.getQuery("library.addGame");
         try (PreparedStatement stmt = connection.prepareStatement(query)) {
-            stmt.setInt(1, libraryId);
-            stmt.setString(2, game.getName());
-            stmt.setString(3, game.getGenre());
-            stmt.setDouble(4, game.getPrice());
-            stmt.setString(5, game.getState());
-            return stmt.executeUpdate() > 0;
-        } catch (SQLException e) {
-            e.printStackTrace();
-            return false;
-        }
-    }
-
-    @Override
-    public boolean removeGameFromLibrary(int libraryId, int gameId) {
-        String query = QueryLoader.getQuery("library.removeGame");
-        try (PreparedStatement stmt = connection.prepareStatement(query)) {
-            stmt.setInt(1, libraryId);
-            stmt.setInt(2, gameId);
-            return stmt.executeUpdate() > 0;
-        } catch (SQLException e) {
-            e.printStackTrace();
-            return false;
-        }
-    }
-
-    @Override
-    public boolean updateGameState(int gameId, String newState) {
-        String query = QueryLoader.getQuery("library.updateGameState");
-        try (PreparedStatement stmt = connection.prepareStatement(query)) {
-            stmt.setString(1, newState);
+            stmt.setInt(1, userId);
             stmt.setInt(2, gameId);
             return stmt.executeUpdate() > 0;
         } catch (SQLException e) {

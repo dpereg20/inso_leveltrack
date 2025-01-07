@@ -19,8 +19,20 @@ public class UserDashboard extends JPanel {
         JButton modifyProfileButton = new JButton("Modify Profile");
         JButton logoutButton = new JButton("Logout");
 
-        viewLibraryButton.addActionListener((ActionEvent e) -> openLibraryView(parentFrame));
-        manageFriendsButton.addActionListener((ActionEvent e) -> openFriendshipView(parentFrame));
+        viewLibraryButton.addActionListener((ActionEvent e) -> {
+            try {
+                openLibraryView(parentFrame);
+            } catch (Exception ex) {
+                throw new RuntimeException(ex);
+            }
+        });
+        manageFriendsButton.addActionListener((ActionEvent e) -> {
+            try {
+                openFriendshipView(parentFrame);
+            } catch (Exception ex) {
+                throw new RuntimeException(ex);
+            }
+        });
         modifyProfileButton.addActionListener((ActionEvent e) -> openModifyProfileDialog(parentFrame));
         logoutButton.addActionListener((ActionEvent e) -> {
             parentFrame.getContentPane().removeAll();
@@ -38,14 +50,14 @@ public class UserDashboard extends JPanel {
         add(logoutButton);
     }
 
-    private void openLibraryView(JFrame parentFrame) {
+    private void openLibraryView(JFrame parentFrame) throws Exception {
         parentFrame.getContentPane().removeAll();
         parentFrame.add(new LibraryView(userId, parentFrame));
         parentFrame.revalidate();
         parentFrame.repaint();
     }
 
-    private void openFriendshipView(JFrame parentFrame) {
+    private void openFriendshipView(JFrame parentFrame) throws Exception {
         parentFrame.getContentPane().removeAll();
         parentFrame.add(new FriendshipView(userId));
         parentFrame.revalidate();
