@@ -13,4 +13,6 @@ public interface LibraryDAO {
     Game getGameByName(String gameName);
     int getLibraryIdByUserId(int userId);
     List<Game> getAllGames();
+
+    boolean isGameInLibrary(int libraryId, int gameId);
 }

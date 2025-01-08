@@ -9,7 +9,7 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.util.List;
 
-public class LibraryView extends JPanel {
+class LibraryView extends JPanel {
     private final LibraryController libraryController;
     private final int userId;
     private final JTable gamesTable;
@@ -35,30 +35,28 @@ public class LibraryView extends JPanel {
 
         // Control Panel
         JPanel controlPanel = new JPanel(new GridLayout(3, 1));
-        JButton addGameButton = new JButton("Add Selected Game");
+        JButton addGameButton = new JButton("Add Game to Library");
         JButton backButton = new JButton("Back");
         JButton refreshButton = new JButton("Refresh Game List");
 
         addGameButton.addActionListener((ActionEvent e) -> {
-            int selectedRow = gamesTable.getSelectedRow();
-            if (selectedRow != -1) {
-                int gameId = (int) tableModel.getValueAt(selectedRow, 0);
-                try {
-                    boolean success = libraryController.addGameToLibrary(userId, gameId);
+            String gameName = JOptionPane.showInputDialog("Enter the name of the game to add:");
+            try {
+                if (gameName != null && !gameName.trim().isEmpty()) {
+                    boolean success = libraryController.addGameToLibrary(userId, gameName);
                     if (success) {
                         JOptionPane.showMessageDialog(this, "Game added successfully!");
                         refreshGameList(tableModel);
                     } else {
-                        JOptionPane.showMessageDialog(this, "Failed to add game. It might already be in the library.");
+                        JOptionPane.showMessageDialog(this, "Game not found in the database or already in your library.", "Error", JOptionPane.ERROR_MESSAGE);
                     }
-                } catch (Exception ex) {
-                    JOptionPane.showMessageDialog(this, "Error adding game: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+                } else {
+                    JOptionPane.showMessageDialog(this, "Game name cannot be empty.", "Warning", JOptionPane.WARNING_MESSAGE);
                 }
-            } else {
-                JOptionPane.showMessageDialog(this, "Please select a game to add.", "Warning", JOptionPane.WARNING_MESSAGE);
+            } catch (Exception ex) {
+                JOptionPane.showMessageDialog(this, "Error adding game: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
             }
         });
-
 
         refreshButton.addActionListener((ActionEvent e) -> refreshGameList(tableModel));
 
@@ -76,8 +74,8 @@ public class LibraryView extends JPanel {
     }
 
     private void refreshGameList(DefaultTableModel tableModel) {
-        List<Game> games = libraryController.getAvailableGames();
-        tableModel.setRowCount(0); // Clear the table
+        List<Game> games = libraryController.getGames(userId);
+        tableModel.setRowCount(0);
         for (Game game : games) {
             tableModel.addRow(new Object[]{
                     game.getId(),

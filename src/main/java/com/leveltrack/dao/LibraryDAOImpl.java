@@ -40,13 +40,14 @@ public class LibraryDAOImpl implements LibraryDAO {
         return games;
     }
 
+
     @Override
-    public boolean addGameToLibrary(int libraryId, int gameId, String state) {
+    public boolean addGameToLibrary(int userId, int gameId, String state) {
         String query = QueryLoader.getQuery("library.addGame");
         try (PreparedStatement stmt = connection.prepareStatement(query)) {
-            stmt.setInt(1, libraryId); // Correct library ID
-            stmt.setInt(2, gameId);	// Correct game ID
-            stmt.setString(3, state);  // Game state
+            stmt.setInt(1, userId);
+            stmt.setInt(2, gameId);
+            stmt.setString(3, state);
             int rowsAffected = stmt.executeUpdate();
             return rowsAffected > 0;
         } catch (SQLException e) {
@@ -54,6 +55,7 @@ public class LibraryDAOImpl implements LibraryDAO {
             return false;
         }
     }
+
 
 
     @Override
@@ -152,6 +154,21 @@ public class LibraryDAOImpl implements LibraryDAO {
         }
         return games;
     }
+
+    @Override
+    public boolean isGameInLibrary(int libraryId, int gameId) {
+        String query = QueryLoader.getQuery("library.isGameInLibrary");
+        try (PreparedStatement stmt = connection.prepareStatement(query)) {
+            stmt.setInt(1, libraryId);
+            stmt.setInt(2, gameId);
+            ResultSet rs = stmt.executeQuery();
+            return rs.next();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+
 
 
 }

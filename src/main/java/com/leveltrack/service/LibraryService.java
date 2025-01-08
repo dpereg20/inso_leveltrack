@@ -17,9 +17,17 @@ public class LibraryService {
         return libraryDAO.getGamesByUserId(userId);
     }
 
-    public boolean addGameToLibrary(int libraryId, int gameId, String state) {
-        return libraryDAO.addGameToLibrary(libraryId, gameId, state);
+    public boolean isGameInLibrary(int libraryId, int gameId) {
+        return libraryDAO.isGameInLibrary(libraryId, gameId);
     }
+
+
+
+
+    public boolean addGameToLibrary(int userId, int gameId, String state) {
+        return libraryDAO.addGameToLibrary(userId, gameId, state);
+    }
+
 
     public boolean removeGameFromLibrary(int libraryId, int gameId) {
         return libraryDAO.removeGameFromLibrary(libraryId, gameId);
