@@ -2,6 +2,8 @@
   <library name="json-20250107">
     <CLASSES>
       <root url="jar://$PROJECT_DIR$/../../../../../../../../Descargas/json-20250107.jar!/" />
+      <root url="jar://$USER_HOME$/Downloads/coneec/json-20241224.jar!/" />
+      <root url="jar://$USER_HOME$/Downloads/coneec/mysql-connector-j-9.1.0/mysql-connector-j-9.1.0.jar!/" />
     </CLASSES>
     <JAVADOC />
     <SOURCES />

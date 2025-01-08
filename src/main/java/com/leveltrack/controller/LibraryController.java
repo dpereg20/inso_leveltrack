@@ -12,19 +12,30 @@ public class LibraryController {
         this.libraryService = new LibraryService();
     }
 
-    public List<Game> getAllGames() {
-        return libraryService.getAllGames();
+    public List<Game> getGames(int userId) {
+        return libraryService.getGamesByUserId(userId);
     }
 
-    public List<Game> getGamesByGenre(String genre) {
-        return libraryService.getGamesByGenre(genre);
+    public boolean addGameToLibrary(int userId, int gameId) throws Exception {
+        int libraryId = libraryService.getLibraryIdByUserId(userId); // Fetch library ID for the user
+        return libraryService.addGameToLibrary(libraryId, gameId, "Available");
     }
 
-    public List<Game> getUserLibraryGames(int userId) {
-        return libraryService.getUserLibraryGames(userId);
+
+    public boolean removeGame(int userId, int gameId) {
+        int libraryId = libraryService.getLibraryIdByUserId(userId);
+        return libraryService.removeGameFromLibrary(libraryId, gameId);
     }
 
-    public boolean addGameToLibrary(int userId, int gameId) {
-        return libraryService.addGameToLibrary(userId, gameId);
+    public boolean changeGameState(int gameId, String newState) {
+        return libraryService.updateGameState(gameId, newState);
     }
+
+    public List<Game> getAvailableGames() {
+        return libraryService.getAllGamesFromDatabase();
+    }
+
+
 }
+
+
