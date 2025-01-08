@@ -1,0 +1,17 @@
+services:
+  db:
+    image: mysql:9.1       # Usamos la imagen oficial de MySQL versión 9.1
+    container_name: inso-leveltrack
+    environment:
+      MYSQL_ROOT_PASSWORD: password  # Contraseña del root, cámbiala si lo deseas
+      MYSQL_DATABASE: inso_leveltrack_db        # El nombre de la base de datos inicial
+    ports:
+      - "3306:3306"        # Expone el puerto 3306 para que puedas conectarte con MySQL Workbench
+    volumes:
+      - ./database_setup.sql:/docker-entrypoint-initdb.d/init.sql  # Monta el archivo SQL en el contenedor
+    networks:
+      - mynetwork
+
+networks:
+  mynetwork:
+    driver: bridge

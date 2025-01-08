@@ -9,9 +9,9 @@ public class DatabaseConnection {
     private Connection connection;
 
     private DatabaseConnection() throws SQLException {
-        String url = "jdbc:mysql://localhost:3306/my_database";
-        String username = "my_user";
-        String password = "my_password";
+        String url = "jdbc:mysql://localhost:3306/inso_leveltrack_db";
+        String username = "root";
+        String password = "password";
         connection = DriverManager.getConnection(url, username, password);
     }
 
