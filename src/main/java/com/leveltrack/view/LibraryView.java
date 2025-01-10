@@ -25,9 +25,10 @@ class LibraryView extends JPanel {
         JScrollPane scrollPane = new JScrollPane(gamesList);
         add(scrollPane, BorderLayout.CENTER);
 
-        JPanel controls = new JPanel(new GridLayout(1, 2));
+        JPanel controls = new JPanel(new GridLayout(1, 3));
         JButton addGameButton = new JButton("Add Game");
         JButton filterButton = new JButton("Filter by Genre");
+        JButton backButton = new JButton("Back to main menu");
 
         addGameButton.addActionListener((ActionEvent e) -> {
             String gameIdInput = JOptionPane.showInputDialog("Enter Game ID to Add:");
@@ -49,8 +50,37 @@ class LibraryView extends JPanel {
             refreshGamesList(gamesList, genre);
         });
 
+       /* backButton.addActionListener((ActionEvent e) -> {
+            if(user igual a admin){
+                // Crear una nueva instancia de la vista AdminDashboard
+                AdminDashboard adminDashboard = new AdminDashboard(parentFrame, userId);
+
+                // Cambiar el contenido del JFrame actual a la vista de AdminDashboard
+                parentFrame.setContentPane(adminDashboard);  // Establece el contenedor del JFrame
+                parentFrame.revalidate();  // Actualiza el contenedor
+                parentFrame.repaint();     // Redibuja la ventana
+                }else if (user igual a moderador){
+                    // Crear una nueva instancia de la vista ModeratorDashboard
+                    ModeratorDashboard moderatorDashboard = new ModeratorDashboard(parentFrame, userId);
+
+                    // Cambiar el contenido del JFrame actual a la vista de UserDashboard
+                    parentFrame.setContentPane(moderatorDashboard);  // Establece el contenedor del JFrame
+                    parentFrame.revalidate();  // Actualiza el contenedor
+                    parentFrame.repaint();     // Redibuja la ventana
+                }else{
+                    // Crear una nueva instancia de la vista UserDashboard
+                    UserDashboard userDashboard = new UserDashboard(parentFrame, userId);
+
+                     // Cambiar el contenido del JFrame actual a la vista de UserDashboard
+                    parentFrame.setContentPane(userDashboard);  // Establece el contenedor del JFrame
+                    parentFrame.revalidate();  // Actualiza el contenedor
+                    parentFrame.repaint();     // Redibuja la ventana
+                }
+            });*/
+
         controls.add(addGameButton);
         controls.add(filterButton);
+        controls.add(backButton);
         add(controls, BorderLayout.SOUTH);
     }
 

@@ -31,6 +31,7 @@ public class UserDAOImpl implements UserDAO {
             ResultSet rs = stmt.executeQuery();
             if (rs.next()) {
                 String role = rs.getString("role");
+                System.out.println("Role from database: " + role);  // Verifica si el rol es correcto
                 user = createUserInstance(
                         role,
                         rs.getInt("id"),
@@ -43,6 +44,7 @@ public class UserDAOImpl implements UserDAO {
         }
         return user;
     }
+
 
     private UserBase createUserInstance(String role, int id, String name, String email) {
         switch (role) {

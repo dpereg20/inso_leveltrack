@@ -13,11 +13,13 @@
     <orderEntry type="module-library" exported="">
       <library>
         <CLASSES>
-          <root url="jar://$MODULE_DIR$/../../../../../../../../../Descargas/mysql-connector-j-9.1.0.jar!/" />
+          <root url="jar://C:/../../../Descargas/mysql-connector-j-9.1.0.jar!/" />
         </CLASSES>
         <JAVADOC />
         <SOURCES />
       </library>
     </orderEntry>
+    <orderEntry type="library" name="json-20250107 (2)" level="project" />
+    <orderEntry type="library" name="mysql-connector-j-9.1.0" level="project" />
   </component>
 </module>
