@@ -128,5 +128,68 @@ public class GameDAOImpl implements GameDAO {
         return null;
     }
 
+    @Override
+    public boolean addGame(Game game) {
+        String query = QueryLoader.getQuery("game.addGame");
+        try (PreparedStatement stmt = connection.prepareStatement(query)) {
+            stmt.setString(1, game.getName());
+            stmt.setString(2, game.getGenre());
+            stmt.setDouble(3, game.getPrice());
+            return stmt.executeUpdate() > 0;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+
+    @Override
+    public boolean updateGame(Game game) {
+        String query = QueryLoader.getQuery("game.updateGame");
+        try (PreparedStatement stmt = connection.prepareStatement(query)) {
+            stmt.setString(1, game.getName());
+            stmt.setString(2, game.getGenre());
+            stmt.setDouble(3, game.getPrice());
+            stmt.setInt(4, game.getId());
+            return stmt.executeUpdate() > 0;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+
+    @Override
+    public boolean deleteGame(int gameId) {
+        String query = QueryLoader.getQuery("game.deleteGame");
+        try (PreparedStatement stmt = connection.prepareStatement(query)) {
+            stmt.setInt(1, gameId);
+            return stmt.executeUpdate() > 0;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+
+
+    @Override
+    public List<Game> getAllGames() {
+        List<Game> games = new ArrayList<>();
+        String query = "SELECT id, name, genre, price FROM Games";
+        try (PreparedStatement stmt = connection.prepareStatement(query);
+             ResultSet rs = stmt.executeQuery()) {
+            while (rs.next()) {
+                games.add(new Game(
+                        rs.getInt("id"),
+                        rs.getString("name"),
+                        rs.getString("genre"),
+                        rs.getDouble("price"),
+                        "Available" // Default state or fetch it if stored in DB
+                ));
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return games;
+    }
+
 
 }

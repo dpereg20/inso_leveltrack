@@ -20,7 +20,7 @@ class LibraryView extends JPanel {
 
         JTextArea gamesList = new JTextArea();
         gamesList.setEditable(false);
-        refreshGamesList(gamesList);
+        //refreshGamesList(gamesList);
 
         JScrollPane scrollPane = new JScrollPane(gamesList);
         add(scrollPane, BorderLayout.CENTER);
@@ -34,20 +34,22 @@ class LibraryView extends JPanel {
             String gameIdInput = JOptionPane.showInputDialog("Enter Game ID to Add:");
             try {
                 int gameId = Integer.parseInt(gameIdInput);
-                if (libraryController.addGameToLibrary(userId, gameId)) {
+                if (libraryController.addGameToLibrary(userId, String.valueOf(gameId))) {
                     JOptionPane.showMessageDialog(this, "Game added to library!");
-                    refreshGamesList(gamesList);
+                   // refreshGamesList(gamesList);
                 } else {
                     JOptionPane.showMessageDialog(this, "Failed to add game.");
                 }
             } catch (NumberFormatException ex) {
                 JOptionPane.showMessageDialog(this, "Invalid Game ID.", "Error", JOptionPane.ERROR_MESSAGE);
+            } catch (Exception ex) {
+                throw new RuntimeException(ex);
             }
         });
 
         filterButton.addActionListener((ActionEvent e) -> {
             String genre = JOptionPane.showInputDialog("Enter Genre to Filter:");
-            refreshGamesList(gamesList, genre);
+           // refreshGamesList(gamesList, genre);
         });
 
        /* backButton.addActionListener((ActionEvent e) -> {
@@ -83,7 +85,7 @@ class LibraryView extends JPanel {
         controls.add(backButton);
         add(controls, BorderLayout.SOUTH);
     }
-
+/*
     private void refreshGamesList(JTextArea gamesList) {
         List<Game> games = libraryController.getAllGames();
         displayGames(games, gamesList);
@@ -92,7 +94,7 @@ class LibraryView extends JPanel {
     private void refreshGamesList(JTextArea gamesList, String genre) {
         List<Game> games = libraryController.getGamesByGenre(genre);
         displayGames(games, gamesList);
-    }
+    }*/
 
     private void displayGames(List<Game> games, JTextArea gamesList) {
         StringBuilder sb = new StringBuilder();

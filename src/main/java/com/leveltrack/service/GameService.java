@@ -13,33 +13,31 @@ import java.util.ResourceBundle;
 public class GameService {
     private final GameDAO gameDAO;
 
+
     public GameService() throws Exception {
         this.gameDAO = new GameDAOImpl();
     }
 
-    public Game fetchAndSaveGameFromSteam(int steamAppId) throws Exception {
-        String jsonResponse = GameAPIClient.fetchGameDetailsFromSteam(steamAppId);
-        JSONObject json = new JSONObject(jsonResponse);
+    public boolean addGame(Game game) {
+        return gameDAO.addGame(game);
+    }
 
-        if (json.has(String.valueOf(steamAppId)) && json.getJSONObject(String.valueOf(steamAppId)).getBoolean("success")) {
-            JSONObject data = json.getJSONObject(String.valueOf(steamAppId)).getJSONObject("data");
-            String name = data.getString("name");
-            String genre = data.getJSONArray("genres").getJSONObject(0).getString("description");
-            double price = data.optDouble("price_overview.final", 0) / 100.0;
+    public boolean updateGame(Game game) {
+        return gameDAO.updateGame(game);
+    }
 
-            ResourceBundle rs = null;
-            Game game = new Game(0, name, genre, price, rs.getString("state"));
-            gameDAO.saveGame(game);
-            return game;
-        } else {
-            throw new Exception("El juego no existe en Steam.");
+    public boolean deleteGame(int gameId) {
+        return gameDAO.deleteGame(gameId);
+    }
+
+    public List<Game> getAllGames() {
+        try {
+            return gameDAO.getAllGames();
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
         }
     }
-
-    public List<Game> findGamesByGenre(String genre) {
-        return gameDAO.findGamesByGenre(genre);
-    }
-
 
 
 }

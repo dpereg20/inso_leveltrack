@@ -11,5 +11,11 @@ public interface GameDAO {
     Game findGameByName(String name);
     public boolean isGameInDatabase(String gameName);
     public Game getGameByName(String gameName);
+
+    boolean addGame(Game game);
+    boolean updateGame(Game game);
+    boolean deleteGame(int gameId);
+
+    List<Game> getAllGames();
 }
 

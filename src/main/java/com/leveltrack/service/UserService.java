@@ -201,6 +201,9 @@ public class UserService {
         return userDAO.findAll();
     }
 
+    public List<UserBase> getAllUsers() {
+        return userDAO.findAll();
+    }
 }
 
 
