@@ -22,6 +22,7 @@ public class MainApp {
             // Pass a valid callback to the LoginPanel
             frame.add(new LoginPanel(frame, loginController, user -> {
                 frame.getContentPane().removeAll();
+                System.out.println(user.getRole());
                 if ("ADMINISTRATOR".equalsIgnoreCase(user.getRole())) {
                     frame.add(new AdminDashboard(frame, user.getId()));
                 } else {
