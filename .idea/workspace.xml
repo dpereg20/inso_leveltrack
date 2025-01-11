@@ -4,18 +4,20 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="83ec2d2c-8ca2-4ce5-863a-fac5b017337d" name="Changes" comment="friend request">
+    <list default="true" id="83ec2d2c-8ca2-4ce5-863a-fac5b017337d" name="Changes" comment="el admin puede cambiar rol en la ddbb, añadir juegos a la ddbb, eliminarlos y modificarlos">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/inso_leveltrack/com/leveltrack/service/UserService.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/inso_leveltrack/com/leveltrack/service/UserService.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/inso_leveltrack/com/leveltrack/view/LibraryView.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/inso_leveltrack/com/leveltrack/view/LibraryView.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/leveltrack/controller/AdminController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/leveltrack/controller/AdminController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/leveltrack/dao/GameDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/leveltrack/dao/GameDAO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/leveltrack/dao/GameDAOImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/leveltrack/dao/GameDAOImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/leveltrack/model/Game.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/leveltrack/model/Game.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/leveltrack/service/GameService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/leveltrack/service/GameService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/leveltrack/service/UserService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/leveltrack/service/UserService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/leveltrack/view/AdminDashboard.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/leveltrack/view/AdminDashboard.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/leveltrack/view/LibraryView.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/leveltrack/view/LibraryView.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/inso_leveltrack/com/leveltrack/controller/AdminController.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/inso_leveltrack/com/leveltrack/controller/AdminController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/inso_leveltrack/com/leveltrack/dao/GameDAO.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/inso_leveltrack/com/leveltrack/dao/GameDAO.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/inso_leveltrack/com/leveltrack/dao/GameDAOImpl.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/inso_leveltrack/com/leveltrack/dao/GameDAOImpl.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/inso_leveltrack/com/leveltrack/model/Game.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/inso_leveltrack/com/leveltrack/model/Game.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/inso_leveltrack/com/leveltrack/service/GameService.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/inso_leveltrack/com/leveltrack/service/GameService.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/inso_leveltrack/com/leveltrack/view/AdminDashboard.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/inso_leveltrack/com/leveltrack/view/AdminDashboard.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/inso_leveltrack/database_setup.sql" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/inso_leveltrack/database_setup.sql" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/inso_leveltrack/main/resources/queries.properties" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/inso_leveltrack/main/resources/queries.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/inso_leveltrack/queries.properties" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/inso_leveltrack/queries.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/database_setup.sql" beforeDir="false" afterPath="$PROJECT_DIR$/src/database_setup.sql" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/leveltrack/dao/FriendshipDAOImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/leveltrack/dao/FriendshipDAOImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/leveltrack/view/FriendshipView.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/leveltrack/view/FriendshipView.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/queries.properties" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/queries.properties" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -233,7 +235,15 @@
       <option name="project" value="LOCAL" />
       <updated>1736269748121</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="el admin puede cambiar rol en la ddbb, añadir juegos a la ddbb, eliminarlos y modificarlos">
+      <option name="closed" value="true" />
+      <created>1736621740348</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1736621740348</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -254,6 +264,7 @@
     <MESSAGE value="prueba login" />
     <MESSAGE value="aa" />
     <MESSAGE value="friend request" />
-    <option name="LAST_COMMIT_MESSAGE" value="friend request" />
+    <MESSAGE value="el admin puede cambiar rol en la ddbb, añadir juegos a la ddbb, eliminarlos y modificarlos" />
+    <option name="LAST_COMMIT_MESSAGE" value="el admin puede cambiar rol en la ddbb, añadir juegos a la ddbb, eliminarlos y modificarlos" />
   </component>
 </project>

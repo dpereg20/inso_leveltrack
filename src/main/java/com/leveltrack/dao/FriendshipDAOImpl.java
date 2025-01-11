@@ -26,21 +26,18 @@ public class FriendshipDAOImpl implements FriendshipDAO {
             stmt.setString(1, "%" + keyword + "%");
             ResultSet rs = stmt.executeQuery();
             while (rs.next()) {
-                String role = rs.getString("role");
-                UserBase user = createUserInstance(
-                        role,
+                users.add(createUserInstance(
+                        rs.getString("role"),
                         rs.getInt("id"),
                         rs.getString("name"),
                         rs.getString("email")
-                );
-                users.add(user);
+                ));
             }
         } catch (SQLException e) {
             e.printStackTrace();
         }
         return users;
     }
-
 
     private UserBase createUserInstance(String role, int id, String name, String email) {
         switch (role) {

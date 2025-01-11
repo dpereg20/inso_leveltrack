@@ -36,3 +36,4 @@ CREATE TABLE Friendships (
                              FOREIGN KEY (requester_id) REFERENCES Users(id) ON DELETE CASCADE,
                              FOREIGN KEY (receiver_id) REFERENCES Users(id) ON DELETE CASCADE
 );
+

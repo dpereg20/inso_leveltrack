@@ -5,6 +5,7 @@ import com.leveltrack.model.Friendship;
 import com.leveltrack.model.UserBase;
 
 import javax.swing.*;
+import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.util.List;
@@ -14,93 +15,101 @@ public class FriendshipView extends JPanel {
 
     public FriendshipView(int userId) throws Exception {
         setLayout(new BorderLayout());
+        friendshipController = new FriendshipController();
 
-        try {
-            friendshipController = new FriendshipController();
-        } catch (Exception e) {
-            throw new RuntimeException("Failed to initialize FriendshipController", e);
-        }
-
-        // Friends Section
+        // Tabla de amigos
         JPanel friendsPanel = new JPanel(new BorderLayout());
-        JTextArea friendsArea = new JTextArea();
-        friendsArea.setEditable(false);
-        refreshFriendsList(userId, friendsArea);
+        JLabel friendsLabel = new JLabel("Friends:");
+        JTable friendsTable = new JTable(new DefaultTableModel(new String[]{"Name", "Email"}, 0));
+        refreshFriendsList(userId, (DefaultTableModel) friendsTable.getModel());
+        friendsPanel.add(friendsLabel, BorderLayout.NORTH);
+        friendsPanel.add(new JScrollPane(friendsTable), BorderLayout.CENTER);
 
-        JButton refreshFriendsButton = new JButton("Refresh Friends");
-        refreshFriendsButton.addActionListener((ActionEvent e) -> {
-            try {
-                refreshFriendsList(userId, friendsArea);
-            } catch (Exception ex) {
-                throw new RuntimeException(ex);
-            }
-        });
-
-        friendsPanel.add(new JScrollPane(friendsArea), BorderLayout.CENTER);
-        friendsPanel.add(refreshFriendsButton, BorderLayout.SOUTH);
         add(friendsPanel, BorderLayout.WEST);
 
-        // Pending Requests Section
-        JPanel pendingRequestsPanel = new JPanel(new BorderLayout());
-        JTextArea pendingRequestsArea = new JTextArea();
-        pendingRequestsArea.setEditable(false);
-        refreshPendingRequests(userId, pendingRequestsArea);
+        // Tabla de solicitudes pendientes
+        JPanel requestsPanel = new JPanel(new BorderLayout());
+        JLabel requestsLabel = new JLabel("Pending Friend Requests:");
+        JTable requestsTable = new JTable(new DefaultTableModel(new String[]{"Request ID", "Requester Name", "Status"}, 0));
+        refreshPendingRequests(userId, (DefaultTableModel) requestsTable.getModel());
+        requestsPanel.add(requestsLabel, BorderLayout.NORTH);
+        requestsPanel.add(new JScrollPane(requestsTable), BorderLayout.CENTER);
 
-        JButton acceptRequestButton = new JButton("Accept");
-        JButton rejectRequestButton = new JButton("Reject");
+        // Botones para aceptar/rechazar solicitudes
+        JButton acceptButton = new JButton("Accept");
+        JButton rejectButton = new JButton("Reject");
 
-        acceptRequestButton.addActionListener((ActionEvent e) -> {
-            String requestIdInput = JOptionPane.showInputDialog("Enter Friendship Request ID to Accept:");
-            try {
-                int requestId = Integer.parseInt(requestIdInput);
+        acceptButton.addActionListener((ActionEvent e) -> {
+            int selectedRow = requestsTable.getSelectedRow();
+            if (selectedRow != -1) {
+                int requestId = (int) requestsTable.getValueAt(selectedRow, 0);
                 boolean success = friendshipController.respondToFriendRequest(requestId, "Accepted");
-                JOptionPane.showMessageDialog(this, success ? "Friend request accepted!" : "Failed to accept request.");
-                refreshPendingRequests(userId, pendingRequestsArea);
-                refreshFriendsList(userId, friendsArea);
-            } catch (Exception ex) {
-                JOptionPane.showMessageDialog(this, "Invalid Request ID.", "Error", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(this, success ? "Request accepted!" : "Failed to accept request.");
+                refreshPendingRequests(userId, (DefaultTableModel) requestsTable.getModel());
+                refreshFriendsList(userId, (DefaultTableModel) friendsTable.getModel());
+            } else {
+                JOptionPane.showMessageDialog(this, "Please select a request to accept.", "Error", JOptionPane.ERROR_MESSAGE);
             }
         });
 
-        rejectRequestButton.addActionListener((ActionEvent e) -> {
-            String requestIdInput = JOptionPane.showInputDialog("Enter Friendship Request ID to Reject:");
-            try {
-                int requestId = Integer.parseInt(requestIdInput);
+        rejectButton.addActionListener((ActionEvent e) -> {
+            int selectedRow = requestsTable.getSelectedRow();
+            if (selectedRow != -1) {
+                int requestId = (int) requestsTable.getValueAt(selectedRow, 0);
                 boolean success = friendshipController.respondToFriendRequest(requestId, "Rejected");
-                JOptionPane.showMessageDialog(this, success ? "Friend request rejected!" : "Failed to reject request.");
-                refreshPendingRequests(userId, pendingRequestsArea);
-            } catch (NumberFormatException ex) {
-                JOptionPane.showMessageDialog(this, "Invalid Request ID.", "Error", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(this, success ? "Request rejected!" : "Failed to reject request.");
+                refreshPendingRequests(userId, (DefaultTableModel) requestsTable.getModel());
+            } else {
+                JOptionPane.showMessageDialog(this, "Please select a request to reject.", "Error", JOptionPane.ERROR_MESSAGE);
             }
         });
 
         JPanel buttonsPanel = new JPanel(new GridLayout(1, 2));
-        buttonsPanel.add(acceptRequestButton);
-        buttonsPanel.add(rejectRequestButton);
+        buttonsPanel.add(acceptButton);
+        buttonsPanel.add(rejectButton);
+        requestsPanel.add(buttonsPanel, BorderLayout.SOUTH);
 
-        pendingRequestsPanel.add(new JScrollPane(pendingRequestsArea), BorderLayout.CENTER);
-        pendingRequestsPanel.add(buttonsPanel, BorderLayout.SOUTH);
-        add(pendingRequestsPanel, BorderLayout.CENTER);
+        add(requestsPanel, BorderLayout.CENTER);
+
+        // Botón para enviar solicitud de amistad
+        JButton sendRequestButton = new JButton("Send Friend Request");
+        sendRequestButton.addActionListener((ActionEvent e) -> {
+            String receiverIdInput = JOptionPane.showInputDialog("Enter the User ID of the person you want to add:");
+            try {
+                int receiverId = Integer.parseInt(receiverIdInput);
+                boolean success = friendshipController.sendFriendRequest(userId, receiverId);
+                JOptionPane.showMessageDialog(this, success ? "Friend request sent!" : "Failed to send friend request.");
+            } catch (NumberFormatException ex) {
+                JOptionPane.showMessageDialog(this, "Invalid User ID.", "Error", JOptionPane.ERROR_MESSAGE);
+            }
+        });
+
+        JPanel bottomPanel = new JPanel(new FlowLayout());
+        bottomPanel.add(sendRequestButton);
+        add(bottomPanel, BorderLayout.SOUTH);
     }
 
-    private void refreshFriendsList(int userId, JTextArea friendsArea) throws Exception {
+    private void refreshFriendsList(int userId, DefaultTableModel tableModel) {
+        tableModel.setRowCount(0);
         List<UserBase> friends = friendshipController.getFriends(userId);
-        StringBuilder sb = new StringBuilder();
         for (UserBase friend : friends) {
-            sb.append(friend.getId()).append(" - ").append(friend.getName()).append("\n");
+            tableModel.addRow(new Object[]{friend.getName(), friend.getEmail()});
         }
-        friendsArea.setText(sb.toString());
     }
 
-    private void refreshPendingRequests(int userId, JTextArea pendingRequestsArea) {
-        List<Friendship> pendingRequests = friendshipController.getFriendRequests(userId);
-        StringBuilder sb = new StringBuilder();
-        for (Friendship request : pendingRequests) {
-            sb.append("Request ID: ").append(request.getId())
-                    .append(", Requester ID: ").append(request.getRequesterId())
-                    .append(", Status: ").append(request.getStatus())
-                    .append("\n");
+    private void refreshPendingRequests(int userId, DefaultTableModel tableModel) {
+        tableModel.setRowCount(0);
+        List<Friendship> requests = friendshipController.getFriendRequests(userId);
+        for (Friendship request : requests) {
+            List<UserBase> searchResults = friendshipController.searchUsers(String.valueOf(request.getRequesterId()));
+            if (!searchResults.isEmpty()) {
+                UserBase requester = searchResults.get(0);
+                tableModel.addRow(new Object[]{request.getId(), requester.getName(), request.getStatus()});
+            } else {
+                tableModel.addRow(new Object[]{request.getId(), "Unknown User", request.getStatus()});
+            }
         }
-        pendingRequestsArea.setText(sb.toString());
     }
 }
+
+
