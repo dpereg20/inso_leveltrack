@@ -204,6 +204,10 @@ public class UserService {
     public List<UserBase> getAllUsers() {
         return userDAO.findAll();
     }
+
+    public boolean deleteUser(int userId){
+        return userDAO.delete(userId);
+    }
 }
 
 

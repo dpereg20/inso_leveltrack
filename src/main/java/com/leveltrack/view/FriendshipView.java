@@ -13,7 +13,7 @@ import java.util.List;
 public class FriendshipView extends JPanel {
     private final FriendshipController friendshipController;
 
-    public FriendshipView(int userId) throws Exception {
+    public FriendshipView(int userId, String userRole, JFrame parentFrame) throws Exception {
         setLayout(new BorderLayout());
         friendshipController = new FriendshipController();
 
@@ -84,8 +84,22 @@ public class FriendshipView extends JPanel {
             }
         });
 
+        // Botón "Back" para regresar al menú de usuario
+        JButton backButton = new JButton("Back");
+        backButton.addActionListener((ActionEvent e) -> {
+            parentFrame.getContentPane().removeAll();
+            try {
+                parentFrame.add(new UserDashboard(parentFrame, userId, userRole));  // Regresar al dashboard del usuario
+            } catch (Exception ex) {
+                throw new RuntimeException(ex);
+            }
+            parentFrame.revalidate();
+            parentFrame.repaint();
+        });
+
         JPanel bottomPanel = new JPanel(new FlowLayout());
         bottomPanel.add(sendRequestButton);
+        bottomPanel.add(backButton);
         add(bottomPanel, BorderLayout.SOUTH);
     }
 

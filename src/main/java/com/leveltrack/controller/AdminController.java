@@ -42,6 +42,10 @@ public class AdminController {
         return gameService.deleteGame(gameId);
     }
 
+    public boolean deleteUser(int userId) {
+        return userService.deleteUser(userId);
+    }
+
     public List<Game> getAllGames() {
         try {
             return gameService.getAllGames();

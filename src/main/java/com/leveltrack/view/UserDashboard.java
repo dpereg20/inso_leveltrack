@@ -72,7 +72,7 @@ public class UserDashboard extends JPanel {
 
     private void openFriendshipView(JFrame parentFrame) throws Exception {
         parentFrame.getContentPane().removeAll();
-        parentFrame.add(new FriendshipView(userId));
+        parentFrame.add(new FriendshipView(userId, userRole, parentFrame));
         parentFrame.revalidate();
         parentFrame.repaint();
     }

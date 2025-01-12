@@ -1,6 +1,7 @@
 package com.leveltrack.view;
 
 import com.leveltrack.controller.AdminController;
+import com.leveltrack.controller.LoginController;
 import com.leveltrack.model.Game;
 import com.leveltrack.model.UserBase;
 
@@ -33,6 +34,13 @@ public class AdminDashboard extends JPanel {
 
         // Game Management
         manageGamesButton.addActionListener((ActionEvent e) -> openGameManagement(adminId));
+
+        JButton logoutButton = new JButton("Logout");
+        logoutButton.addActionListener((ActionEvent e) -> logout());
+
+        JPanel bottomPanel = new JPanel(new FlowLayout());
+        bottomPanel.add(logoutButton);
+        add(bottomPanel, BorderLayout.SOUTH);
     }
 
     private void openUserManagement(int adminId) {
@@ -45,7 +53,10 @@ public class AdminDashboard extends JPanel {
         refreshUserTable(userTableModel);
         JScrollPane userScrollPane = new JScrollPane(userTable);
 
+        JPanel userButtonsPanel = new JPanel(new GridLayout(1, 2));
         JButton updateRoleButton = new JButton("Update Role");
+        JButton deleteUserButton = new JButton("Delete User");
+
         updateRoleButton.addActionListener((ActionEvent e) -> {
             int selectedRow = userTable.getSelectedRow();
             if (selectedRow != -1) {
@@ -72,8 +83,33 @@ public class AdminDashboard extends JPanel {
             }
         });
 
+        deleteUserButton.addActionListener((ActionEvent e) -> {
+            int selectedRow = userTable.getSelectedRow();
+            if (selectedRow != -1) {
+                int confirm = JOptionPane.showConfirmDialog(
+                        userDialog,
+                        "Are you sure you want to delete this user?",
+                        "Confirm Deletion",
+                        JOptionPane.YES_NO_OPTION
+                );
+                if (confirm == JOptionPane.YES_OPTION) {
+                    String selectedUserName = userTableModel.getValueAt(selectedRow, 0).toString();
+                    UserBase selectedUser = adminController.findUserByName(selectedUserName);
+                    if (adminController.deleteUser(selectedUser.getId())) {
+                        JOptionPane.showMessageDialog(userDialog, "User deleted successfully!");
+                        refreshUserTable(userTableModel);
+                    } else {
+                        JOptionPane.showMessageDialog(userDialog, "Failed to delete user.", "Error", JOptionPane.ERROR_MESSAGE);
+                    }
+                }
+            }
+        });
+
+        userButtonsPanel.add(updateRoleButton);
+        userButtonsPanel.add(deleteUserButton);
+
         userDialog.add(userScrollPane, BorderLayout.CENTER);
-        userDialog.add(updateRoleButton, BorderLayout.SOUTH);
+        userDialog.add(userButtonsPanel, BorderLayout.SOUTH);
         userDialog.setVisible(true);
     }
 
@@ -136,6 +172,26 @@ public class AdminDashboard extends JPanel {
         gameDialog.add(gameButtonsPanel, BorderLayout.SOUTH);
         gameDialog.setVisible(true);
     }
+
+    private void logout(){
+            parentFrame.getContentPane().removeAll();
+            try {
+                parentFrame.add(new LoginPanel(parentFrame, new LoginController(), (user) -> {
+                    // Callback para cuando el usuario se loguee
+                    parentFrame.getContentPane().removeAll();
+                    if ("ADMINISTRATOR".equalsIgnoreCase(user.getRole())) {
+                        parentFrame.add(new AdminDashboard(parentFrame, user.getId()));
+                    } else {
+                        parentFrame.add(new UserDashboard(parentFrame, user.getId(), user.getRole()));
+                    }
+                    parentFrame.revalidate();
+                    parentFrame.repaint();
+                }));
+            } catch (Exception ex) {
+                throw new RuntimeException(ex);
+            }
+            parentFrame.revalidate();
+        }
 
     private void refreshUserTable(DefaultTableModel userTableModel) {
         userTableModel.setRowCount(0);
