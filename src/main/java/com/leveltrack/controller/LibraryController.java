@@ -12,8 +12,12 @@ public class LibraryController {
         this.libraryService = new LibraryService();
     }
 
-    public List<Game> getGames(int userId) {
+    public List<Game> getGamesByUserId(int userId) {
         return libraryService.getGamesByUserId(userId);
+    }
+
+    public List<Game> getGamesByGenre(int userId, String genre){
+        return libraryService.getGamesByGenre(userId, genre);
     }
 
     public boolean addGameToLibrary(int libraryId, String gameName) throws Exception {

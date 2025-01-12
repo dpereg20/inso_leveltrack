@@ -45,9 +45,11 @@ public class LibraryDAOImpl implements LibraryDAO {
     public boolean addGameToLibrary(int userId, int gameId, String state) {
         String query = QueryLoader.getQuery("library.addGame");
         try (PreparedStatement stmt = connection.prepareStatement(query)) {
-            stmt.setInt(1, userId);
-            stmt.setInt(2, gameId);
-            stmt.setString(3, state);
+            // Cambiar los índices para reflejar la consulta
+            stmt.setInt(1, getLibraryIdByUserId(userId)); // Método para obtener el libraryId
+            stmt.setInt(2, userId);
+            stmt.setInt(3, gameId);
+            stmt.setString(4, state);
             int rowsAffected = stmt.executeUpdate();
             return rowsAffected > 0;
         } catch (SQLException e) {
@@ -55,8 +57,6 @@ public class LibraryDAOImpl implements LibraryDAO {
             return false;
         }
     }
-
-
 
     @Override
     public boolean removeGameFromLibrary(int libraryId, int gameId) {
@@ -137,7 +137,7 @@ public class LibraryDAOImpl implements LibraryDAO {
     @Override
     public List<Game> getAllGames() {
         List<Game> games = new ArrayList<>();
-        String query = QueryLoader.getQuery("game.getAllGames");
+        String query = QueryLoader.getQuery("library.findAll");
         try (PreparedStatement stmt = connection.prepareStatement(query);
              ResultSet rs = stmt.executeQuery()) {
             while (rs.next()) {
@@ -154,6 +154,31 @@ public class LibraryDAOImpl implements LibraryDAO {
         }
         return games;
     }
+
+    @Override
+    public List<Game> getGamesByGenre(int userId, String genre) {
+        List<Game> games = new ArrayList<>();
+        String query = QueryLoader.getQuery("library.getGamesByGenre"); // Carga la consulta desde el archivo
+        try (PreparedStatement stmt = connection.prepareStatement(query)) {
+            stmt.setInt(1, userId); // Establece el ID del usuario
+            stmt.setString(2, "%" + genre + "%"); // Género con comodines para LIKE
+            ResultSet rs = stmt.executeQuery();
+            while (rs.next()) {
+                games.add(new Game(
+                        rs.getInt("id"),
+                        rs.getString("name"),
+                        rs.getString("genre"),
+                        rs.getDouble("price"),
+                        rs.getString("state")
+                ));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace(); // Imprime cualquier excepción SQL
+        }
+        return games; // Devuelve la lista de juegos
+    }
+
+
 
     @Override
     public boolean isGameInLibrary(int libraryId, int gameId) {

@@ -20,13 +20,16 @@ CREATE TABLE Games (
 );
 
 CREATE TABLE LibraryGames (
-                              id INT AUTO_INCREMENT PRIMARY KEY,
-                              library_id INT NOT NULL,
-                              game_id INT NOT NULL,
-                              FOREIGN KEY (library_id) REFERENCES Libraries(id) ON DELETE CASCADE,
-                              FOREIGN KEY (game_id) REFERENCES Games(id) ON DELETE CASCADE,
-                              state ENUM('Available', 'Playing', 'Completed') DEFAULT 'Available'
+                       id INT AUTO_INCREMENT PRIMARY KEY,
+                       library_id INT NOT NULL,
+                       user_id INT NOT NULL,
+                       game_id INT NOT NULL,
+                       state ENUM('Available', 'Playing', 'Completed') DEFAULT 'Available',
+                       FOREIGN KEY (library_id) REFERENCES Libraries(id) ON DELETE CASCADE,
+                       FOREIGN KEY (user_id) REFERENCES Users(id) ON DELETE CASCADE,
+                       FOREIGN KEY (game_id) REFERENCES Games(id) ON DELETE CASCADE
 );
+
 
 CREATE TABLE Friendships (
                              id INT AUTO_INCREMENT PRIMARY KEY,

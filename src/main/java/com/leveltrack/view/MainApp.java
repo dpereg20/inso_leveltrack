@@ -26,7 +26,7 @@ public class MainApp {
                 if ("ADMINISTRATOR".equalsIgnoreCase(user.getRole())) {
                     frame.add(new AdminDashboard(frame, user.getId()));
                 } else {
-                    frame.add(new UserDashboard(frame, user.getId()));
+                    frame.add(new UserDashboard(frame, user.getId(), user.getRole()));
                 }
                 frame.revalidate();
                 frame.repaint();

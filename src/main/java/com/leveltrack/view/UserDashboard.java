@@ -9,9 +9,12 @@ import java.awt.event.ActionEvent;
 
 public class UserDashboard extends JPanel {
     private final int userId;
+    private String userRole;
 
-    public UserDashboard(JFrame parentFrame, int userId) {
+
+    public UserDashboard(JFrame parentFrame, int userId, String userRole) {
         this.userId = userId;
+        this.userRole = userRole;
         setLayout(new GridLayout(4, 1));
 
         JButton viewLibraryButton = new JButton("View Library");
@@ -37,7 +40,17 @@ public class UserDashboard extends JPanel {
         logoutButton.addActionListener((ActionEvent e) -> {
             parentFrame.getContentPane().removeAll();
             try {
-                parentFrame.add(new LoginPanel(parentFrame, new LoginController(), null));
+                parentFrame.add(new LoginPanel(parentFrame, new LoginController(), (user) -> {
+                    // Callback para cuando el usuario se loguee
+                    parentFrame.getContentPane().removeAll();
+                    if ("ADMINISTRATOR".equalsIgnoreCase(user.getRole())) {
+                        parentFrame.add(new AdminDashboard(parentFrame, user.getId()));
+                    } else {
+                        parentFrame.add(new UserDashboard(parentFrame, user.getId(), user.getRole()));
+                    }
+                    parentFrame.revalidate();
+                    parentFrame.repaint();
+                }));
             } catch (Exception ex) {
                 throw new RuntimeException(ex);
             }
@@ -52,7 +65,7 @@ public class UserDashboard extends JPanel {
 
     private void openLibraryView(JFrame parentFrame) throws Exception {
         parentFrame.getContentPane().removeAll();
-        parentFrame.add(new LibraryView(userId, parentFrame));
+        parentFrame.add(new LibraryView(this.userId, this.userRole,  parentFrame));
         parentFrame.revalidate();
         parentFrame.repaint();
     }

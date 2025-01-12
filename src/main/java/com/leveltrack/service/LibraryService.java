@@ -21,7 +21,9 @@ public class LibraryService {
         return libraryDAO.isGameInLibrary(libraryId, gameId);
     }
 
-
+    public List<Game> getGamesByGenre(int userId, String genre){
+        return libraryDAO.getGamesByGenre(userId, genre);
+    }
 
 
     public boolean addGameToLibrary(int userId, int gameId, String state) {

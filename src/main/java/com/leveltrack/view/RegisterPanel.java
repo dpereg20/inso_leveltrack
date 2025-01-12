@@ -31,7 +31,18 @@ class RegisterPanel extends JPanel {
                 JOptionPane.showMessageDialog(this, "Account created successfully. Please login.");
                 parentFrame.getContentPane().removeAll();
                 try {
-                    parentFrame.add(new LoginPanel(parentFrame, new LoginController(), null));
+                    parentFrame.add(new LoginPanel(parentFrame, new LoginController(), user -> {
+                        // Lo que se hace después del login
+                        parentFrame.getContentPane().removeAll();
+                        System.out.println(user.getRole());
+                        if ("ADMINISTRATOR".equalsIgnoreCase(user.getRole())) {
+                            parentFrame.add(new AdminDashboard(parentFrame, user.getId()));
+                        } else {
+                            parentFrame.add(new UserDashboard(parentFrame, user.getId(), user.getRole()));
+                        }
+                        parentFrame.revalidate();
+                        parentFrame.repaint();
+                    }));
                 } catch (Exception ex) {
                     throw new RuntimeException(ex);
                 }
@@ -44,7 +55,18 @@ class RegisterPanel extends JPanel {
         backButton.addActionListener((ActionEvent e) -> {
             parentFrame.getContentPane().removeAll();
             try {
-                parentFrame.add(new LoginPanel(parentFrame, new LoginController(), null));
+                parentFrame.add(new LoginPanel(parentFrame, new LoginController(), user -> {
+                    // Lo que se hace después del login
+                    parentFrame.getContentPane().removeAll();
+                    System.out.println(user.getRole());
+                    if ("ADMINISTRATOR".equalsIgnoreCase(user.getRole())) {
+                        parentFrame.add(new AdminDashboard(parentFrame, user.getId()));
+                    } else {
+                        parentFrame.add(new UserDashboard(parentFrame, user.getId(), user.getRole()));
+                    }
+                    parentFrame.revalidate();
+                    parentFrame.repaint();
+                }));
             } catch (Exception ex) {
                 throw new RuntimeException(ex);
             }

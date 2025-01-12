@@ -7,10 +7,8 @@ import com.leveltrack.model.UserBase;
 import com.leveltrack.util.DatabaseConnection;
 import com.leveltrack.util.QueryLoader;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import javax.management.Query;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -168,17 +166,51 @@ public class UserDAOImpl implements UserDAO {
     @Override
     public boolean createUser(UserBase user) {
         String query = QueryLoader.getQuery("user.insert");
-        try (PreparedStatement stmt = connection.prepareStatement(query)) {
-            stmt.setString(1, user.getName());
-            stmt.setString(2, user.getEmail());
-            stmt.setString(3, user.getPassword());
-            stmt.setString(4, user.getRole());
-            return stmt.executeUpdate() > 0;
+        String query2 = QueryLoader.getQuery("library.insert");
+
+        // Manejo de transacciones
+        try {
+            // Desactivamos autocommit para manejar la transacción
+            connection.setAutoCommit(false);
+
+            try (PreparedStatement stmt = connection.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
+                 PreparedStatement stmt2 = connection.prepareStatement(query2)) {
+
+                // Insertamos el nuevo usuario
+                stmt.setString(1, user.getName());
+                stmt.setString(2, user.getEmail());
+                stmt.setString(3, user.getPassword());
+                stmt.setString(4, user.getRole());
+
+                int rowsAffected = stmt.executeUpdate();
+
+                // Obtenemos el user_id generado
+                if (rowsAffected > 0) {
+                    try (ResultSet rs = stmt.getGeneratedKeys()) {
+                        if (rs.next()) {
+                            int userId = rs.getInt(1);  // El user_id generado automáticamente
+
+                            // Insertamos la librería para el nuevo usuario
+                            stmt2.setInt(1, userId);  // Usamos el userId obtenido
+                            stmt2.executeUpdate();
+
+                            // Confirmamos la transacción
+                            connection.commit();
+                            return true;
+                        }
+                    }
+                }
+            } catch (SQLException e) {
+                // En caso de error, revertimos la transacción
+                connection.rollback();
+                e.printStackTrace();
+            }
         } catch (SQLException e) {
             e.printStackTrace();
         }
         return false;
     }
+
 
     @Override
     public boolean updateProfiled(UserBase user) {
