@@ -97,9 +97,45 @@ public class FriendshipView extends JPanel {
             parentFrame.repaint();
         });
 
+     /*   JButton viewFriendLibraryButton = new JButton("View Friend Library");
+
+        viewFriendLibraryButton.addActionListener((ActionEvent e) -> {
+            int selectedRow = friendsTable.getSelectedRow();
+            if (selectedRow != -1) {
+                String email = (String) friendsTable.getValueAt(selectedRow, 1);  // Obtener el email de la fila seleccionada
+
+                // Obtener el userId del email
+                int userId = libraryService.getUserIdByEmail(email);
+
+                if (userId != -1) {
+                    // Obtener la lista de juegos de la librería del usuario seleccionado
+                    List<Game> userLibrary = gameController.getGamesByUserId(userId);
+
+                    // Verificar si la librería tiene juegos y mostrarlos
+                    if (!userLibrary.isEmpty()) {
+                        JTextArea libraryTextArea = new JTextArea();
+                        libraryTextArea.setEditable(false);  // No editable
+                        displayGames(userLibrary, libraryTextArea);  // Usamos el método displayGames para mostrar los juegos
+
+                        // Mostrar la librería en un JOptionPane
+                        JOptionPane.showMessageDialog(this, new JScrollPane(libraryTextArea), "User Library", JOptionPane.INFORMATION_MESSAGE);
+                    } else {
+                        JOptionPane.showMessageDialog(this, "This user does not have any games in their library.", "Empty Library", JOptionPane.INFORMATION_MESSAGE);
+                    }
+                } else {
+                    JOptionPane.showMessageDialog(this, "User not found with email: " + email, "Error", JOptionPane.ERROR_MESSAGE);
+                }
+            } else {
+                JOptionPane.showMessageDialog(this, "Please select a user to view their library.", "Error", JOptionPane.ERROR_MESSAGE);
+            }
+        });
+        */
+
+
         JPanel bottomPanel = new JPanel(new FlowLayout());
         bottomPanel.add(sendRequestButton);
         bottomPanel.add(backButton);
+    //    bottomPanel.add(viewFriendLibrary);
         add(bottomPanel, BorderLayout.SOUTH);
     }
 
