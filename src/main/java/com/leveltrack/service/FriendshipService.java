@@ -35,4 +35,5 @@ public class FriendshipService {
         return friendshipDAO.getFriends(userId);
     }
 
+    public
 }

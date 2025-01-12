@@ -125,5 +125,23 @@ public class FriendshipDAOImpl implements FriendshipDAO {
             return false;
         }
     }
+
+    @Override
+    public int getUserIdByEmail(String email) {
+        String query = QueryLoader.getQuery("library.isGameInLibrary");  // Consulta SQL
+        try (PreparedStatement stmt = connection.prepareStatement(query)) {
+            stmt.setString(1, email);  // Establecer el email como parámetro en la consulta
+            ResultSet rs = stmt.executeQuery();
+
+            if (rs.next()) {
+                return rs.getInt("id");  // Retorna el userId si se encuentra el email
+            } else {
+                return -1;  // Si no se encuentra el usuario, retorna -1
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return -1;  // Retorna -1 en caso de error en la consulta
+        }
+    }
 }
 
