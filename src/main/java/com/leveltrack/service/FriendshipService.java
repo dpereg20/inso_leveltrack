@@ -34,6 +34,5 @@ public class FriendshipService {
     public List<UserBase> getFriends(int userId) {
         return friendshipDAO.getFriends(userId);
     }
-
-    public
+    
 }

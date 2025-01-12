@@ -6,12 +6,7 @@
   <component name="ChangeListManager">
     <list default="true" id="83ec2d2c-8ca2-4ce5-863a-fac5b017337d" name="Changes" comment="Ya se pueden añadir juegos a las librerias de los usuarios y filtrarlos por genero, también funcionan creo que todos los botones de back&#10;Tamnbien se crea una entrada de la tabla libreria cada vesz que se crea un usuario, es decir cada vez que se crea un usuario se crea una libreria asociada a este">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/leveltrack/dao/FriendshipDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/leveltrack/dao/FriendshipDAO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/leveltrack/dao/FriendshipDAOImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/leveltrack/dao/FriendshipDAOImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/leveltrack/dao/LibraryDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/leveltrack/dao/LibraryDAO.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/leveltrack/service/FriendshipService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/leveltrack/service/FriendshipService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/leveltrack/view/FriendshipView.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/leveltrack/view/FriendshipView.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/queries.properties" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/queries.properties" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -211,7 +206,7 @@
       <workItem from="1736357657794" duration="87000" />
       <workItem from="1736358204031" duration="4206000" />
       <workItem from="1736527939169" duration="5766000" />
-      <workItem from="1736698948678" duration="7248000" />
+      <workItem from="1736698948678" duration="7368000" />
     </task>
     <task id="LOCAL-00001" summary="prueba login">
       <option name="closed" value="true" />
