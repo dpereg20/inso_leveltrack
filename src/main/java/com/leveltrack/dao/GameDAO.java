@@ -10,7 +10,6 @@ public interface GameDAO {
     List<Game> findGamesByGenre(String genre);
     Game findGameByName(String name);
     public boolean isGameInDatabase(String gameName);
-    public Game getGameByName(String gameName);
 
     boolean addGame(Game game);
     boolean updateGame(Game game);

@@ -165,7 +165,7 @@ public class FriendshipDAOImpl implements FriendshipDAO {
 
     @Override
     public int getUserIdByEmail(String email) {
-        String query = QueryLoader.getQuery("library.isGameInLibrary");  // Consulta SQL
+        String query = QueryLoader.getQuery("friendship.getUserIdByUserEmail");  // Consulta SQL
         try (PreparedStatement stmt = connection.prepareStatement(query)) {
             stmt.setString(1, email);  // Establecer el email como parámetro en la consulta
             ResultSet rs = stmt.executeQuery();

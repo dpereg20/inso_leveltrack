@@ -37,7 +37,9 @@ public class FriendshipController {
         return friendshipService.getFriends(userId);
     }
 
-
+    public int getUserIdByEmail(String userEmail){
+        return friendshipService.getUserIdByEmail(userEmail);
+    }
 }
 
 

@@ -4,14 +4,23 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="83ec2d2c-8ca2-4ce5-863a-fac5b017337d" name="Changes" comment="Las amistades ya son unicas, es decir no se puede enviar 2 solicitudes a la misma persona, y no se pueden taner varias solicitudes de la misma persona, tampoco se podra tener a la persona repetida en la lista de amigos ni nada parecido, y si ya tienes una solicitud de esa persona no se le puede mandar una solicitud de vuelta">
+    <list default="true" id="83ec2d2c-8ca2-4ce5-863a-fac5b017337d" name="Changes" comment="Arreglado que no haya juegos duplicados en una libreria de un usuario">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/inso_leveltrack/com/leveltrack/controller/LibraryController.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/inso_leveltrack/com/leveltrack/controller/LibraryController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/inso_leveltrack/com/leveltrack/dao/LibraryDAOImpl.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/inso_leveltrack/com/leveltrack/dao/LibraryDAOImpl.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/inso_leveltrack/com/leveltrack/service/LibraryService.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/inso_leveltrack/com/leveltrack/service/LibraryService.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/leveltrack/controller/LibraryController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/leveltrack/controller/LibraryController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/leveltrack/dao/LibraryDAOImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/leveltrack/dao/LibraryDAOImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/leveltrack/service/LibraryService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/leveltrack/service/LibraryService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/inso_leveltrack/com/leveltrack/controller/FriendshipController.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/inso_leveltrack/com/leveltrack/controller/FriendshipController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/inso_leveltrack/com/leveltrack/dao/FriendshipDAOImpl.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/inso_leveltrack/com/leveltrack/dao/FriendshipDAOImpl.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/inso_leveltrack/com/leveltrack/dao/GameDAO.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/inso_leveltrack/com/leveltrack/dao/GameDAO.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/inso_leveltrack/com/leveltrack/dao/GameDAOImpl.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/inso_leveltrack/com/leveltrack/dao/GameDAOImpl.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/inso_leveltrack/com/leveltrack/service/FriendshipService.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/inso_leveltrack/com/leveltrack/service/FriendshipService.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/inso_leveltrack/com/leveltrack/view/FriendshipView.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/inso_leveltrack/com/leveltrack/view/FriendshipView.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/inso_leveltrack/main/resources/queries.properties" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/inso_leveltrack/main/resources/queries.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/inso_leveltrack/queries.properties" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/inso_leveltrack/queries.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/leveltrack/controller/FriendshipController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/leveltrack/controller/FriendshipController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/leveltrack/dao/FriendshipDAOImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/leveltrack/dao/FriendshipDAOImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/leveltrack/dao/GameDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/leveltrack/dao/GameDAO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/leveltrack/dao/GameDAOImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/leveltrack/dao/GameDAOImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/leveltrack/service/FriendshipService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/leveltrack/service/FriendshipService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/leveltrack/view/FriendshipView.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/leveltrack/view/FriendshipView.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/queries.properties" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/queries.properties" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -80,7 +89,7 @@
     "project.structure.last.edited": "Project",
     "project.structure.proportion": "0.15",
     "project.structure.side.proportion": "0.2",
-    "settings.editor.selected.configurable": "Errors",
+    "settings.editor.selected.configurable": "preferences.pluginManager",
     "vue.rearranger.settings.migration": "true"
   },
   "keyToStringList": {
@@ -245,7 +254,15 @@
       <option name="project" value="LOCAL" />
       <updated>1736765140547</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="Arreglado que no haya juegos duplicados en una libreria de un usuario">
+      <option name="closed" value="true" />
+      <created>1736766105229</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1736766105229</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -269,20 +286,16 @@
     <MESSAGE value="el admin puede cambiar rol en la ddbb, añadir juegos a la ddbb, eliminarlos y modificarlos" />
     <MESSAGE value="Ya se pueden añadir juegos a las librerias de los usuarios y filtrarlos por genero, también funcionan creo que todos los botones de back&#10;Tamnbien se crea una entrada de la tabla libreria cada vesz que se crea un usuario, es decir cada vez que se crea un usuario se crea una libreria asociada a este" />
     <MESSAGE value="Las amistades ya son unicas, es decir no se puede enviar 2 solicitudes a la misma persona, y no se pueden taner varias solicitudes de la misma persona, tampoco se podra tener a la persona repetida en la lista de amigos ni nada parecido, y si ya tienes una solicitud de esa persona no se le puede mandar una solicitud de vuelta" />
-    <option name="LAST_COMMIT_MESSAGE" value="Las amistades ya son unicas, es decir no se puede enviar 2 solicitudes a la misma persona, y no se pueden taner varias solicitudes de la misma persona, tampoco se podra tener a la persona repetida en la lista de amigos ni nada parecido, y si ya tienes una solicitud de esa persona no se le puede mandar una solicitud de vuelta" />
+    <MESSAGE value="Arreglado que no haya juegos duplicados en una libreria de un usuario" />
+    <option name="LAST_COMMIT_MESSAGE" value="Arreglado que no haya juegos duplicados en una libreria de un usuario" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
       <breakpoints>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/com/leveltrack/view/FriendshipView.java</url>
-          <line>157</line>
+          <line>158</line>
           <option name="timeStamp" value="3" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/com/leveltrack/controller/LibraryController.java</url>
-          <line>27</line>
-          <option name="timeStamp" value="4" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/com/leveltrack/dao/LibraryDAOImpl.java</url>

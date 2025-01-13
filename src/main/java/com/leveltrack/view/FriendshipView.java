@@ -77,18 +77,19 @@ public class FriendshipView extends JPanel {
         // Botón para enviar solicitud de amistad
         JButton sendRequestButton = new JButton("Send Friend Request");
         sendRequestButton.addActionListener((ActionEvent e) -> {
-            String receiverIdInput = JOptionPane.showInputDialog("Enter the User ID of the person you want to add:");
-            try {
-                int receiverId = Integer.parseInt(receiverIdInput);
-                boolean success;
-                if(checkValidRequest(userId, receiverId)){
+            String receiverEmail = JOptionPane.showInputDialog("Enter the User email of the person you want to add:");
+
+            int receiverId = friendshipController.getUserIdByEmail(receiverEmail);
+            boolean success;
+            if (receiverId == -1){
+                JOptionPane.showMessageDialog(this, "Invalid User Email.", "Error", JOptionPane.ERROR_MESSAGE);
+            }else{
+                if (checkValidRequest(userId, receiverId)) {
                     success = friendshipController.sendFriendRequest(userId, receiverId);
-                }else{
+                } else {
                     success = false;
                 }
                 JOptionPane.showMessageDialog(this, success ? "Friend request sent!" : "Failed to send friend request.");
-            } catch (NumberFormatException ex) {
-                JOptionPane.showMessageDialog(this, "Invalid User ID.", "Error", JOptionPane.ERROR_MESSAGE);
             }
         });
 
@@ -161,7 +162,7 @@ public class FriendshipView extends JPanel {
             if (!searchResults.isEmpty()) {
                 UserBase requester = searchResults.get(0);
                 if(checkValidRequest(userId, request.getId())){
-                    tableModel.addRow(new Object[]{request.getId(), requester.getName(), request.getStatus()});
+                    tableModel.addRow(new Object[]{request.getId(), requester.getEmail()/*requester.getName()*/, request.getStatus()});
                 }
             } else {
                 tableModel.addRow(new Object[]{request.getId(), "Unknown User", request.getStatus()});

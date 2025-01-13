@@ -38,5 +38,8 @@ public class FriendshipService {
     public List<UserBase> getFriends(int userId) {
         return friendshipDAO.getFriends(userId);
     }
-    
+
+    public int getUserIdByEmail(String userEmail){
+        return friendshipDAO.getUserIdByEmail(userEmail);
+    }
 }
