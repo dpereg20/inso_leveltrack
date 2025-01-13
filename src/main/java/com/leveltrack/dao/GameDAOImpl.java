@@ -170,5 +170,27 @@ public class GameDAOImpl implements GameDAO {
         return games;
     }
 
+    @Override
+    public List<Game> searchGamesByName(String keyword) {
+        String query = "SELECT id, name, genre, price FROM Games WHERE name LIKE ?";
+        List<Game> games = new ArrayList<>();
+        try (PreparedStatement stmt = connection.prepareStatement(query)) {
+            stmt.setString(1, "%" + keyword + "%");
+            ResultSet rs = stmt.executeQuery();
+            while (rs.next()) {
+                games.add(new Game(
+                        rs.getInt("id"),
+                        rs.getString("name"),
+                        rs.getString("genre"),
+                        rs.getDouble("price"),
+                        null
+                ));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return games;
+    }
+
 
 }

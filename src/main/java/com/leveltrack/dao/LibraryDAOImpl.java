@@ -72,17 +72,19 @@ public class LibraryDAOImpl implements LibraryDAO {
     }
 
     @Override
-    public boolean updateGameState(int gameId, String newState) {
+    public boolean updateGameState(int gameId, int userId, String newState) {
         String query = QueryLoader.getQuery("library.updateGameState");
         try (PreparedStatement stmt = connection.prepareStatement(query)) {
             stmt.setString(1, newState);
             stmt.setInt(2, gameId);
+            stmt.setInt(3, userId); // Agrega el userId aquí
             return stmt.executeUpdate() > 0;
         } catch (SQLException e) {
             e.printStackTrace();
         }
         return false;
     }
+
 
     @Override
     public boolean isGameInDatabase(String gameName) {
@@ -156,9 +158,9 @@ public class LibraryDAOImpl implements LibraryDAO {
     }
 
     @Override
-    public List<Game> getGamesByGenre(int userId, String genre) {
+    public List<Game> getGamesByGenreUser(int userId, String genre) {
         List<Game> games = new ArrayList<>();
-        String query = QueryLoader.getQuery("library.getGamesByGenre"); // Carga la consulta desde el archivo
+        String query = QueryLoader.getQuery("library.getGamesByGenreUser"); // Carga la consulta desde el archivo
         try (PreparedStatement stmt = connection.prepareStatement(query)) {
             stmt.setInt(1, userId); // Establece el ID del usuario
             stmt.setString(2, "%" + genre + "%"); // Género con comodines para LIKE
@@ -178,6 +180,37 @@ public class LibraryDAOImpl implements LibraryDAO {
         return games; // Devuelve la lista de juegos
     }
 
+    @Override
+    public List<Game> getGamesByGenre(String genre) {
+        List<Game> games = new ArrayList<>();
+        String query = QueryLoader.getQuery("library.getGamesByGenre"); // Define la consulta en tu archivo de queries
+
+
+        try (PreparedStatement stmt = connection.prepareStatement(query)) {
+            stmt.setString(1, genre); // Género exacto
+            try (ResultSet rs = stmt.executeQuery()) {
+                while (rs.next()) {
+                    games.add(new Game(
+                            rs.getInt("id"),
+                            rs.getString("name"),
+                            rs.getString("genre"),
+                            rs.getDouble("price"),
+                            rs.getString("state")
+                    ));
+                }
+            }
+        } catch (SQLException e) {
+            System.err.println("Error retrieving games by genre: " + e.getMessage());
+        }
+
+
+        if (games.isEmpty()) {
+            System.out.println("No games found for genre: " + genre);
+        }
+
+
+        return games; // Devuelve la lista de juegos
+    }
 
 
     @Override
@@ -194,6 +227,25 @@ public class LibraryDAOImpl implements LibraryDAO {
         return false;
     }
 
+    @Override
+    public List<Game> searchGamesByGenre(String genre) {
+        return List.of();
+    }
+
+    @Override
+    public List<String> getAllGenres() {
+        List<String> genres = new ArrayList<>();
+        String query =  QueryLoader.getQuery("library.getAllGenres");
+        try (PreparedStatement stmt = connection.prepareStatement(query);
+             ResultSet rs = stmt.executeQuery()) {
+            while (rs.next()) {
+                genres.add(rs.getString("genre"));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return genres;
+    }
 
 
 }

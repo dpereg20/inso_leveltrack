@@ -7,18 +7,18 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 
-public class UserDashboard extends JPanel {
+class UserDashboard extends JPanel {
     private final int userId;
     private String userRole;
-
 
     public UserDashboard(JFrame parentFrame, int userId, String userRole) {
         this.userId = userId;
         this.userRole = userRole;
-        setLayout(new GridLayout(4, 1));
+        setLayout(new GridLayout(5, 1)); // Cambiado para agregar el nuevo botón
 
         JButton viewLibraryButton = new JButton("View Library");
         JButton manageFriendsButton = new JButton("Manage Friends");
+        JButton viewGameDatabaseButton = new JButton("View Game Database"); // Nuevo botón
         JButton modifyProfileButton = new JButton("Modify Profile");
         JButton logoutButton = new JButton("Logout");
 
@@ -29,6 +29,7 @@ public class UserDashboard extends JPanel {
                 throw new RuntimeException(ex);
             }
         });
+
         manageFriendsButton.addActionListener((ActionEvent e) -> {
             try {
                 openFriendshipView(parentFrame);
@@ -36,12 +37,21 @@ public class UserDashboard extends JPanel {
                 throw new RuntimeException(ex);
             }
         });
+
+        viewGameDatabaseButton.addActionListener((ActionEvent e) -> {
+            try {
+                openGameDatabaseView(parentFrame);
+            } catch (Exception ex) {
+                throw new RuntimeException(ex);
+            }
+        });
+
         modifyProfileButton.addActionListener((ActionEvent e) -> openModifyProfileDialog(parentFrame));
+
         logoutButton.addActionListener((ActionEvent e) -> {
             parentFrame.getContentPane().removeAll();
             try {
                 parentFrame.add(new LoginPanel(parentFrame, new LoginController(), (user) -> {
-                    // Callback para cuando el usuario se loguee
                     parentFrame.getContentPane().removeAll();
                     if ("ADMINISTRATOR".equalsIgnoreCase(user.getRole())) {
                         parentFrame.add(new AdminDashboard(parentFrame, user.getId()));
@@ -59,13 +69,14 @@ public class UserDashboard extends JPanel {
 
         add(viewLibraryButton);
         add(manageFriendsButton);
+        add(viewGameDatabaseButton); // Agregar el nuevo botón
         add(modifyProfileButton);
         add(logoutButton);
     }
 
     private void openLibraryView(JFrame parentFrame) throws Exception {
         parentFrame.getContentPane().removeAll();
-        parentFrame.add(new LibraryView(this.userId, this.userRole,  parentFrame));
+        parentFrame.add(new LibraryView(this.userId, this.userRole, parentFrame));
         parentFrame.revalidate();
         parentFrame.repaint();
     }
@@ -73,6 +84,13 @@ public class UserDashboard extends JPanel {
     private void openFriendshipView(JFrame parentFrame) throws Exception {
         parentFrame.getContentPane().removeAll();
         parentFrame.add(new FriendshipView(userId, userRole, parentFrame));
+        parentFrame.revalidate();
+        parentFrame.repaint();
+    }
+
+    private void openGameDatabaseView(JFrame parentFrame) throws Exception {
+        parentFrame.getContentPane().removeAll();
+        parentFrame.add(new GameDatabaseView(userId, userRole, parentFrame)); // Asegurarse de que GameDatabaseView tenga un constructor adecuado
         parentFrame.revalidate();
         parentFrame.repaint();
     }
@@ -129,6 +147,5 @@ public class UserDashboard extends JPanel {
         dialog.setVisible(true);
     }
 }
-
 
 

@@ -16,8 +16,8 @@ public class LibraryController {
         return libraryService.getGamesByUserId(userId);
     }
 
-    public List<Game> getGamesByGenre(int userId, String genre){
-        return libraryService.getGamesByGenre(userId, genre);
+    public List<Game> getGamesByGenreUser(int userId, String genre){
+        return libraryService.getGamesByGenreUser(userId, genre);
     }
 
     public boolean addGameToLibrary(int userId, String gameName) throws Exception {
@@ -40,12 +40,32 @@ public class LibraryController {
         return libraryService.removeGameFromLibrary(libraryId, gameId);
     }
 
-    public boolean changeGameState(int gameId, String newState) {
-        return libraryService.updateGameState(gameId, newState);
+    public boolean changeGameState(int userId, int gameId, String newState) {
+        return libraryService.updateGameState(userId, gameId, newState);
     }
 
     public List<Game> getAvailableGames() {
         return libraryService.getAllGamesFromDatabase();
+    }
+
+    public List<Game> getAllGames() {
+        return libraryService.getAllGames();
+    }
+
+    public List<Game> searchGamesByName(String keyword) {
+        return libraryService.searchGamesByName(keyword);
+    }
+
+    public List<Game> searchGamesByGenre(String genre) {
+        return libraryService.searchGamesByGenre(genre);
+    }
+
+    public List<String> getAllGenres() {
+        return libraryService.getAllGenres();
+    }
+
+    public boolean updateGameState(int gameId, int userId, String newState) {
+        return libraryService.updateGameState(gameId, userId, newState);
     }
 
 
