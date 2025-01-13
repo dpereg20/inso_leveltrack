@@ -33,7 +33,7 @@ public class FriendshipView extends JPanel {
         // Tabla de solicitudes pendientes
         JPanel requestsPanel = new JPanel(new BorderLayout());
         JLabel requestsLabel = new JLabel("Pending Friend Requests:");
-        JTable requestsTable = new JTable(new DefaultTableModel(new String[]{"Request ID", "Requester Name", "Status"}, 0));
+        JTable requestsTable = new JTable(new DefaultTableModel(new String[]{"Request ID", "Requester Email", "Status"}, 0));
         refreshPendingRequests(userId, (DefaultTableModel) requestsTable.getModel());
         requestsPanel.add(requestsLabel, BorderLayout.NORTH);
         requestsPanel.add(new JScrollPane(requestsTable), BorderLayout.CENTER);
