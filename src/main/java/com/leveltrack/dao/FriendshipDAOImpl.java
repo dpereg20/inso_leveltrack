@@ -23,7 +23,7 @@ public class FriendshipDAOImpl implements FriendshipDAO {
         List<UserBase> users = new ArrayList<>();
         String query = QueryLoader.getQuery("friendship.searchUsers");
         try (PreparedStatement stmt = connection.prepareStatement(query)) {
-            stmt.setString(1, "%" + keyword + "%");
+            stmt.setString(1,  keyword);
             ResultSet rs = stmt.executeQuery();
             while (rs.next()) {
                 users.add(createUserInstance(
@@ -80,6 +80,9 @@ public class FriendshipDAOImpl implements FriendshipDAO {
 
     @Override
     public boolean sendFriendRequest(int requesterId, int receiverId) {
+        if(requesterId == receiverId){
+            return false;
+        }
         String query = QueryLoader.getQuery("friendship.sendRequest");
         try (PreparedStatement stmt = connection.prepareStatement(query)) {
             stmt.setInt(1, requesterId);
@@ -90,6 +93,40 @@ public class FriendshipDAOImpl implements FriendshipDAO {
             e.printStackTrace();
             return false;
         }
+    }
+
+    public boolean checkValidRequest(int requesterId, int receiverId){
+        String checkFriendshipQuery = QueryLoader.getQuery("friendship.checkFriendship");
+        try (PreparedStatement checkFriendshipStmt = connection.prepareStatement(checkFriendshipQuery)) {
+            checkFriendshipStmt.setInt(1, requesterId);
+            checkFriendshipStmt.setInt(2, receiverId);
+            checkFriendshipStmt.setInt(3, receiverId);
+            checkFriendshipStmt.setInt(4, requesterId);
+            try (ResultSet rs = checkFriendshipStmt.executeQuery()) {
+                if (rs.next()) {
+                    return false; // Ya son amigos
+                }
+            }
+
+        String checkPendingRequestQuery = QueryLoader.getQuery("friendship.checkPendingRequest");
+        try (PreparedStatement checkPendingRequestStmt = connection.prepareStatement(checkPendingRequestQuery)) {
+            checkPendingRequestStmt.setInt(1, requesterId);
+            checkPendingRequestStmt.setInt(2, receiverId);
+            checkPendingRequestStmt.setInt(3, receiverId);
+            checkPendingRequestStmt.setInt(4, requesterId);
+            try (ResultSet rs = checkPendingRequestStmt.executeQuery()) {
+                if (rs.next()) {
+                    return false; // Ya hay una solicitud pendiente
+                }
+            }
+        }
+
+        // Si no son amigos y no hay solicitudes pendientes, se puede enviar la solicitud
+        return true;
+    } catch (SQLException e) {
+        e.printStackTrace();
+        throw new RuntimeException("Error checking valid request", e);
+    }
     }
 
     @Override

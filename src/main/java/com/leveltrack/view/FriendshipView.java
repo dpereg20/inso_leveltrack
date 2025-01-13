@@ -80,7 +80,12 @@ public class FriendshipView extends JPanel {
             String receiverIdInput = JOptionPane.showInputDialog("Enter the User ID of the person you want to add:");
             try {
                 int receiverId = Integer.parseInt(receiverIdInput);
-                boolean success = friendshipController.sendFriendRequest(userId, receiverId);
+                boolean success;
+                if(checkValidRequest(userId, receiverId)){
+                    success = friendshipController.sendFriendRequest(userId, receiverId);
+                }else{
+                    success = false;
+                }
                 JOptionPane.showMessageDialog(this, success ? "Friend request sent!" : "Failed to send friend request.");
             } catch (NumberFormatException ex) {
                 JOptionPane.showMessageDialog(this, "Invalid User ID.", "Error", JOptionPane.ERROR_MESSAGE);
@@ -155,11 +160,17 @@ public class FriendshipView extends JPanel {
             List<UserBase> searchResults = friendshipController.searchUsers(String.valueOf(request.getRequesterId()));
             if (!searchResults.isEmpty()) {
                 UserBase requester = searchResults.get(0);
-                tableModel.addRow(new Object[]{request.getId(), requester.getName(), request.getStatus()});
+                if(checkValidRequest(userId, request.getId())){
+                    tableModel.addRow(new Object[]{request.getId(), requester.getName(), request.getStatus()});
+                }
             } else {
                 tableModel.addRow(new Object[]{request.getId(), "Unknown User", request.getStatus()});
             }
         }
+    }
+
+    private boolean checkValidRequest(int userId, int receiverId){
+        return friendshipController.checkValidRequest(userId, receiverId);
     }
 
     private void displayGames(List<Game> games, JTextArea gamesList) {

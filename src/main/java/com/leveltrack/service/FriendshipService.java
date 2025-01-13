@@ -23,6 +23,10 @@ public class FriendshipService {
         return friendshipDAO.sendFriendRequest(requesterId, receiverId);
     }
 
+    public boolean checkValidRequest(int requesterId, int receiverId){
+        return friendshipDAO.checkValidRequest(requesterId, receiverId);
+    }
+
     public List<Friendship> getFriendRequests(int userId) {
         return friendshipDAO.getFriendRequests(userId);
     }

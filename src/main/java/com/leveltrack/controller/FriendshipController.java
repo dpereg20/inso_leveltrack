@@ -21,6 +21,10 @@ public class FriendshipController {
         return friendshipService.sendFriendRequest(requesterId, receiverId);
     }
 
+    public boolean checkValidRequest(int requesterId, int receiverId){
+        return friendshipService.checkValidRequest(requesterId, receiverId);
+    }
+
     public List<Friendship> getFriendRequests(int userId) {
         return friendshipService.getFriendRequests(userId);
     }
