@@ -16,7 +16,7 @@ public class LibraryController {
         return libraryService.getGamesByUserId(userId);
     }
 
-    public List<Game> getGamesByGenreUser(int userId, String genre){
+    public List<Game> getGamesByGenreUser(int userId, String genre) {
         return libraryService.getGamesByGenreUser(userId, genre);
     }
 
@@ -31,9 +31,6 @@ public class LibraryController {
         }
         return libraryService.addGameToLibrary(userId, game.getId(), "Available");
     }
-
-
-
 
     public boolean removeGame(int userId, int gameId) {
         int libraryId = libraryService.getLibraryIdByUserId(userId);
@@ -68,7 +65,14 @@ public class LibraryController {
         return libraryService.updateGameState(gameId, userId, newState);
     }
 
+    // Nuevo método para actualizar la puntuación del juego
+    public boolean updateGameScore(int gameId, int userId, int score) {
+        System.out.println("Updating score for gameId: " + gameId + ", userId: " + userId + " to " + score);
+        return libraryService.updateGameScore(gameId, userId, score);
+    }
 
+    // Nuevo método para obtener la puntuación de un juego
+    public int getGameScore(int gameId, int userId) {
+        return libraryService.getGameScore(gameId, userId);
+    }
 }
-
-

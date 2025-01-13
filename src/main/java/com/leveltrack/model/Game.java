@@ -6,6 +6,7 @@ public class Game {
     private String genre;
     private double price;
     private String state;
+    private int score;
 
     public Game(int id, String name, String genre, double price, String state) {
         this.id = id;
@@ -13,6 +14,7 @@ public class Game {
         this.genre = genre;
         this.price = price;
         this.state = state;
+        this.score = score;
     }
 
     public int getId() {
@@ -34,6 +36,8 @@ public class Game {
     public String getState() {
         return state;
     }
+
+    public int getScore(){return score;}
 
     @Override
     public String toString() {

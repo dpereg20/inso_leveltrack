@@ -227,6 +227,39 @@ public class LibraryDAOImpl implements LibraryDAO {
         return false;
     }
 
+    // Nuevo método para actualizar la puntuación de un juego
+    @Override
+    public boolean updateGameScore(int gameId, int userId, int score) {
+        String query = "UPDATE user_games SET score = ? WHERE game_id = ? AND user_id = ?";
+        try (PreparedStatement stmt = connection.prepareStatement(query)) {
+            stmt.setInt(1, score);
+            stmt.setInt(2, gameId);
+            stmt.setInt(3, userId);
+            int rowsAffected = stmt.executeUpdate();
+            return rowsAffected > 0;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+
+    // Nuevo método para obtener la puntuación de un juego
+    @Override
+    public int getGameScore(int gameId, int userId) {
+        String query = "SELECT score FROM user_games WHERE game_id = ? AND user_id = ?";
+        try (PreparedStatement stmt = connection.prepareStatement(query)) {
+            stmt.setInt(1, gameId);
+            stmt.setInt(2, userId);
+            ResultSet rs = stmt.executeQuery();
+            if (rs.next()) {
+                return rs.getInt("score");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return -1; // Retorna -1 si no se encuentra la puntuación
+    }
+
     @Override
     public List<Game> searchGamesByGenre(String genre) {
         return List.of();

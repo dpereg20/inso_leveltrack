@@ -30,8 +30,14 @@ class LibraryView extends JPanel {
         add(titleLabel, BorderLayout.NORTH);
 
         // Configuración de la tabla
-        String[] columnNames = {"ID", "Name", "Genre", "Price", "State"};
-        tableModel = new DefaultTableModel(columnNames, 0);
+        String[] columnNames = {"ID", "Name", "Genre", "Price", "State", "Score"};
+        tableModel = new DefaultTableModel(columnNames, 0) {
+            @Override
+            public boolean isCellEditable(int row, int column) {
+                // Permitir edición solo en la columna de Score y State
+                return column == 4 || column == 5;
+            }
+        };
         gamesTable = new JTable(tableModel);
         refreshGamesList();
 
@@ -45,12 +51,13 @@ class LibraryView extends JPanel {
         TableColumn stateColumn = gamesTable.getColumnModel().getColumn(4); // Columna de estado
         stateColumn.setCellEditor(new DefaultCellEditor(stateComboBox));
 
-        // Detectar cambios en el estado
+        // Detectar cambios en el estado y la puntuación
         gamesTable.getModel().addTableModelListener(e -> {
             int row = e.getFirstRow();
             int column = e.getColumn();
+            int gameId = (int) tableModel.getValueAt(row, 0);
+
             if (column == 4) { // Columna de estado
-                int gameId = (int) tableModel.getValueAt(row, 0);
                 String newState = (String) tableModel.getValueAt(row, column);
                 try {
                     boolean success = libraryController.updateGameState(gameId, userId, newState);
@@ -61,6 +68,26 @@ class LibraryView extends JPanel {
                     }
                 } catch (Exception ex) {
                     JOptionPane.showMessageDialog(this, "Error updating game state: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+                }
+            } else if (column == 5) { // Columna de puntuación
+                try {
+                    String scoreInput = (String) tableModel.getValueAt(row, column);
+                    int score = Integer.parseInt(scoreInput);
+
+                    if (score >= 0 && score <= 10) {
+                        boolean success = libraryController.updateGameScore(gameId, userId, score);
+                        if (success) {
+                            JOptionPane.showMessageDialog(this, "Game score updated successfully!");
+                        } else {
+                            JOptionPane.showMessageDialog(this, "Failed to update game score.", "Error", JOptionPane.ERROR_MESSAGE);
+                        }
+                    } else {
+                        JOptionPane.showMessageDialog(this, "Score must be between 0 and 10.", "Invalid Input", JOptionPane.ERROR_MESSAGE);
+                        tableModel.setValueAt("", row, column); // Limpiar el campo inválido
+                    }
+                } catch (NumberFormatException ex) {
+                    JOptionPane.showMessageDialog(this, "Score must be a valid integer.", "Invalid Input", JOptionPane.ERROR_MESSAGE);
+                    tableModel.setValueAt("", row, column); // Limpiar el campo inválido
                 }
             }
         });
@@ -108,11 +135,9 @@ class LibraryView extends JPanel {
                     game.getName(),
                     game.getGenre(),
                     game.getPrice(),
-                    game.getState()
+                    game.getState(),
+                    "" // Campo Score inicial vacío
             });
         }
     }
 }
-
-
-
