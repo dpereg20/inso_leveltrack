@@ -10,14 +10,19 @@
       <change beforePath="$PROJECT_DIR$/out/production/inso_leveltrack/com/leveltrack/dao/LibraryDAO.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/inso_leveltrack/com/leveltrack/dao/LibraryDAO.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/inso_leveltrack/com/leveltrack/dao/LibraryDAOImpl.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/inso_leveltrack/com/leveltrack/dao/LibraryDAOImpl.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/inso_leveltrack/com/leveltrack/service/LibraryService.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/inso_leveltrack/com/leveltrack/service/LibraryService.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/inso_leveltrack/com/leveltrack/view/GameDatabaseView.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/inso_leveltrack/com/leveltrack/view/GameDatabaseView.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/inso_leveltrack/com/leveltrack/view/LibraryView$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/inso_leveltrack/com/leveltrack/view/LibraryView$1.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/inso_leveltrack/com/leveltrack/view/LibraryView.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/inso_leveltrack/com/leveltrack/view/LibraryView.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/inso_leveltrack/database_setup.sql" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/inso_leveltrack/database_setup.sql" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/inso_leveltrack/main/resources/queries.properties" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/inso_leveltrack/main/resources/queries.properties" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/inso_leveltrack/queries.properties" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/inso_leveltrack/queries.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/database_setup.sql" beforeDir="false" afterPath="$PROJECT_DIR$/src/database_setup.sql" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/leveltrack/controller/LibraryController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/leveltrack/controller/LibraryController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/leveltrack/dao/LibraryDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/leveltrack/dao/LibraryDAO.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/leveltrack/dao/LibraryDAOImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/leveltrack/dao/LibraryDAOImpl.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/leveltrack/model/Game.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/leveltrack/model/Game.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/leveltrack/service/LibraryService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/leveltrack/service/LibraryService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/leveltrack/view/GameDatabaseView.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/leveltrack/view/GameDatabaseView.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/leveltrack/view/LibraryView.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/leveltrack/view/LibraryView.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/queries.properties" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/queries.properties" afterDir="false" />
     </list>
@@ -35,6 +40,8 @@
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+    <option name="RESET_MODE" value="HARD" />
+    <option name="UPDATE_TYPE" value="REBASE" />
   </component>
   <component name="GitHubPullRequestSearchHistory">{
   &quot;lastFilter&quot;: {
@@ -255,7 +262,15 @@
       <option name="project" value="LOCAL" />
       <updated>1736654792137</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="mal">
+      <option name="closed" value="true" />
+      <created>1736796803042</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1736796803042</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -278,6 +293,7 @@
     <MESSAGE value="friend request" />
     <MESSAGE value="el admin puede cambiar rol en la ddbb, añadir juegos a la ddbb, eliminarlos y modificarlos" />
     <MESSAGE value="Ya se pueden añadir juegos a las librerias de los usuarios y filtrarlos por genero, también funcionan creo que todos los botones de back&#10;Tamnbien se crea una entrada de la tabla libreria cada vesz que se crea un usuario, es decir cada vez que se crea un usuario se crea una libreria asociada a este" />
-    <option name="LAST_COMMIT_MESSAGE" value="Ya se pueden añadir juegos a las librerias de los usuarios y filtrarlos por genero, también funcionan creo que todos los botones de back&#10;Tamnbien se crea una entrada de la tabla libreria cada vesz que se crea un usuario, es decir cada vez que se crea un usuario se crea una libreria asociada a este" />
+    <MESSAGE value="mal" />
+    <option name="LAST_COMMIT_MESSAGE" value="mal" />
   </component>
 </project>

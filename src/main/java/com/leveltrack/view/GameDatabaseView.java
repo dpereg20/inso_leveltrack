@@ -1,21 +1,28 @@
 package com.leveltrack.view;
 
+
 import com.leveltrack.controller.LibraryController;
 import com.leveltrack.model.Game;
+
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.util.List;
+import java.util.Map;
+
 
 class GameDatabaseView extends JPanel {
     private final LibraryController libraryController;
 
+
     public GameDatabaseView(int userId, String userRole, JFrame parentFrame) throws Exception {
         setLayout(new BorderLayout());
 
+
         libraryController = new LibraryController();
+
 
         // Panel principal de la tabla de juegos
         JPanel databasePanel = new JPanel(new BorderLayout());
@@ -23,11 +30,15 @@ class GameDatabaseView extends JPanel {
         databaseLabel.setHorizontalAlignment(SwingConstants.CENTER);
         databaseLabel.setFont(new Font("Arial", Font.BOLD, 16));
 
-        JTable databaseTable = new JTable(new DefaultTableModel(new String[]{"ID", "Name", "Genre", "Price"}, 0));
+
+        // Tabla con columna adicional para average score
+        JTable databaseTable = new JTable(new DefaultTableModel(new String[]{"ID", "Name", "Genre", "Price", "Avg Score"}, 0));
         refreshGameDatabase((DefaultTableModel) databaseTable.getModel());
+
 
         databasePanel.add(databaseLabel, BorderLayout.NORTH);
         databasePanel.add(new JScrollPane(databaseTable), BorderLayout.CENTER);
+
 
         // Panel de búsqueda
         JPanel searchPanel = new JPanel(new GridBagLayout());
@@ -35,18 +46,22 @@ class GameDatabaseView extends JPanel {
         gbc.fill = GridBagConstraints.HORIZONTAL;
         gbc.insets = new Insets(5, 5, 5, 5);
 
+
         // Búsqueda por nombre
         gbc.gridx = 0;
         gbc.gridy = 0;
         searchPanel.add(new JLabel("Search by Name:"), gbc);
 
+
         JTextField searchField = new JTextField(15);
         gbc.gridx = 1;
         searchPanel.add(searchField, gbc);
 
+
         JButton searchButton = new JButton("Search");
         gbc.gridx = 2;
         searchPanel.add(searchButton, gbc);
+
 
         searchButton.addActionListener((ActionEvent e) -> {
             String keyword = searchField.getText().trim();
@@ -57,10 +72,12 @@ class GameDatabaseView extends JPanel {
             }
         });
 
+
         // Búsqueda por género
         gbc.gridx = 0;
         gbc.gridy = 1;
         searchPanel.add(new JLabel("Search by Genre:"), gbc);
+
 
         List<String> genres = libraryController.getAllGenres();
         genres.add(0, "All"); // Opción para mostrar todos
@@ -68,9 +85,11 @@ class GameDatabaseView extends JPanel {
         gbc.gridx = 1;
         searchPanel.add(genreComboBox, gbc);
 
+
         JButton searchByGenreButton = new JButton("Filter");
         gbc.gridx = 2;
         searchPanel.add(searchByGenreButton, gbc);
+
 
         searchByGenreButton.addActionListener((ActionEvent e) -> {
             String selectedGenre = (String) genreComboBox.getSelectedItem();
@@ -80,6 +99,7 @@ class GameDatabaseView extends JPanel {
                 refreshGameDatabase((DefaultTableModel) databaseTable.getModel());
             }
         });
+
 
         // Botón para añadir juego
         JButton addGameButton = new JButton("Add to Library");
@@ -99,11 +119,13 @@ class GameDatabaseView extends JPanel {
             }
         });
 
+
         gbc.gridx = 0;
         gbc.gridy = 2;
         gbc.gridwidth = 3;
         gbc.anchor = GridBagConstraints.CENTER;
         searchPanel.add(addGameButton, gbc);
+
 
         // Botón para regresar
         JButton backButton = new JButton("Back");
@@ -114,37 +136,75 @@ class GameDatabaseView extends JPanel {
             parentFrame.repaint();
         });
 
+
         JPanel bottomPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT));
         bottomPanel.add(backButton);
+
 
         add(databasePanel, BorderLayout.CENTER);
         add(searchPanel, BorderLayout.NORTH);
         add(bottomPanel, BorderLayout.SOUTH);
     }
 
+
     private void refreshGameDatabase(DefaultTableModel tableModel) {
         tableModel.setRowCount(0);
         List<Game> games = libraryController.getAllGames();
+        Map<Integer, Double> avgScores = libraryController.getAverageScores(); // Obtener los avgScores
+
+
         for (Game game : games) {
-            tableModel.addRow(new Object[]{game.getId(), game.getName(), game.getGenre(), game.getPrice()});
+            double avgScore = avgScores.getOrDefault(game.getId(), 0.0); // Obtener avgScore dinámico
+            tableModel.addRow(new Object[]{
+                    game.getId(),
+                    game.getName(),
+                    game.getGenre(),
+                    game.getPrice(),
+                    avgScore
+            });
         }
     }
+
 
     private void refreshGameDatabase(DefaultTableModel tableModel, String keyword) {
         tableModel.setRowCount(0);
         List<Game> games = libraryController.searchGamesByName(keyword);
+        Map<Integer, Double> avgScores = libraryController.getAverageScores();
+
+
         for (Game game : games) {
-            tableModel.addRow(new Object[]{game.getId(), game.getName(), game.getGenre(), game.getPrice()});
+            double avgScore = avgScores.getOrDefault(game.getId(), 0.0);
+            tableModel.addRow(new Object[]{
+                    game.getId(),
+                    game.getName(),
+                    game.getGenre(),
+                    game.getPrice(),
+                    avgScore
+            });
         }
     }
+
 
     private void refreshGameDatabaseByGenre(DefaultTableModel tableModel, String genre) {
         tableModel.setRowCount(0);
         List<Game> games = libraryController.searchGamesByGenre(genre);
+        Map<Integer, Double> avgScores = libraryController.getAverageScores();
+
+
         for (Game game : games) {
-            tableModel.addRow(new Object[]{game.getId(), game.getName(), game.getGenre(), game.getPrice()});
+            double avgScore = avgScores.getOrDefault(game.getId(), 0.0);
+            tableModel.addRow(new Object[]{
+                    game.getId(),
+                    game.getName(),
+                    game.getGenre(),
+                    game.getPrice(),
+                    avgScore
+            });
         }
     }
 }
+
+
+
 
 

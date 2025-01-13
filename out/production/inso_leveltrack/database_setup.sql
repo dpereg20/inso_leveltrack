@@ -19,6 +19,16 @@ CREATE TABLE Games (
                        price DECIMAL(10,2) NOT NULL
 );
 
+CREATE TABLE user_games (
+                            id INT AUTO_INCREMENT PRIMARY KEY,
+                            user_id INT NOT NULL,
+                            game_id INT NOT NULL,
+                            score INT CHECK(score BETWEEN 0 AND 10),
+                            FOREIGN KEY (user_id) REFERENCES Users(id) ON DELETE CASCADE,
+                            FOREIGN KEY (game_id) REFERENCES Games(id) ON DELETE CASCADE
+);
+
+
 CREATE TABLE LibraryGames (
                               id INT AUTO_INCREMENT PRIMARY KEY,
                               library_id INT NOT NULL,

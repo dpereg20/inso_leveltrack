@@ -3,6 +3,7 @@ package com.leveltrack.dao;
 import com.leveltrack.model.Game;
 
 import java.util.List;
+import java.util.Map;
 
 public interface LibraryDAO {
     List<Game> getGamesByUserId(int userId);
@@ -17,8 +18,12 @@ public interface LibraryDAO {
     List<Game> getGamesByGenre(String genre);
     boolean isGameInLibrary(int libraryId, int gameId);
     List<Game> searchGamesByGenre(String genre);
-    int getGameScore(int gameId, int userId);
-    boolean updateGameScore(int gameId, int userId, int score);
+
+    boolean updateScore(int userId, int gameId, int score);
+    int getGameScore(int userId, int gameId);
+    double getAvgGameScore(int gameId);
 
     List<String> getAllGenres();
+
+    Map<Integer, Double> getAverageScores();
 }

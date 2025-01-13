@@ -9,7 +9,9 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class LibraryDAOImpl implements LibraryDAO {
     private final Connection connection;
@@ -149,6 +151,7 @@ public class LibraryDAOImpl implements LibraryDAO {
                         rs.getString("genre"),
                         rs.getDouble("price"),
                         "Available" // Default state when fetching from database
+
                 ));
             }
         } catch (SQLException e) {
@@ -227,29 +230,34 @@ public class LibraryDAOImpl implements LibraryDAO {
         return false;
     }
 
-    // Nuevo método para actualizar la puntuación de un juego
     @Override
-    public boolean updateGameScore(int gameId, int userId, int score) {
-        String query = "UPDATE user_games SET score = ? WHERE game_id = ? AND user_id = ?";
-        try (PreparedStatement stmt = connection.prepareStatement(query)) {
-            stmt.setInt(1, score);
-            stmt.setInt(2, gameId);
-            stmt.setInt(3, userId);
-            int rowsAffected = stmt.executeUpdate();
-            return rowsAffected > 0;
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return false;
+    public List<Game> searchGamesByGenre(String genre) {
+        return List.of();
     }
 
-    // Nuevo método para obtener la puntuación de un juego
+
     @Override
-    public int getGameScore(int gameId, int userId) {
-        String query = "SELECT score FROM user_games WHERE game_id = ? AND user_id = ?";
+    public boolean updateScore(int userId, int gameId, int score) {
+        String query = QueryLoader.getQuery("user_games.updateGameScore");
+
         try (PreparedStatement stmt = connection.prepareStatement(query)) {
-            stmt.setInt(1, gameId);
-            stmt.setInt(2, userId);
+            stmt.setInt(1, userId);
+            stmt.setInt(2, gameId);
+            stmt.setInt(3, score);
+            return stmt.executeUpdate() > 0;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+
+    @Override
+    public int getGameScore(int userId, int gameId) {
+        String query = QueryLoader.getQuery("user_games.getGameScore");
+        try (PreparedStatement stmt = connection.prepareStatement(query)) {
+            stmt.setInt(1, userId);
+            stmt.setInt(2, gameId);
             ResultSet rs = stmt.executeQuery();
             if (rs.next()) {
                 return rs.getInt("score");
@@ -257,13 +265,25 @@ public class LibraryDAOImpl implements LibraryDAO {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        return -1; // Retorna -1 si no se encuentra la puntuación
+        return -1; // Indica que no hay puntuación
     }
 
+
     @Override
-    public List<Game> searchGamesByGenre(String genre) {
-        return List.of();
+    public double getAvgGameScore(int gameId) {
+        String query = QueryLoader.getQuery("library.getAvgGameScore");
+        try (PreparedStatement stmt = connection.prepareStatement(query)) {
+            stmt.setInt(1, gameId);
+            ResultSet rs = stmt.executeQuery();
+            if (rs.next()) {
+                return rs.getDouble("avg_score");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return 0.0;
     }
+
 
     @Override
     public List<String> getAllGenres() {
@@ -279,6 +299,26 @@ public class LibraryDAOImpl implements LibraryDAO {
         }
         return genres;
     }
+
+    @Override
+    public Map<Integer, Double> getAverageScores() {
+        Map<Integer, Double> avgScores = new HashMap<>();
+        String query = QueryLoader.getQuery("library.getAvgScores");
+
+        try (PreparedStatement stmt = connection.prepareStatement(query);
+             ResultSet rs = stmt.executeQuery()) {
+            while (rs.next()) {
+                int gameId = rs.getInt("game_id");
+                double avgScore = rs.getDouble("avg_score");
+                avgScores.put(gameId, avgScore);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return avgScores;
+    }
+
 
 
 }

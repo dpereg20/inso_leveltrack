@@ -7,6 +7,7 @@ import com.leveltrack.dao.GameDAOImpl;
 import com.leveltrack.model.Game;
 
 import java.util.List;
+import java.util.Map;
 
 public class LibraryService {
     private final LibraryDAO libraryDAO;
@@ -75,11 +76,19 @@ public class LibraryService {
 
     // Nuevo método para actualizar la puntuación de un juego
     public boolean updateGameScore(int gameId, int userId, int score) {
-        return libraryDAO.updateGameScore(gameId, userId, score);
+        return libraryDAO.updateScore(gameId, userId, score);
     }
 
     // Nuevo método para obtener la puntuación de un juego
     public int getGameScore(int gameId, int userId) {
         return libraryDAO.getGameScore(gameId, userId);
+    }
+
+    public double getAvgGameScore(int gameId) {
+        return libraryDAO.getAvgGameScore(gameId);
+    }
+
+    public Map<Integer, Double> getAverageScores() {
+        return libraryDAO.getAverageScores();
     }
 }

@@ -4,6 +4,7 @@ import com.leveltrack.model.Game;
 import com.leveltrack.service.LibraryService;
 
 import java.util.List;
+import java.util.Map;
 
 public class LibraryController {
     private final LibraryService libraryService;
@@ -74,5 +75,9 @@ public class LibraryController {
     // Nuevo método para obtener la puntuación de un juego
     public int getGameScore(int gameId, int userId) {
         return libraryService.getGameScore(gameId, userId);
+    }
+
+    public Map<Integer, Double> getAverageScores() {
+        return libraryService.getAverageScores();
     }
 }
