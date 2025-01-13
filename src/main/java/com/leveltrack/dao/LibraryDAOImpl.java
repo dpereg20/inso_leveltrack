@@ -181,10 +181,10 @@ public class LibraryDAOImpl implements LibraryDAO {
 
 
     @Override
-    public boolean isGameInLibrary(int libraryId, int gameId) {
+    public boolean isGameInLibrary(int userId, int gameId) {
         String query = QueryLoader.getQuery("library.isGameInLibrary");
         try (PreparedStatement stmt = connection.prepareStatement(query)) {
-            stmt.setInt(1, libraryId);
+            stmt.setInt(1, getLibraryIdByUserId(userId));
             stmt.setInt(2, gameId);
             ResultSet rs = stmt.executeQuery();
             return rs.next();

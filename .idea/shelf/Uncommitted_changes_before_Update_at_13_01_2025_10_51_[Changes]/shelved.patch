@@ -1,0 +1,134 @@
+Index: .idea/workspace.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n<project version=\"4\">\r\n  <component name=\"AutoImportSettings\">\r\n    <option name=\"autoReloadType\" value=\"SELECTIVE\" />\r\n  </component>\r\n  <component name=\"ChangeListManager\">\r\n    <list default=\"true\" id=\"83ec2d2c-8ca2-4ce5-863a-fac5b017337d\" name=\"Changes\" comment=\"Ya se pueden añadir juegos a las librerias de los usuarios y filtrarlos por genero, también funcionan creo que todos los botones de back&#10;Tamnbien se crea una entrada de la tabla libreria cada vesz que se crea un usuario, es decir cada vez que se crea un usuario se crea una libreria asociada a este\">\r\n      <change beforePath=\"$PROJECT_DIR$/.idea/workspace.xml\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/.idea/workspace.xml\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/out/production/inso_leveltrack/com/leveltrack/controller/AdminController.class\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/out/production/inso_leveltrack/com/leveltrack/controller/AdminController.class\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/out/production/inso_leveltrack/com/leveltrack/service/UserService.class\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/out/production/inso_leveltrack/com/leveltrack/service/UserService.class\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/out/production/inso_leveltrack/com/leveltrack/view/AdminDashboard.class\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/out/production/inso_leveltrack/com/leveltrack/view/AdminDashboard.class\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/out/production/inso_leveltrack/com/leveltrack/view/FriendshipView.class\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/out/production/inso_leveltrack/com/leveltrack/view/FriendshipView.class\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/out/production/inso_leveltrack/com/leveltrack/view/UserDashboard.class\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/out/production/inso_leveltrack/com/leveltrack/view/UserDashboard.class\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/src/main/java/com/leveltrack/controller/AdminController.java\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/src/main/java/com/leveltrack/controller/AdminController.java\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/src/main/java/com/leveltrack/service/UserService.java\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/src/main/java/com/leveltrack/service/UserService.java\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/src/main/java/com/leveltrack/view/AdminDashboard.java\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/src/main/java/com/leveltrack/view/AdminDashboard.java\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/src/main/java/com/leveltrack/view/FriendshipView.java\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/src/main/java/com/leveltrack/view/FriendshipView.java\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/src/main/java/com/leveltrack/view/UserDashboard.java\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/src/main/java/com/leveltrack/view/UserDashboard.java\" afterDir=\"false\" />\r\n    </list>\r\n    <option name=\"SHOW_DIALOG\" value=\"false\" />\r\n    <option name=\"HIGHLIGHT_CONFLICTS\" value=\"true\" />\r\n    <option name=\"HIGHLIGHT_NON_ACTIVE_CHANGELIST\" value=\"false\" />\r\n    <option name=\"LAST_RESOLUTION\" value=\"IGNORE\" />\r\n  </component>\r\n  <component name=\"FileTemplateManagerImpl\">\r\n    <option name=\"RECENT_TEMPLATES\">\r\n      <list>\r\n        <option value=\"Class\" />\r\n      </list>\r\n    </option>\r\n  </component>\r\n  <component name=\"Git.Settings\">\r\n    <option name=\"RECENT_GIT_ROOT_PATH\" value=\"$PROJECT_DIR$\" />\r\n  </component>\r\n  <component name=\"GitHubPullRequestSearchHistory\">{\r\n  &quot;lastFilter&quot;: {\r\n    &quot;state&quot;: &quot;OPEN&quot;,\r\n    &quot;assignee&quot;: &quot;eondig00&quot;\r\n  }\r\n}</component>\r\n  <component name=\"GithubPullRequestsUISettings\">{\r\n  &quot;selectedUrlAndAccountId&quot;: {\r\n    &quot;url&quot;: &quot;https://github.com/dpereg20/inso_leveltrack.git&quot;,\r\n    &quot;accountId&quot;: &quot;08519b9d-d934-4805-89e9-d2edb20ec919&quot;\r\n  }\r\n}</component>\r\n  <component name=\"KubernetesApiPersistence\">{}</component>\r\n  <component name=\"KubernetesApiProvider\">{\r\n  &quot;isMigrated&quot;: true\r\n}</component>\r\n  <component name=\"ProblemsViewState\">\r\n    <option name=\"selectedTabId\" value=\"CurrentFile\" />\r\n  </component>\r\n  <component name=\"ProjectColorInfo\">{\r\n  &quot;associatedIndex&quot;: 4\r\n}</component>\r\n  <component name=\"ProjectId\" id=\"2r4RtESkdPHzenpy3OiGezxsPVo\" />\r\n  <component name=\"ProjectLevelVcsManager\">\r\n    <ConfirmationsSetting value=\"1\" id=\"Add\" />\r\n  </component>\r\n  <component name=\"ProjectViewState\">\r\n    <option name=\"hideEmptyMiddlePackages\" value=\"true\" />\r\n    <option name=\"showLibraryContents\" value=\"true\" />\r\n  </component>\r\n  <component name=\"PropertiesComponent\"><![CDATA[{\r\n  \"keyToString\": {\r\n    \"Application.LoginView.executor\": \"Run\",\r\n    \"Application.MainApp.executor\": \"Run\",\r\n    \"Application.RegisterView.executor\": \"Run\",\r\n    \"Application.UserManagementView.executor\": \"Run\",\r\n    \"Docker.docker-compose.yml: Compose Deployment.executor\": \"Run\",\r\n    \"RunOnceActivity.ShowReadmeOnStart\": \"true\",\r\n    \"RunOnceActivity.git.unshallow\": \"true\",\r\n    \"SHARE_PROJECT_CONFIGURATION_FILES\": \"true\",\r\n    \"full.screen.before.presentation.mode\": \"false\",\r\n    \"git-widget-placeholder\": \"main\",\r\n    \"kotlin-language-version-configured\": \"true\",\r\n    \"last_opened_file_path\": \"D:/Descargas/mysql-connector-j-9.1.0.jar\",\r\n    \"node.js.detected.package.eslint\": \"true\",\r\n    \"node.js.detected.package.tslint\": \"true\",\r\n    \"node.js.selected.package.eslint\": \"(autodetect)\",\r\n    \"node.js.selected.package.tslint\": \"(autodetect)\",\r\n    \"nodejs_package_manager_path\": \"npm\",\r\n    \"project.structure.last.edited\": \"Project\",\r\n    \"project.structure.proportion\": \"0.15\",\r\n    \"project.structure.side.proportion\": \"0.2\",\r\n    \"settings.editor.selected.configurable\": \"Errors\",\r\n    \"vue.rearranger.settings.migration\": \"true\"\r\n  },\r\n  \"keyToStringList\": {\r\n    \"DatabaseDriversLRU\": [\r\n      \"mysql\"\r\n    ]\r\n  }\r\n}]]></component>\r\n  <component name=\"RecentsManager\">\r\n    <key name=\"CopyFile.RECENT_KEYS\">\r\n      <recent name=\"C:\\Users\\elena\\IdeaProjects\\inso_leveltrack\\\" />\r\n      <recent name=\"C:\\Users\\elena\\IdeaProjects\\inso_leveltrack\\src\\main\" />\r\n      <recent name=\"C:\\Users\\elena\\Documents\\GitHub\\inso_leveltrack\" />\r\n    </key>\r\n    <key name=\"MoveFile.RECENT_KEYS\">\r\n      <recent name=\"C:\\Users\\oscar\\Documents\\GitHub\\inso_leveltrack\\src\\.idea\\libraries\" />\r\n    </key>\r\n  </component>\r\n  <component name=\"RunManager\" selected=\"Application.MainApp\">\r\n    <configuration name=\"MainApp\" type=\"Application\" factoryName=\"Application\" temporary=\"true\" nameIsGenerated=\"true\">\r\n      <option name=\"MAIN_CLASS_NAME\" value=\"com.leveltrack.view.MainApp\" />\r\n      <module name=\"inso_leveltrack\" />\r\n      <extension name=\"coverage\">\r\n        <pattern>\r\n          <option name=\"PATTERN\" value=\"com.leveltrack.view.*\" />\r\n          <option name=\"ENABLED\" value=\"true\" />\r\n        </pattern>\r\n      </extension>\r\n      <method v=\"2\">\r\n        <option name=\"Make\" enabled=\"true\" />\r\n      </method>\r\n    </configuration>\r\n    <configuration name=\"UserManagementView\" type=\"Application\" factoryName=\"Application\" temporary=\"true\" nameIsGenerated=\"true\">\r\n      <option name=\"MAIN_CLASS_NAME\" value=\"com.leveltrack.view.UserManagementView\" />\r\n      <module name=\"inso_leveltrack\" />\r\n      <extension name=\"coverage\">\r\n        <pattern>\r\n          <option name=\"PATTERN\" value=\"com.leveltrack.view.*\" />\r\n          <option name=\"ENABLED\" value=\"true\" />\r\n        </pattern>\r\n      </extension>\r\n      <method v=\"2\">\r\n        <option name=\"Make\" enabled=\"true\" />\r\n      </method>\r\n    </configuration>\r\n    <configuration name=\"com.leveltrack.view.LoginView\" type=\"Application\" factoryName=\"Application\" temporary=\"true\" nameIsGenerated=\"true\">\r\n      <option name=\"MAIN_CLASS_NAME\" value=\"com.leveltrack.view.LoginView\" />\r\n      <module name=\"inso_leveltrack\" />\r\n      <extension name=\"coverage\">\r\n        <pattern>\r\n          <option name=\"PATTERN\" value=\"com.leveltrack.view.*\" />\r\n          <option name=\"ENABLED\" value=\"true\" />\r\n        </pattern>\r\n      </extension>\r\n      <method v=\"2\">\r\n        <option name=\"Make\" enabled=\"true\" />\r\n      </method>\r\n    </configuration>\r\n    <configuration name=\"com.leveltrack.view.RegisterView\" type=\"Application\" factoryName=\"Application\" temporary=\"true\" nameIsGenerated=\"true\">\r\n      <option name=\"MAIN_CLASS_NAME\" value=\"com.leveltrack.view.RegisterView\" />\r\n      <module name=\"inso_leveltrack\" />\r\n      <extension name=\"coverage\">\r\n        <pattern>\r\n          <option name=\"PATTERN\" value=\"com.leveltrack.view.*\" />\r\n          <option name=\"ENABLED\" value=\"true\" />\r\n        </pattern>\r\n      </extension>\r\n      <method v=\"2\">\r\n        <option name=\"Make\" enabled=\"true\" />\r\n      </method>\r\n    </configuration>\r\n    <configuration default=\"true\" type=\"docker-deploy\" factoryName=\"docker-compose.yml\" temporary=\"true\">\r\n      <deployment type=\"docker-compose.yml\">\r\n        <settings />\r\n      </deployment>\r\n      <method v=\"2\" />\r\n    </configuration>\r\n    <configuration name=\"docker-compose.yml: Compose Deployment\" type=\"docker-deploy\" factoryName=\"docker-compose.yml\" temporary=\"true\" server-name=\"Docker\">\r\n      <deployment type=\"docker-compose.yml\">\r\n        <settings>\r\n          <option name=\"sourceFilePath\" value=\"docker-compose.yml\" />\r\n        </settings>\r\n      </deployment>\r\n      <method v=\"2\" />\r\n    </configuration>\r\n    <list>\r\n      <item itemvalue=\"Application.UserManagementView\" />\r\n      <item itemvalue=\"Application.MainApp\" />\r\n      <item itemvalue=\"Application.com.leveltrack.view.LoginView\" />\r\n      <item itemvalue=\"Application.com.leveltrack.view.RegisterView\" />\r\n      <item itemvalue=\"Docker.docker-compose.yml: Compose Deployment\" />\r\n    </list>\r\n    <recent_temporary>\r\n      <list>\r\n        <item itemvalue=\"Application.MainApp\" />\r\n        <item itemvalue=\"Application.UserManagementView\" />\r\n        <item itemvalue=\"Docker.docker-compose.yml: Compose Deployment\" />\r\n        <item itemvalue=\"Application.com.leveltrack.view.RegisterView\" />\r\n        <item itemvalue=\"Application.com.leveltrack.view.LoginView\" />\r\n      </list>\r\n    </recent_temporary>\r\n  </component>\r\n  <component name=\"SharedIndexes\">\r\n    <attachedChunks>\r\n      <set>\r\n        <option value=\"bundled-jdk-9823dce3aa75-fdfe4dae3a2d-intellij.indexing.shared.core-IU-243.22562.218\" />\r\n        <option value=\"bundled-js-predefined-d6986cc7102b-deb605915726-JavaScript-IU-243.22562.218\" />\r\n      </set>\r\n    </attachedChunks>\r\n  </component>\r\n  <component name=\"SpellCheckerSettings\" RuntimeDictionaries=\"0\" Folders=\"0\" CustomDictionaries=\"0\" DefaultDictionary=\"application-level\" UseSingleDictionary=\"true\" transferred=\"true\" />\r\n  <component name=\"TaskManager\">\r\n    <task active=\"true\" id=\"Default\" summary=\"Default task\">\r\n      <changelist id=\"83ec2d2c-8ca2-4ce5-863a-fac5b017337d\" name=\"Changes\" comment=\"\" />\r\n      <created>1735816575957</created>\r\n      <option name=\"number\" value=\"Default\" />\r\n      <option name=\"presentableId\" value=\"Default\" />\r\n      <updated>1735816575957</updated>\r\n      <workItem from=\"1735816577947\" duration=\"1808000\" />\r\n      <workItem from=\"1735822993394\" duration=\"973000\" />\r\n      <workItem from=\"1735824212155\" duration=\"1277000\" />\r\n      <workItem from=\"1735848420748\" duration=\"28000\" />\r\n      <workItem from=\"1735848470328\" duration=\"44000\" />\r\n      <workItem from=\"1735848555890\" duration=\"177000\" />\r\n      <workItem from=\"1735848906037\" duration=\"368000\" />\r\n      <workItem from=\"1736274163106\" duration=\"306000\" />\r\n      <workItem from=\"1736274783108\" duration=\"145000\" />\r\n      <workItem from=\"1736357657794\" duration=\"87000\" />\r\n      <workItem from=\"1736358204031\" duration=\"4206000\" />\r\n      <workItem from=\"1736527939169\" duration=\"5766000\" />\r\n    </task>\r\n    <task id=\"LOCAL-00001\" summary=\"prueba login\">\r\n      <option name=\"closed\" value=\"true\" />\r\n      <created>1735824475349</created>\r\n      <option name=\"number\" value=\"00001\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00001\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1735824475349</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00002\" summary=\"friend request\">\r\n      <option name=\"closed\" value=\"true\" />\r\n      <created>1736269748121</created>\r\n      <option name=\"number\" value=\"00002\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00002\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1736269748121</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00003\" summary=\"el admin puede cambiar rol en la ddbb, añadir juegos a la ddbb, eliminarlos y modificarlos\">\r\n      <option name=\"closed\" value=\"true\" />\r\n      <created>1736621740348</created>\r\n      <option name=\"number\" value=\"00003\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00003\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1736621740348</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00004\" summary=\"Ya se pueden añadir juegos a las librerias de los usuarios y filtrarlos por genero, también funcionan creo que todos los botones de back&#10;Tamnbien se crea una entrada de la tabla libreria cada vesz que se crea un usuario, es decir cada vez que se crea un usuario se crea una libreria asociada a este\">\r\n      <option name=\"closed\" value=\"true\" />\r\n      <created>1736654792137</created>\r\n      <option name=\"number\" value=\"00004\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00004\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1736654792137</updated>\r\n    </task>\r\n    <option name=\"localTasksCounter\" value=\"5\" />\r\n    <servers />\r\n  </component>\r\n  <component name=\"TypeScriptGeneratedFilesManager\">\r\n    <option name=\"version\" value=\"3\" />\r\n  </component>\r\n  <component name=\"Vcs.Log.Tabs.Properties\">\r\n    <option name=\"TAB_STATES\">\r\n      <map>\r\n        <entry key=\"MAIN\">\r\n          <value>\r\n            <State />\r\n          </value>\r\n        </entry>\r\n      </map>\r\n    </option>\r\n  </component>\r\n  <component name=\"VcsManagerConfiguration\">\r\n    <MESSAGE value=\"prueba login\" />\r\n    <MESSAGE value=\"aa\" />\r\n    <MESSAGE value=\"friend request\" />\r\n    <MESSAGE value=\"el admin puede cambiar rol en la ddbb, añadir juegos a la ddbb, eliminarlos y modificarlos\" />\r\n    <MESSAGE value=\"Ya se pueden añadir juegos a las librerias de los usuarios y filtrarlos por genero, también funcionan creo que todos los botones de back&#10;Tamnbien se crea una entrada de la tabla libreria cada vesz que se crea un usuario, es decir cada vez que se crea un usuario se crea una libreria asociada a este\" />\r\n    <option name=\"LAST_COMMIT_MESSAGE\" value=\"Ya se pueden añadir juegos a las librerias de los usuarios y filtrarlos por genero, también funcionan creo que todos los botones de back&#10;Tamnbien se crea una entrada de la tabla libreria cada vesz que se crea un usuario, es decir cada vez que se crea un usuario se crea una libreria asociada a este\" />\r\n  </component>\r\n</project>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/workspace.xml b/.idea/workspace.xml
+--- a/.idea/workspace.xml	(revision 96c19a2cc7f6de532ba0fd859a075692cd786f6c)
++++ b/.idea/workspace.xml	(date 1736761866873)
+@@ -4,19 +4,7 @@
+     <option name="autoReloadType" value="SELECTIVE" />
+   </component>
+   <component name="ChangeListManager">
+-    <list default="true" id="83ec2d2c-8ca2-4ce5-863a-fac5b017337d" name="Changes" comment="Ya se pueden añadir juegos a las librerias de los usuarios y filtrarlos por genero, también funcionan creo que todos los botones de back&#10;Tamnbien se crea una entrada de la tabla libreria cada vesz que se crea un usuario, es decir cada vez que se crea un usuario se crea una libreria asociada a este">
+-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/out/production/inso_leveltrack/com/leveltrack/controller/AdminController.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/inso_leveltrack/com/leveltrack/controller/AdminController.class" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/out/production/inso_leveltrack/com/leveltrack/service/UserService.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/inso_leveltrack/com/leveltrack/service/UserService.class" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/out/production/inso_leveltrack/com/leveltrack/view/AdminDashboard.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/inso_leveltrack/com/leveltrack/view/AdminDashboard.class" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/out/production/inso_leveltrack/com/leveltrack/view/FriendshipView.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/inso_leveltrack/com/leveltrack/view/FriendshipView.class" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/out/production/inso_leveltrack/com/leveltrack/view/UserDashboard.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/inso_leveltrack/com/leveltrack/view/UserDashboard.class" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/src/main/java/com/leveltrack/controller/AdminController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/leveltrack/controller/AdminController.java" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/src/main/java/com/leveltrack/service/UserService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/leveltrack/service/UserService.java" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/src/main/java/com/leveltrack/view/AdminDashboard.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/leveltrack/view/AdminDashboard.java" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/src/main/java/com/leveltrack/view/FriendshipView.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/leveltrack/view/FriendshipView.java" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/src/main/java/com/leveltrack/view/UserDashboard.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/leveltrack/view/UserDashboard.java" afterDir="false" />
+-    </list>
++    <list default="true" id="83ec2d2c-8ca2-4ce5-863a-fac5b017337d" name="Changes" comment="Ya funcionan los logout en el admin y para borrar usuarios también, falta hacer tamnbién lo de que no se puedan duplicar amigos, es decir que si ya tienes un amigo que no le puedas mandar otra solicitud o el a ti" />
+     <option name="SHOW_DIALOG" value="false" />
+     <option name="HIGHLIGHT_CONFLICTS" value="true" />
+     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+@@ -62,37 +50,37 @@
+     <option name="hideEmptyMiddlePackages" value="true" />
+     <option name="showLibraryContents" value="true" />
+   </component>
+-  <component name="PropertiesComponent"><![CDATA[{
+-  "keyToString": {
+-    "Application.LoginView.executor": "Run",
+-    "Application.MainApp.executor": "Run",
+-    "Application.RegisterView.executor": "Run",
+-    "Application.UserManagementView.executor": "Run",
+-    "Docker.docker-compose.yml: Compose Deployment.executor": "Run",
+-    "RunOnceActivity.ShowReadmeOnStart": "true",
+-    "RunOnceActivity.git.unshallow": "true",
+-    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
+-    "full.screen.before.presentation.mode": "false",
+-    "git-widget-placeholder": "main",
+-    "kotlin-language-version-configured": "true",
+-    "last_opened_file_path": "D:/Descargas/mysql-connector-j-9.1.0.jar",
+-    "node.js.detected.package.eslint": "true",
+-    "node.js.detected.package.tslint": "true",
+-    "node.js.selected.package.eslint": "(autodetect)",
+-    "node.js.selected.package.tslint": "(autodetect)",
+-    "nodejs_package_manager_path": "npm",
+-    "project.structure.last.edited": "Project",
+-    "project.structure.proportion": "0.15",
+-    "project.structure.side.proportion": "0.2",
+-    "settings.editor.selected.configurable": "Errors",
+-    "vue.rearranger.settings.migration": "true"
++  <component name="PropertiesComponent">{
++  &quot;keyToString&quot;: {
++    &quot;Application.LoginView.executor&quot;: &quot;Run&quot;,
++    &quot;Application.MainApp.executor&quot;: &quot;Run&quot;,
++    &quot;Application.RegisterView.executor&quot;: &quot;Run&quot;,
++    &quot;Application.UserManagementView.executor&quot;: &quot;Run&quot;,
++    &quot;Docker.docker-compose.yml: Compose Deployment.executor&quot;: &quot;Run&quot;,
++    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
++    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
++    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
++    &quot;full.screen.before.presentation.mode&quot;: &quot;false&quot;,
++    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
++    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
++    &quot;last_opened_file_path&quot;: &quot;D:/Descargas/mysql-connector-j-9.1.0.jar&quot;,
++    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
++    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
++    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
++    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
++    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
++    &quot;project.structure.last.edited&quot;: &quot;Project&quot;,
++    &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
++    &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
++    &quot;settings.editor.selected.configurable&quot;: &quot;Errors&quot;,
++    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+   },
+-  "keyToStringList": {
+-    "DatabaseDriversLRU": [
+-      "mysql"
++  &quot;keyToStringList&quot;: {
++    &quot;DatabaseDriversLRU&quot;: [
++      &quot;mysql&quot;
+     ]
+   }
+-}]]></component>
++}</component>
+   <component name="RecentsManager">
+     <key name="CopyFile.RECENT_KEYS">
+       <recent name="C:\Users\elena\IdeaProjects\inso_leveltrack\" />
+@@ -171,8 +159,8 @@
+       <method v="2" />
+     </configuration>
+     <list>
+-      <item itemvalue="Application.UserManagementView" />
+       <item itemvalue="Application.MainApp" />
++      <item itemvalue="Application.UserManagementView" />
+       <item itemvalue="Application.com.leveltrack.view.LoginView" />
+       <item itemvalue="Application.com.leveltrack.view.RegisterView" />
+       <item itemvalue="Docker.docker-compose.yml: Compose Deployment" />
+@@ -248,7 +236,15 @@
+       <option name="project" value="LOCAL" />
+       <updated>1736654792137</updated>
+     </task>
+-    <option name="localTasksCounter" value="5" />
++    <task id="LOCAL-00005" summary="Ya funcionan los logout en el admin y para borrar usuarios también, falta hacer tamnbién lo de que no se puedan duplicar amigos, es decir que si ya tienes un amigo que no le puedas mandar otra solicitud o el a ti">
++      <option name="closed" value="true" />
++      <created>1736657673876</created>
++      <option name="number" value="00005" />
++      <option name="presentableId" value="LOCAL-00005" />
++      <option name="project" value="LOCAL" />
++      <updated>1736657673876</updated>
++    </task>
++    <option name="localTasksCounter" value="6" />
+     <servers />
+   </component>
+   <component name="TypeScriptGeneratedFilesManager">
+@@ -271,6 +267,7 @@
+     <MESSAGE value="friend request" />
+     <MESSAGE value="el admin puede cambiar rol en la ddbb, añadir juegos a la ddbb, eliminarlos y modificarlos" />
+     <MESSAGE value="Ya se pueden añadir juegos a las librerias de los usuarios y filtrarlos por genero, también funcionan creo que todos los botones de back&#10;Tamnbien se crea una entrada de la tabla libreria cada vesz que se crea un usuario, es decir cada vez que se crea un usuario se crea una libreria asociada a este" />
+-    <option name="LAST_COMMIT_MESSAGE" value="Ya se pueden añadir juegos a las librerias de los usuarios y filtrarlos por genero, también funcionan creo que todos los botones de back&#10;Tamnbien se crea una entrada de la tabla libreria cada vesz que se crea un usuario, es decir cada vez que se crea un usuario se crea una libreria asociada a este" />
++    <MESSAGE value="Ya funcionan los logout en el admin y para borrar usuarios también, falta hacer tamnbién lo de que no se puedan duplicar amigos, es decir que si ya tienes un amigo que no le puedas mandar otra solicitud o el a ti" />
++    <option name="LAST_COMMIT_MESSAGE" value="Ya funcionan los logout en el admin y para borrar usuarios también, falta hacer tamnbién lo de que no se puedan duplicar amigos, es decir que si ya tienes un amigo que no le puedas mandar otra solicitud o el a ti" />
+   </component>
+ </project>
+\ No newline at end of file

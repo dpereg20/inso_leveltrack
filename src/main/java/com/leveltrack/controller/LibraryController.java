@@ -20,16 +20,16 @@ public class LibraryController {
         return libraryService.getGamesByGenre(userId, genre);
     }
 
-    public boolean addGameToLibrary(int libraryId, String gameName) throws Exception {
+    public boolean addGameToLibrary(int userId, String gameName) throws Exception {
         Game game = libraryService.getGameByName(gameName);
         if (game == null) {
             throw new Exception("Game not found in the database.");
         }
-        boolean alreadyInLibrary = libraryService.isGameInLibrary(libraryId, game.getId());
+        boolean alreadyInLibrary = libraryService.isGameInLibrary(userId, game.getId());
         if (alreadyInLibrary) {
-            throw new Exception("Game is already in the library.");
+            return false;
         }
-        return libraryService.addGameToLibrary(libraryId, game.getId(), "Available");
+        return libraryService.addGameToLibrary(userId, game.getId(), "Available");
     }
 
 

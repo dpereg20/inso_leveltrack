@@ -17,8 +17,8 @@ public class LibraryService {
         return libraryDAO.getGamesByUserId(userId);
     }
 
-    public boolean isGameInLibrary(int libraryId, int gameId) {
-        return libraryDAO.isGameInLibrary(libraryId, gameId);
+    public boolean isGameInLibrary(int userId, int gameId) {
+        return libraryDAO.isGameInLibrary(userId, gameId);
     }
 
     public List<Game> getGamesByGenre(int userId, String genre){

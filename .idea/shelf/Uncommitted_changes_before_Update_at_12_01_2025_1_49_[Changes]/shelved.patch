@@ -1,0 +1,155 @@
+Index: .idea/workspace.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n<project version=\"4\">\r\n  <component name=\"AutoImportSettings\">\r\n    <option name=\"autoReloadType\" value=\"SELECTIVE\" />\r\n  </component>\r\n  <component name=\"ChangeListManager\">\r\n    <list default=\"true\" id=\"83ec2d2c-8ca2-4ce5-863a-fac5b017337d\" name=\"Changes\" comment=\"friend request\">\r\n      <change beforePath=\"$PROJECT_DIR$/.idea/libraries/mysql_connector_j_9_1_0.xml\" beforeDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/.idea/workspace.xml\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/.idea/workspace.xml\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/out/production/inso_leveltrack/.idea/inso_leveltrack.iml\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/out/production/inso_leveltrack/.idea/inso_leveltrack.iml\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/out/production/inso_leveltrack/com/leveltrack/util/DatabaseConnection.class\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/out/production/inso_leveltrack/com/leveltrack/util/DatabaseConnection.class\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/out/production/inso_leveltrack/main/resources/queries.properties\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/out/production/inso_leveltrack/main/resources/queries.properties\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/out/production/inso_leveltrack/queries.properties\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/out/production/inso_leveltrack/queries.properties\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/src/.idea/inso_leveltrack.iml\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/src/.idea/inso_leveltrack.iml\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/src/main/java/com/leveltrack/util/DatabaseConnection.java\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/src/main/java/com/leveltrack/util/DatabaseConnection.java\" afterDir=\"false\" />\r\n    </list>\r\n    <option name=\"SHOW_DIALOG\" value=\"false\" />\r\n    <option name=\"HIGHLIGHT_CONFLICTS\" value=\"true\" />\r\n    <option name=\"HIGHLIGHT_NON_ACTIVE_CHANGELIST\" value=\"false\" />\r\n    <option name=\"LAST_RESOLUTION\" value=\"IGNORE\" />\r\n  </component>\r\n  <component name=\"FileTemplateManagerImpl\">\r\n    <option name=\"RECENT_TEMPLATES\">\r\n      <list>\r\n        <option value=\"Class\" />\r\n      </list>\r\n    </option>\r\n  </component>\r\n  <component name=\"Git.Settings\">\r\n    <option name=\"RECENT_GIT_ROOT_PATH\" value=\"$PROJECT_DIR$\" />\r\n  </component>\r\n  <component name=\"GitHubPullRequestSearchHistory\">{\r\n  &quot;lastFilter&quot;: {\r\n    &quot;state&quot;: &quot;OPEN&quot;,\r\n    &quot;assignee&quot;: &quot;eondig00&quot;\r\n  }\r\n}</component>\r\n  <component name=\"GithubPullRequestsUISettings\"><![CDATA[{\r\n  \"selectedUrlAndAccountId\": {\r\n    \"url\": \"https://github.com/dpereg20/inso_leveltrack.git\",\r\n    \"accountId\": \"f0535278-107b-435c-bb0e-0c47ab4b0d98\"\r\n  }\r\n}]]></component>\r\n  <component name=\"KubernetesApiPersistence\">{}</component>\r\n  <component name=\"KubernetesApiProvider\">{\r\n  &quot;isMigrated&quot;: true\r\n}</component>\r\n  <component name=\"ProblemsViewState\">\r\n    <option name=\"selectedTabId\" value=\"ProjectErrors\" />\r\n  </component>\r\n  <component name=\"ProjectColorInfo\">{\r\n  &quot;associatedIndex&quot;: 4\r\n}</component>\r\n  <component name=\"ProjectId\" id=\"2r4RtESkdPHzenpy3OiGezxsPVo\" />\r\n  <component name=\"ProjectLevelVcsManager\">\r\n    <ConfirmationsSetting value=\"1\" id=\"Add\" />\r\n  </component>\r\n  <component name=\"ProjectViewState\">\r\n    <option name=\"hideEmptyMiddlePackages\" value=\"true\" />\r\n    <option name=\"showLibraryContents\" value=\"true\" />\r\n  </component>\r\n  <component name=\"PropertiesComponent\"><![CDATA[{\r\n  \"keyToString\": {\r\n    \"Application.LoginView.executor\": \"Run\",\r\n    \"Application.MainApp.executor\": \"Run\",\r\n    \"Application.RegisterView.executor\": \"Run\",\r\n    \"Application.UserManagementView.executor\": \"Run\",\r\n    \"Docker.docker-compose.yml: Compose Deployment.executor\": \"Run\",\r\n    \"RunOnceActivity.ShowReadmeOnStart\": \"true\",\r\n    \"RunOnceActivity.git.unshallow\": \"true\",\r\n    \"SHARE_PROJECT_CONFIGURATION_FILES\": \"true\",\r\n    \"git-widget-placeholder\": \"main\",\r\n    \"kotlin-language-version-configured\": \"true\",\r\n    \"last_opened_file_path\": \"D:/Descargas/mysql-connector-j-9.1.0.jar\",\r\n    \"node.js.detected.package.eslint\": \"true\",\r\n    \"node.js.detected.package.tslint\": \"true\",\r\n    \"node.js.selected.package.eslint\": \"(autodetect)\",\r\n    \"node.js.selected.package.tslint\": \"(autodetect)\",\r\n    \"nodejs_package_manager_path\": \"npm\",\r\n    \"project.structure.last.edited\": \"Modules\",\r\n    \"project.structure.proportion\": \"0.15\",\r\n    \"project.structure.side.proportion\": \"0.2\",\r\n    \"settings.editor.selected.configurable\": \"preferences.pluginManager\",\r\n    \"vue.rearranger.settings.migration\": \"true\"\r\n  },\r\n  \"keyToStringList\": {\r\n    \"DatabaseDriversLRU\": [\r\n      \"mysql\"\r\n    ]\r\n  }\r\n}]]></component>\r\n  <component name=\"RecentsManager\">\r\n    <key name=\"CopyFile.RECENT_KEYS\">\r\n      <recent name=\"C:\\Users\\elena\\IdeaProjects\\inso_leveltrack\\\" />\r\n      <recent name=\"C:\\Users\\elena\\IdeaProjects\\inso_leveltrack\\src\\main\" />\r\n      <recent name=\"C:\\Users\\elena\\Documents\\GitHub\\inso_leveltrack\" />\r\n    </key>\r\n  </component>\r\n  <component name=\"RunManager\" selected=\"Application.MainApp\">\r\n    <configuration name=\"MainApp\" type=\"Application\" factoryName=\"Application\" temporary=\"true\" nameIsGenerated=\"true\">\r\n      <option name=\"MAIN_CLASS_NAME\" value=\"com.leveltrack.view.MainApp\" />\r\n      <module name=\"inso_leveltrack\" />\r\n      <extension name=\"coverage\">\r\n        <pattern>\r\n          <option name=\"PATTERN\" value=\"com.leveltrack.view.*\" />\r\n          <option name=\"ENABLED\" value=\"true\" />\r\n        </pattern>\r\n      </extension>\r\n      <method v=\"2\">\r\n        <option name=\"Make\" enabled=\"true\" />\r\n      </method>\r\n    </configuration>\r\n    <configuration name=\"UserManagementView\" type=\"Application\" factoryName=\"Application\" temporary=\"true\" nameIsGenerated=\"true\">\r\n      <option name=\"MAIN_CLASS_NAME\" value=\"com.leveltrack.view.UserManagementView\" />\r\n      <module name=\"inso_leveltrack\" />\r\n      <extension name=\"coverage\">\r\n        <pattern>\r\n          <option name=\"PATTERN\" value=\"com.leveltrack.view.*\" />\r\n          <option name=\"ENABLED\" value=\"true\" />\r\n        </pattern>\r\n      </extension>\r\n      <method v=\"2\">\r\n        <option name=\"Make\" enabled=\"true\" />\r\n      </method>\r\n    </configuration>\r\n    <configuration name=\"com.leveltrack.view.LoginView\" type=\"Application\" factoryName=\"Application\" temporary=\"true\" nameIsGenerated=\"true\">\r\n      <option name=\"MAIN_CLASS_NAME\" value=\"com.leveltrack.view.LoginView\" />\r\n      <module name=\"inso_leveltrack\" />\r\n      <extension name=\"coverage\">\r\n        <pattern>\r\n          <option name=\"PATTERN\" value=\"com.leveltrack.view.*\" />\r\n          <option name=\"ENABLED\" value=\"true\" />\r\n        </pattern>\r\n      </extension>\r\n      <method v=\"2\">\r\n        <option name=\"Make\" enabled=\"true\" />\r\n      </method>\r\n    </configuration>\r\n    <configuration name=\"com.leveltrack.view.RegisterView\" type=\"Application\" factoryName=\"Application\" temporary=\"true\" nameIsGenerated=\"true\">\r\n      <option name=\"MAIN_CLASS_NAME\" value=\"com.leveltrack.view.RegisterView\" />\r\n      <module name=\"inso_leveltrack\" />\r\n      <extension name=\"coverage\">\r\n        <pattern>\r\n          <option name=\"PATTERN\" value=\"com.leveltrack.view.*\" />\r\n          <option name=\"ENABLED\" value=\"true\" />\r\n        </pattern>\r\n      </extension>\r\n      <method v=\"2\">\r\n        <option name=\"Make\" enabled=\"true\" />\r\n      </method>\r\n    </configuration>\r\n    <configuration default=\"true\" type=\"docker-deploy\" factoryName=\"docker-compose.yml\" temporary=\"true\">\r\n      <deployment type=\"docker-compose.yml\">\r\n        <settings />\r\n      </deployment>\r\n      <method v=\"2\" />\r\n    </configuration>\r\n    <configuration name=\"docker-compose.yml: Compose Deployment\" type=\"docker-deploy\" factoryName=\"docker-compose.yml\" temporary=\"true\" server-name=\"Docker\">\r\n      <deployment type=\"docker-compose.yml\">\r\n        <settings>\r\n          <option name=\"sourceFilePath\" value=\"docker-compose.yml\" />\r\n        </settings>\r\n      </deployment>\r\n      <method v=\"2\" />\r\n    </configuration>\r\n    <list>\r\n      <item itemvalue=\"Application.UserManagementView\" />\r\n      <item itemvalue=\"Application.MainApp\" />\r\n      <item itemvalue=\"Application.com.leveltrack.view.LoginView\" />\r\n      <item itemvalue=\"Application.com.leveltrack.view.RegisterView\" />\r\n      <item itemvalue=\"Docker.docker-compose.yml: Compose Deployment\" />\r\n    </list>\r\n    <recent_temporary>\r\n      <list>\r\n        <item itemvalue=\"Application.MainApp\" />\r\n        <item itemvalue=\"Application.UserManagementView\" />\r\n        <item itemvalue=\"Docker.docker-compose.yml: Compose Deployment\" />\r\n        <item itemvalue=\"Application.com.leveltrack.view.RegisterView\" />\r\n        <item itemvalue=\"Application.com.leveltrack.view.LoginView\" />\r\n      </list>\r\n    </recent_temporary>\r\n  </component>\r\n  <component name=\"SpellCheckerSettings\" RuntimeDictionaries=\"0\" Folders=\"0\" CustomDictionaries=\"0\" DefaultDictionary=\"application-level\" UseSingleDictionary=\"true\" transferred=\"true\" />\r\n  <component name=\"TaskManager\">\r\n    <task active=\"true\" id=\"Default\" summary=\"Default task\">\r\n      <changelist id=\"83ec2d2c-8ca2-4ce5-863a-fac5b017337d\" name=\"Changes\" comment=\"\" />\r\n      <created>1735816575957</created>\r\n      <option name=\"number\" value=\"Default\" />\r\n      <option name=\"presentableId\" value=\"Default\" />\r\n      <updated>1735816575957</updated>\r\n      <workItem from=\"1735816577947\" duration=\"1808000\" />\r\n      <workItem from=\"1735822993394\" duration=\"973000\" />\r\n      <workItem from=\"1735824212155\" duration=\"1277000\" />\r\n      <workItem from=\"1735848420748\" duration=\"28000\" />\r\n      <workItem from=\"1735848470328\" duration=\"44000\" />\r\n      <workItem from=\"1735848555890\" duration=\"177000\" />\r\n      <workItem from=\"1735848906037\" duration=\"368000\" />\r\n      <workItem from=\"1736274163106\" duration=\"306000\" />\r\n      <workItem from=\"1736274783108\" duration=\"145000\" />\r\n    </task>\r\n    <task id=\"LOCAL-00001\" summary=\"prueba login\">\r\n      <option name=\"closed\" value=\"true\" />\r\n      <created>1735824475349</created>\r\n      <option name=\"number\" value=\"00001\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00001\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1735824475349</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00002\" summary=\"friend request\">\r\n      <option name=\"closed\" value=\"true\" />\r\n      <created>1736269748121</created>\r\n      <option name=\"number\" value=\"00002\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00002\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1736269748121</updated>\r\n    </task>\r\n    <option name=\"localTasksCounter\" value=\"3\" />\r\n    <servers />\r\n  </component>\r\n  <component name=\"TypeScriptGeneratedFilesManager\">\r\n    <option name=\"version\" value=\"3\" />\r\n  </component>\r\n  <component name=\"Vcs.Log.Tabs.Properties\">\r\n    <option name=\"TAB_STATES\">\r\n      <map>\r\n        <entry key=\"MAIN\">\r\n          <value>\r\n            <State />\r\n          </value>\r\n        </entry>\r\n      </map>\r\n    </option>\r\n  </component>\r\n  <component name=\"VcsManagerConfiguration\">\r\n    <MESSAGE value=\"prueba login\" />\r\n    <MESSAGE value=\"aa\" />\r\n    <MESSAGE value=\"friend request\" />\r\n    <option name=\"LAST_COMMIT_MESSAGE\" value=\"friend request\" />\r\n  </component>\r\n</project>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/workspace.xml b/.idea/workspace.xml
+--- a/.idea/workspace.xml	(revision 025accd3d8740963100a9d3f8eb56ee011be4015)
++++ b/.idea/workspace.xml	(date 1736642969290)
+@@ -4,16 +4,7 @@
+     <option name="autoReloadType" value="SELECTIVE" />
+   </component>
+   <component name="ChangeListManager">
+-    <list default="true" id="83ec2d2c-8ca2-4ce5-863a-fac5b017337d" name="Changes" comment="friend request">
+-      <change beforePath="$PROJECT_DIR$/.idea/libraries/mysql_connector_j_9_1_0.xml" beforeDir="false" />
+-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/out/production/inso_leveltrack/.idea/inso_leveltrack.iml" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/inso_leveltrack/.idea/inso_leveltrack.iml" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/out/production/inso_leveltrack/com/leveltrack/util/DatabaseConnection.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/inso_leveltrack/com/leveltrack/util/DatabaseConnection.class" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/out/production/inso_leveltrack/main/resources/queries.properties" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/inso_leveltrack/main/resources/queries.properties" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/out/production/inso_leveltrack/queries.properties" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/inso_leveltrack/queries.properties" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/src/.idea/inso_leveltrack.iml" beforeDir="false" afterPath="$PROJECT_DIR$/src/.idea/inso_leveltrack.iml" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/src/main/java/com/leveltrack/util/DatabaseConnection.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/leveltrack/util/DatabaseConnection.java" afterDir="false" />
+-    </list>
++    <list default="true" id="83ec2d2c-8ca2-4ce5-863a-fac5b017337d" name="Changes" comment="" />
+     <option name="SHOW_DIALOG" value="false" />
+     <option name="HIGHLIGHT_CONFLICTS" value="true" />
+     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+@@ -35,18 +26,18 @@
+     &quot;assignee&quot;: &quot;eondig00&quot;
+   }
+ }</component>
+-  <component name="GithubPullRequestsUISettings"><![CDATA[{
+-  "selectedUrlAndAccountId": {
+-    "url": "https://github.com/dpereg20/inso_leveltrack.git",
+-    "accountId": "f0535278-107b-435c-bb0e-0c47ab4b0d98"
+-  }
+-}]]></component>
++  <component name="GithubPullRequestsUISettings">{
++  &quot;selectedUrlAndAccountId&quot;: {
++    &quot;url&quot;: &quot;https://github.com/dpereg20/inso_leveltrack.git&quot;,
++    &quot;accountId&quot;: &quot;f0535278-107b-435c-bb0e-0c47ab4b0d98&quot;
++  }
++}</component>
+   <component name="KubernetesApiPersistence">{}</component>
+   <component name="KubernetesApiProvider">{
+   &quot;isMigrated&quot;: true
+ }</component>
+   <component name="ProblemsViewState">
+-    <option name="selectedTabId" value="ProjectErrors" />
++    <option name="selectedTabId" value="CurrentFile" />
+   </component>
+   <component name="ProjectColorInfo">{
+   &quot;associatedIndex&quot;: 4
+@@ -59,36 +50,36 @@
+     <option name="hideEmptyMiddlePackages" value="true" />
+     <option name="showLibraryContents" value="true" />
+   </component>
+-  <component name="PropertiesComponent"><![CDATA[{
+-  "keyToString": {
+-    "Application.LoginView.executor": "Run",
+-    "Application.MainApp.executor": "Run",
+-    "Application.RegisterView.executor": "Run",
+-    "Application.UserManagementView.executor": "Run",
+-    "Docker.docker-compose.yml: Compose Deployment.executor": "Run",
+-    "RunOnceActivity.ShowReadmeOnStart": "true",
+-    "RunOnceActivity.git.unshallow": "true",
+-    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
+-    "git-widget-placeholder": "main",
+-    "kotlin-language-version-configured": "true",
+-    "last_opened_file_path": "D:/Descargas/mysql-connector-j-9.1.0.jar",
+-    "node.js.detected.package.eslint": "true",
+-    "node.js.detected.package.tslint": "true",
+-    "node.js.selected.package.eslint": "(autodetect)",
+-    "node.js.selected.package.tslint": "(autodetect)",
+-    "nodejs_package_manager_path": "npm",
+-    "project.structure.last.edited": "Modules",
+-    "project.structure.proportion": "0.15",
+-    "project.structure.side.proportion": "0.2",
+-    "settings.editor.selected.configurable": "preferences.pluginManager",
+-    "vue.rearranger.settings.migration": "true"
++  <component name="PropertiesComponent">{
++  &quot;keyToString&quot;: {
++    &quot;Application.LoginView.executor&quot;: &quot;Run&quot;,
++    &quot;Application.MainApp.executor&quot;: &quot;Run&quot;,
++    &quot;Application.RegisterView.executor&quot;: &quot;Run&quot;,
++    &quot;Application.UserManagementView.executor&quot;: &quot;Run&quot;,
++    &quot;Docker.docker-compose.yml: Compose Deployment.executor&quot;: &quot;Run&quot;,
++    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
++    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
++    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
++    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
++    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
++    &quot;last_opened_file_path&quot;: &quot;D:/Descargas/mysql-connector-j-9.1.0.jar&quot;,
++    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
++    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
++    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
++    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
++    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
++    &quot;project.structure.last.edited&quot;: &quot;Modules&quot;,
++    &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
++    &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
++    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;,
++    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+   },
+-  "keyToStringList": {
+-    "DatabaseDriversLRU": [
+-      "mysql"
++  &quot;keyToStringList&quot;: {
++    &quot;DatabaseDriversLRU&quot;: [
++      &quot;mysql&quot;
+     ]
+   }
+-}]]></component>
++}</component>
+   <component name="RecentsManager">
+     <key name="CopyFile.RECENT_KEYS">
+       <recent name="C:\Users\elena\IdeaProjects\inso_leveltrack\" />
+@@ -164,8 +155,8 @@
+       <method v="2" />
+     </configuration>
+     <list>
+-      <item itemvalue="Application.UserManagementView" />
+       <item itemvalue="Application.MainApp" />
++      <item itemvalue="Application.UserManagementView" />
+       <item itemvalue="Application.com.leveltrack.view.LoginView" />
+       <item itemvalue="Application.com.leveltrack.view.RegisterView" />
+       <item itemvalue="Docker.docker-compose.yml: Compose Deployment" />
+@@ -214,7 +205,15 @@
+       <option name="project" value="LOCAL" />
+       <updated>1736269748121</updated>
+     </task>
+-    <option name="localTasksCounter" value="3" />
++    <task id="LOCAL-00003" summary="Añadida creación de la base de datos en el docker y cambiadas las credenciales para que funcione bien">
++      <option name="closed" value="true" />
++      <created>1736304983756</created>
++      <option name="number" value="00003" />
++      <option name="presentableId" value="LOCAL-00003" />
++      <option name="project" value="LOCAL" />
++      <updated>1736304983756</updated>
++    </task>
++    <option name="localTasksCounter" value="4" />
+     <servers />
+   </component>
+   <component name="TypeScriptGeneratedFilesManager">
+@@ -235,6 +234,7 @@
+     <MESSAGE value="prueba login" />
+     <MESSAGE value="aa" />
+     <MESSAGE value="friend request" />
+-    <option name="LAST_COMMIT_MESSAGE" value="friend request" />
++    <MESSAGE value="Añadida creación de la base de datos en el docker y cambiadas las credenciales para que funcione bien" />
++    <option name="LAST_COMMIT_MESSAGE" value="Añadida creación de la base de datos en el docker y cambiadas las credenciales para que funcione bien" />
+   </component>
+ </project>
+\ No newline at end of file
