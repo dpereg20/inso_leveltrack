@@ -87,7 +87,7 @@ class LibraryView extends JPanel {
                     }
                 } catch (NumberFormatException ex) {
                     JOptionPane.showMessageDialog(this, "Score must be a valid integer.", "Invalid Input", JOptionPane.ERROR_MESSAGE);
-                    tableModel.setValueAt("", row, column); // Limpiar el campo inválido
+                    tableModel.setValueAt(0, row, column); // Limpiar el campo inválido
                 }
             }
         });
@@ -136,7 +136,7 @@ class LibraryView extends JPanel {
                     game.getGenre(),
                     game.getPrice(),
                     game.getState(),
-                    "" // Campo Score inicial vacío
+                    game.getScore(), // Campo Score inicial vacío
             });
         }
     }

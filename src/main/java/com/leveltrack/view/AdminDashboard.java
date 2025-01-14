@@ -234,7 +234,7 @@ public class AdminDashboard extends JPanel {
             }
 
             if (game == null) { // Add new game
-                Game newGame = new Game(0, name, genre, price, "Available");
+                Game newGame = new Game(0, name, genre, price, "Available", 0);
                 if (adminController.addGame(newGame)) {
                     JOptionPane.showMessageDialog(dialog, "Game added successfully!");
                     refreshGameTable(gameTableModel);

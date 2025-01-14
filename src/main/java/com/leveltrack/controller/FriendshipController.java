@@ -21,7 +21,7 @@ public class FriendshipController {
         return friendshipService.sendFriendRequest(requesterId, receiverId);
     }
 
-    public boolean checkValidRequest(int requesterId, int receiverId){
+    public boolean checkValidRequest(int requesterId, int receiverId) {
         return friendshipService.checkValidRequest(requesterId, receiverId);
     }
 
@@ -37,9 +37,14 @@ public class FriendshipController {
         return friendshipService.getFriends(userId);
     }
 
-    public int getUserIdByEmail(String userEmail){
+    public int getUserIdByEmail(String userEmail) {
         return friendshipService.getUserIdByEmail(userEmail);
     }
+
+    public boolean deleteFriend(int userId, int friendId){
+        return friendshipService.deleteFriend(userId, friendId);
+    }
+
 }
 
 

@@ -31,7 +31,11 @@ public class AdminController {
     }
 
     public boolean addGame(Game game) {
-        return gameService.addGame(game);
+        if(gameService.isGameInDatabase(game.getName())){
+            return false;
+        }else{
+            return gameService.addGame(game);
+        }
     }
 
     public boolean updateGame(Game game) {

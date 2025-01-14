@@ -31,7 +31,8 @@ public class LibraryDAOImpl implements LibraryDAO {
                         rs.getString("name"),
                         rs.getString("genre"),
                         rs.getDouble("price"),
-                        rs.getString("state")
+                        rs.getString("state"),
+                        rs.getInt("game_score")
                 ));
             }
         } catch (SQLException e) {
@@ -50,6 +51,7 @@ public class LibraryDAOImpl implements LibraryDAO {
             stmt.setInt(2, userId);
             stmt.setInt(3, gameId);
             stmt.setString(4, state);
+            stmt.setInt(5, 0);
             int rowsAffected = stmt.executeUpdate();
             return rowsAffected > 0;
         } catch (SQLException e) {
@@ -111,7 +113,8 @@ public class LibraryDAOImpl implements LibraryDAO {
                         rs.getString("name"),
                         rs.getString("genre"),
                         rs.getDouble("price"),
-                        "Available"
+                        "Available",
+                        0
                 );
             }
         } catch (SQLException e) {
@@ -148,7 +151,8 @@ public class LibraryDAOImpl implements LibraryDAO {
                         rs.getString("name"),
                         rs.getString("genre"),
                         rs.getDouble("price"),
-                        "Available" // Default state when fetching from database
+                        "Available", // Default state when fetching from database
+                        rs.getInt("game_score")
                 ));
             }
         } catch (SQLException e) {
@@ -171,7 +175,8 @@ public class LibraryDAOImpl implements LibraryDAO {
                         rs.getString("name"),
                         rs.getString("genre"),
                         rs.getDouble("price"),
-                        rs.getString("state")
+                        rs.getString("state"),
+                        rs.getInt("game_score")
                 ));
             }
         } catch (SQLException e) {
@@ -185,7 +190,6 @@ public class LibraryDAOImpl implements LibraryDAO {
         List<Game> games = new ArrayList<>();
         String query = QueryLoader.getQuery("library.getGamesByGenre"); // Define la consulta en tu archivo de queries
 
-
         try (PreparedStatement stmt = connection.prepareStatement(query)) {
             stmt.setString(1, genre); // Género exacto
             try (ResultSet rs = stmt.executeQuery()) {
@@ -195,7 +199,8 @@ public class LibraryDAOImpl implements LibraryDAO {
                             rs.getString("name"),
                             rs.getString("genre"),
                             rs.getDouble("price"),
-                            rs.getString("state")
+                            "Available",
+                            0
                     ));
                 }
             }
@@ -230,11 +235,12 @@ public class LibraryDAOImpl implements LibraryDAO {
     // Nuevo método para actualizar la puntuación de un juego
     @Override
     public boolean updateGameScore(int gameId, int userId, int score) {
-        String query = "UPDATE user_games SET score = ? WHERE game_id = ? AND user_id = ?";
+        String query = QueryLoader.getQuery("library.updateGameScore");
         try (PreparedStatement stmt = connection.prepareStatement(query)) {
             stmt.setInt(1, score);
             stmt.setInt(2, gameId);
             stmt.setInt(3, userId);
+            stmt.setInt(4, getLibraryIdByUserId(userId));
             int rowsAffected = stmt.executeUpdate();
             return rowsAffected > 0;
         } catch (SQLException e) {
@@ -246,23 +252,19 @@ public class LibraryDAOImpl implements LibraryDAO {
     // Nuevo método para obtener la puntuación de un juego
     @Override
     public int getGameScore(int gameId, int userId) {
-        String query = "SELECT score FROM user_games WHERE game_id = ? AND user_id = ?";
+        String query = QueryLoader.getQuery("library.getGameScore");
         try (PreparedStatement stmt = connection.prepareStatement(query)) {
             stmt.setInt(1, gameId);
             stmt.setInt(2, userId);
+            stmt.setInt(3, getLibraryIdByUserId(userId));
             ResultSet rs = stmt.executeQuery();
             if (rs.next()) {
-                return rs.getInt("score");
+                return rs.getInt("game_score");
             }
         } catch (SQLException e) {
             e.printStackTrace();
         }
         return -1; // Retorna -1 si no se encuentra la puntuación
-    }
-
-    @Override
-    public List<Game> searchGamesByGenre(String genre) {
-        return List.of();
     }
 
     @Override

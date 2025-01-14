@@ -65,8 +65,8 @@ public class LibraryService {
         return gameDAO.searchGamesByName(keyword);
     }
 
-    public List<Game> searchGamesByGenre(String genre) {
-        return libraryDAO.searchGamesByGenre(genre);
+    public List<Game> getGamesByGenre(String genre) {
+        return libraryDAO.getGamesByGenre(genre);
     }
 
     public List<String> getAllGenres() {

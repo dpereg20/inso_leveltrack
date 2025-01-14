@@ -3,6 +3,7 @@ package com.leveltrack.service;
 import com.leveltrack.dao.FriendshipDAO;
 import com.leveltrack.dao.FriendshipDAOImpl;
 import com.leveltrack.model.Friendship;
+import com.leveltrack.model.Game;
 import com.leveltrack.model.UserBase;
 
 import java.util.List;
@@ -41,5 +42,11 @@ public class FriendshipService {
 
     public int getUserIdByEmail(String userEmail){
         return friendshipDAO.getUserIdByEmail(userEmail);
+    }
+
+    public List<Game> getGamesByUserId;
+
+    public boolean deleteFriend(int userId, int friendId){
+        return friendshipDAO.deleteFriend(userId, friendId);
     }
 }

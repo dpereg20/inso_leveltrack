@@ -8,7 +8,7 @@ public class Game {
     private String state;
     private int score;
 
-    public Game(int id, String name, String genre, double price, String state) {
+    public Game(int id, String name, String genre, double price, String state, int score) {
         this.id = id;
         this.name = name;
         this.genre = genre;
@@ -41,7 +41,7 @@ public class Game {
 
     @Override
     public String toString() {
-        return "ID: " + id + ", Name: " + name + ", Genre: " + genre + ", Price: $" + price + ", State: " + state;
+        return "ID: " + id + ", Name: " + name + ", Genre: " + genre + ", Price: $" + price + ", State: " + state + ", Score: " + score;
     }
 
     public void setName(String name) {

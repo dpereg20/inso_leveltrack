@@ -9,7 +9,7 @@ public interface GameDAO {
     Game findGameBySteamAppId(int steamAppId);
     List<Game> findGamesByGenre(String genre);
     Game findGameByName(String name);
-    public boolean isGameInDatabase(String gameName);
+    boolean isGameInDatabase(String gameName);
 
     boolean addGame(Game game);
     boolean updateGame(Game game);

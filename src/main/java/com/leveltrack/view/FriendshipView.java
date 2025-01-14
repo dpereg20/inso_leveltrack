@@ -1,8 +1,7 @@
 package com.leveltrack.view;
 
 import com.leveltrack.controller.FriendshipController;
-import com.leveltrack.dao.FriendshipDAO;
-import com.leveltrack.dao.LibraryDAO;
+import com.leveltrack.controller.LibraryController;
 import com.leveltrack.model.Friendship;
 import com.leveltrack.model.Game;
 import com.leveltrack.model.UserBase;
@@ -105,7 +104,7 @@ public class FriendshipView extends JPanel {
             parentFrame.revalidate();
             parentFrame.repaint();
         });
-/*
+
         JButton viewFriendLibraryButton = new JButton("View Friend Library");
 
         viewFriendLibraryButton.addActionListener((ActionEvent e) -> {
@@ -114,11 +113,17 @@ public class FriendshipView extends JPanel {
                 String email = (String) friendsTable.getValueAt(selectedRow, 1);  // Obtener el email de la fila seleccionada
 
                 // Obtener el userId del email utilizando el metodo getUserIdByEmail
-                int friendId = FriendshipDAO.getUserIdByEmail(email);
+                int friendId = friendshipController.getUserIdByEmail(email);
 
-                if (userId != -1) {
+                if (friendId != -1) {
                     // Obtener la lista de juegos de la librería del usuario seleccionado
-                    List<Game> userLibrary = LibraryDAO.getGamesByUserId(userId);
+                    LibraryController libraryController = null;
+                    try {
+                        libraryController = new LibraryController();
+                    } catch (Exception ex) {
+                        throw new RuntimeException(ex);
+                    }
+                    List<Game> userLibrary = libraryController.getGamesByUserId(friendId);
 
                     // Verificar si la librería tiene juegos y mostrarlos
                     if (!userLibrary.isEmpty()) {
@@ -137,12 +142,32 @@ public class FriendshipView extends JPanel {
             } else {
                 JOptionPane.showMessageDialog(this, "Please select a user to view their library.", "Error", JOptionPane.ERROR_MESSAGE);
             }
-        });*/
+        });
 
+        JButton deleteFriend = new JButton("Delete Friend");
+
+        deleteFriend.addActionListener((ActionEvent e) ->{
+            int selectedRow = friendsTable.getSelectedRow();
+            if (selectedRow != -1) {
+                String email = (String) friendsTable.getValueAt(selectedRow, 1);  // Obtener el email de la fila seleccionada
+
+                // Obtener el userId del email utilizando el metodo getUserIdByEmail
+                int friendId = friendshipController.getUserIdByEmail(email);
+
+                if(friendshipController.deleteFriend(userId, friendId)){
+                    JOptionPane.showMessageDialog(this, "Friend deleted successfully.", "Success", JOptionPane.INFORMATION_MESSAGE);
+                    refreshFriendsList(userId, (DefaultTableModel) friendsTable.getModel());
+                }else{
+                    JOptionPane.showMessageDialog(this, "Friend can't be deleted.", "Error", JOptionPane.ERROR_MESSAGE);
+                }
+
+            }
+        });
         JPanel bottomPanel = new JPanel(new FlowLayout());
         bottomPanel.add(sendRequestButton);
+        bottomPanel.add(viewFriendLibraryButton);
+        bottomPanel.add(deleteFriend);
         bottomPanel.add(backButton);
-    //    bottomPanel.add(viewFriendLibraryButton);
         add(bottomPanel, BorderLayout.SOUTH);
     }
 

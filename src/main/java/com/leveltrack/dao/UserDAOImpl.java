@@ -96,8 +96,6 @@ public class UserDAOImpl implements UserDAO {
         return user;
     }
 
-
-
     @Override
     public List<UserBase> findAll() {
         List<UserBase> users = new ArrayList<>();
@@ -117,38 +115,6 @@ public class UserDAOImpl implements UserDAO {
             e.printStackTrace();
         }
         return users;
-    }
-
-
-    @Override
-    public boolean insert(UserBase user) {
-        String query = QueryLoader.getQuery("user.insert");
-        try (PreparedStatement stmt = connection.prepareStatement(query)) {
-            stmt.setString(1, user.getName());
-            stmt.setString(2, user.getEmail());
-            stmt.setString(3, user.getPassword());
-            stmt.setString(4, user.getRole());
-            return stmt.executeUpdate() > 0;
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return false;
-    }
-
-    @Override
-    public boolean update(UserBase user) {
-        String query = QueryLoader.getQuery("user.update");
-        try (PreparedStatement stmt = connection.prepareStatement(query)) {
-            stmt.setString(1, user.getName());
-            stmt.setString(2, user.getEmail());
-            stmt.setString(3, user.getPassword());
-            stmt.setString(4, user.getRole());
-            stmt.setInt(5, user.getId());
-            return stmt.executeUpdate() > 0;
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return false;
     }
 
     @Override

@@ -30,6 +30,10 @@ public class GameService {
         return gameDAO.deleteGame(gameId);
     }
 
+    public boolean isGameInDatabase(String gameName){
+        return gameDAO.isGameInDatabase(gameName);
+    }
+
     public List<Game> getAllGames() {
         try {
             return gameDAO.getAllGames();

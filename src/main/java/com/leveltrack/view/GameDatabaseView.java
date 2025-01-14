@@ -126,7 +126,7 @@ class GameDatabaseView extends JPanel {
         tableModel.setRowCount(0);
         List<Game> games = libraryController.getAllGames();
         for (Game game : games) {
-            tableModel.addRow(new Object[]{game.getId(), game.getName(), game.getGenre(), game.getPrice()});
+            tableModel.addRow(new Object[]{(Object) game.getId(), game.getName(), game.getGenre(), (Object) game.getPrice()});
         }
     }
 
@@ -140,7 +140,7 @@ class GameDatabaseView extends JPanel {
 
     private void refreshGameDatabaseByGenre(DefaultTableModel tableModel, String genre) {
         tableModel.setRowCount(0);
-        List<Game> games = libraryController.searchGamesByGenre(genre);
+        List<Game> games = libraryController.getGamesByGenre(genre);
         for (Game game : games) {
             tableModel.addRow(new Object[]{game.getId(), game.getName(), game.getGenre(), game.getPrice()});
         }

@@ -37,14 +37,6 @@ public class LibraryController {
         return libraryService.removeGameFromLibrary(libraryId, gameId);
     }
 
-    public boolean changeGameState(int userId, int gameId, String newState) {
-        return libraryService.updateGameState(userId, gameId, newState);
-    }
-
-    public List<Game> getAvailableGames() {
-        return libraryService.getAllGamesFromDatabase();
-    }
-
     public List<Game> getAllGames() {
         return libraryService.getAllGames();
     }
@@ -53,8 +45,8 @@ public class LibraryController {
         return libraryService.searchGamesByName(keyword);
     }
 
-    public List<Game> searchGamesByGenre(String genre) {
-        return libraryService.searchGamesByGenre(genre);
+    public List<Game> getGamesByGenre(String genre) {
+        return libraryService.getGamesByGenre(genre);
     }
 
     public List<String> getAllGenres() {

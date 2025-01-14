@@ -25,6 +25,7 @@ CREATE TABLE LibraryGames (
                               user_id INT NOT NULL,
                               game_id INT NOT NULL,
                               state ENUM('Available', 'Playing', 'Paused', 'Completed', 'Dropped', 'Wishlist', 'Replaying') DEFAULT 'Available',
+                              game_score INT,
                               FOREIGN KEY (library_id) REFERENCES Libraries(id) ON DELETE CASCADE,
                               FOREIGN KEY (user_id) REFERENCES Users(id) ON DELETE CASCADE,
                               FOREIGN KEY (game_id) REFERENCES Games(id) ON DELETE CASCADE

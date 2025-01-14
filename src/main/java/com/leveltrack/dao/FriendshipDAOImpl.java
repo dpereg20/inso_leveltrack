@@ -180,5 +180,21 @@ public class FriendshipDAOImpl implements FriendshipDAO {
             return -1;  // Retorna -1 en caso de error en la consulta
         }
     }
+
+    @Override
+    public boolean deleteFriend(int userId, int friendId){
+        String query = QueryLoader.getQuery("friendship.deleteFriend");
+        try(PreparedStatement stmt = connection.prepareStatement(query)){
+            stmt.setInt(1, userId);
+            stmt.setInt(2, friendId);
+            stmt.setInt(3, friendId);
+            stmt.setInt(4, userId);
+
+            return stmt.executeUpdate() > 0;
+        }catch (SQLException e){
+            e.printStackTrace();
+            return false;
+        }
+    }
 }
 

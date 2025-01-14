@@ -58,7 +58,9 @@ public class GameDAOImpl implements GameDAO {
                         rs.getString("name"),
                         rs.getString("genre"),
                         rs.getDouble("price"),
-                        rs.getString("state"));
+                        rs.getString("state"),
+                        0
+                );
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -79,7 +81,10 @@ public class GameDAOImpl implements GameDAO {
                         rs.getString("name"),
                         rs.getString("genre"),
                         rs.getDouble("price"),
-                        rs.getString("state")));
+                        rs.getString("state"),
+                        0
+                        )
+                );
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -99,7 +104,9 @@ public class GameDAOImpl implements GameDAO {
                         rs.getString("name"),
                         rs.getString("genre"),
                         rs.getDouble("price"),
-                        rs.getString("state"));
+                        rs.getString("state"),
+                        0
+                );
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -152,7 +159,7 @@ public class GameDAOImpl implements GameDAO {
     @Override
     public List<Game> getAllGames() {
         List<Game> games = new ArrayList<>();
-        String query = "SELECT id, name, genre, price FROM Games";
+        String query = QueryLoader.getQuery("game.findAll");
         try (PreparedStatement stmt = connection.prepareStatement(query);
              ResultSet rs = stmt.executeQuery()) {
             while (rs.next()) {
@@ -161,7 +168,8 @@ public class GameDAOImpl implements GameDAO {
                         rs.getString("name"),
                         rs.getString("genre"),
                         rs.getDouble("price"),
-                        "Available" // Default state or fetch it if stored in DB
+                        "Available", // Default state or fetch it if stored in DB
+                        0
                 ));
             }
         } catch (Exception e) {
@@ -183,7 +191,8 @@ public class GameDAOImpl implements GameDAO {
                         rs.getString("name"),
                         rs.getString("genre"),
                         rs.getDouble("price"),
-                        null
+                        null,
+                        0
                 ));
             }
         } catch (SQLException e) {
