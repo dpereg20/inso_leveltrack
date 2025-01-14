@@ -11,13 +11,34 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Implementation of the FriendshipDAO interface for managing friendship-related data
+ * in the "Level Track" application.
+ * This class interacts with the database to perform CRUD operations for friendship management.
+ *
+ * @author Level Track
+ * @since 1.0
+ */
+
 public class FriendshipDAOImpl implements FriendshipDAO {
     private final Connection connection;
+
+    /**
+     * Constructs a new FriendshipDAOImpl and initializes the database connection.
+     *
+     * @throws Exception if there is an issue initializing the database connection.
+     */
 
     public FriendshipDAOImpl() throws Exception {
         this.connection = DatabaseConnection.getInstance().getConnection();
     }
 
+    /**
+     * Searches for users in the system whose details match the provided keyword.
+     *
+     * @param keyword The search term to match user names or emails.
+     * @return A list of UserBase objects that match the search criteria.
+     */
     @Override
     public List<UserBase> searchUsers(String keyword) {
         List<UserBase> users = new ArrayList<>();
@@ -39,6 +60,15 @@ public class FriendshipDAOImpl implements FriendshipDAO {
         return users;
     }
 
+    /**
+     * Creates an instance of the appropriate UserBase subclass based on the user's role.
+     *
+     * @param role  The role of the user.
+     * @param id    The user ID.
+     * @param name  The user's name.
+     * @param email The user's email.
+     * @return An instance of Administrator, Moderator, or Regular_User.
+     */
     private UserBase createUserInstance(String role, int id, String name, String email) {
         switch (role) {
             case "ADMINISTRATOR":
@@ -51,7 +81,12 @@ public class FriendshipDAOImpl implements FriendshipDAO {
         }
     }
 
-
+    /**
+     * Retrieves the friends of a specific user.
+     *
+     * @param userId The ID of the user.
+     * @return A list of UserBase objects representing the user's friends.
+     */
     @Override
     public List<UserBase> getFriends(int userId) {
         List<UserBase> friends = new ArrayList<>();
@@ -77,7 +112,13 @@ public class FriendshipDAOImpl implements FriendshipDAO {
         return friends;
     }
 
-
+    /**
+     * Sends a friend request from one user to another.
+     *
+     * @param requesterId The ID of the user sending the request.
+     * @param receiverId  The ID of the user receiving the request.
+     * @return {@code true} if the request was successfully sent; {@code false} otherwise.
+     */
     @Override
     public boolean sendFriendRequest(int requesterId, int receiverId) {
         if(requesterId == receiverId){
@@ -95,6 +136,13 @@ public class FriendshipDAOImpl implements FriendshipDAO {
         }
     }
 
+    /**
+     * Validates whether a friend request can be sent between two users.
+     *
+     * @param requesterId The ID of the requesting user.
+     * @param receiverId  The ID of the receiving user.
+     * @return {@code true} if the request is valid; {@code false} otherwise.
+     */
     public boolean checkValidRequest(int requesterId, int receiverId){
         String checkFriendshipQuery = QueryLoader.getQuery("friendship.checkFriendship");
         try (PreparedStatement checkFriendshipStmt = connection.prepareStatement(checkFriendshipQuery)) {
@@ -129,6 +177,12 @@ public class FriendshipDAOImpl implements FriendshipDAO {
     }
     }
 
+    /**
+     * Receives a friend request from one user to another.
+     *
+     * @param userId The ID of the user sending the request.
+     * @return A list of the friendship request received by the user with the Id userId
+     */
     @Override
     public List<Friendship> getFriendRequests(int userId) {
         List<Friendship> requests = new ArrayList<>();
