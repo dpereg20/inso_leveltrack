@@ -19,6 +19,13 @@ public class UserDAOImpl implements UserDAO {
         this.connection = DatabaseConnection.getInstance().getConnection();
     }
 
+    /**
+     * Finds a user based on their email and password.
+     *
+     * @param email    The email of the user.
+     * @param password The password of the user.
+     * @return A {@link UserBase} object representing the user if found, or {@code null} if not found.
+     */
     @Override
     public UserBase findByEmailAndPassword(String email, String password) {
         UserBase user = null;
@@ -29,6 +36,7 @@ public class UserDAOImpl implements UserDAO {
             ResultSet rs = stmt.executeQuery();
             if (rs.next()) {
                 String role = rs.getString("role");
+                System.out.println("Role from database: " + role);
                 user = createUserInstance(
                         role,
                         rs.getInt("id"),
@@ -42,7 +50,15 @@ public class UserDAOImpl implements UserDAO {
         return user;
     }
 
-
+    /**
+     * Creates a user instance based on the provided role.
+     *
+     * @param role  The role of the user (e.g., "ADMINISTRATOR", "MODERATOR", "REGULAR_USER").
+     * @param id    The user's ID.
+     * @param name  The user's name.
+     * @param email The user's email.
+     * @return A {@link UserBase} object corresponding to the specified role.
+     */
     private UserBase createUserInstance(String role, int id, String name, String email) {
         switch (role) {
             case "ADMINISTRATOR":
@@ -54,7 +70,12 @@ public class UserDAOImpl implements UserDAO {
         }
     }
 
-
+    /**
+     * Finds a user by their ID.
+     *
+     * @param id The ID of the user.
+     * @return A {@link UserBase} object representing the user if found, or {@code null} if not found.
+     */
     @Override
     public UserBase findById(int id) {
         String query = QueryLoader.getQuery("user.findById");
@@ -77,6 +98,16 @@ public class UserDAOImpl implements UserDAO {
         return null;
     }
 
+    /**
+     * Creates a user instance based on the provided role and user details.
+     *
+     * @param role    The role of the user (e.g., "ADMINISTRATOR", "MODERATOR", "REGULAR_USER").
+     * @param id      The user's ID.
+     * @param name    The user's name.
+     * @param email   The user's email.
+     * @param password The user's password.
+     * @return A {@link UserBase} object representing the user.
+     */
     private UserBase createUserInstance(String role, int id, String name, String email, String password) {
         UserBase user;
         switch (role) {
@@ -95,6 +126,11 @@ public class UserDAOImpl implements UserDAO {
         return user;
     }
 
+    /**
+     * Retrieves all users in the system.
+     *
+     * @return A list of {@link UserBase} objects representing all users.
+     */
     @Override
     public List<UserBase> findAll() {
         List<UserBase> users = new ArrayList<>();
@@ -116,6 +152,12 @@ public class UserDAOImpl implements UserDAO {
         return users;
     }
 
+    /**
+     * Deletes a user from the system based on their ID.
+     *
+     * @param id The ID of the user to be deleted.
+     * @return {@code true} if the user was successfully deleted, {@code false} otherwise.
+     */
     @Override
     public boolean delete(int id) {
         String query = QueryLoader.getQuery("user.delete");
@@ -128,6 +170,12 @@ public class UserDAOImpl implements UserDAO {
         return false;
     }
 
+    /**
+     * Creates a new user and inserts them into the system.
+     *
+     * @param user The user to be created.
+     * @return {@code true} if the user was successfully created, {@code false} otherwise.
+     */
     @Override
     public boolean createUser(UserBase user) {
         String query = QueryLoader.getQuery("user.insert");
@@ -169,7 +217,12 @@ public class UserDAOImpl implements UserDAO {
         return false;
     }
 
-
+    /**
+     * Updates the profile information of a user.
+     *
+     * @param user The user whose profile is to be updated.
+     * @return {@code true} if the profile was successfully updated, {@code false} otherwise.
+     */
     @Override
     public boolean updateProfiled(UserBase user) {
         String query = QueryLoader.getQuery("user.updateProfile");
@@ -185,6 +238,15 @@ public class UserDAOImpl implements UserDAO {
         return false;
     }
 
+    /**
+     * Updates the profile information of a user by their ID.
+     *
+     * @param id       The ID of the user whose profile is to be updated.
+     * @param name     The new name of the user.
+     * @param email    The new email of the user.
+     * @param password The new password of the user.
+     * @return {@code true} if the profile was successfully updated, {@code false} otherwise.
+     */
     @Override
     public boolean updateProfile(int id, String name, String email, String password) {
         String query = QueryLoader.getQuery("user.updateProfile");
@@ -200,8 +262,13 @@ public class UserDAOImpl implements UserDAO {
         }
     }
 
-
-
+    /**
+     * Updates the role of a user.
+     *
+     * @param userId  The ID of the user whose role is to be updated.
+     * @param newRole The new role for the user.
+     * @return {@code true} if the role was successfully updated, {@code false} otherwise.
+     */
     @Override
     public boolean updateUserRole(int userId, String newRole) {
         String query = QueryLoader.getQuery("user.updateRole");
@@ -216,6 +283,12 @@ public class UserDAOImpl implements UserDAO {
         }
     }
 
+    /**
+     * Checks if an email address already exists in the system.
+     *
+     * @param email The email to check.
+     * @return {@code true} if the email exists, {@code false} otherwise.
+     */
     @Override
     public boolean emailExists(String email) {
         String query = QueryLoader.getQuery("user.emailExists");

@@ -18,6 +18,12 @@ public class GameDAOImpl implements GameDAO {
         this.connection = DatabaseConnection.getInstance().getConnection();
     }
 
+    /**
+     * Checks if a game already exists in the database by its name.
+     *
+     * @param gameName The name of the game to check.
+     * @return {@code true} if the game exists in the database; {@code false} otherwise.
+     */
     @Override
     public boolean isGameInDatabase(String gameName) {
         String query = QueryLoader.getQuery("game.existsByName");
@@ -31,6 +37,12 @@ public class GameDAOImpl implements GameDAO {
         }
     }
 
+    /**
+     * Adds a new game to the database.
+     *
+     * @param game The {@code Game} object to be added to the database.
+     * @return {@code true} if the game was successfully added; {@code false} otherwise.
+     */
     @Override
     public boolean addGame(Game game) {
         String query = QueryLoader.getQuery("game.addGame");
@@ -45,6 +57,12 @@ public class GameDAOImpl implements GameDAO {
         return false;
     }
 
+    /**
+     * Updates an existing game in the database.
+     *
+     * @param game The {@code Game} object containing updated information to be saved.
+     * @return {@code true} if the game was successfully updated; {@code false} otherwise.
+     */
     @Override
     public boolean updateGame(Game game) {
         String query = QueryLoader.getQuery("game.updateGame");
@@ -60,6 +78,12 @@ public class GameDAOImpl implements GameDAO {
         return false;
     }
 
+    /**
+     * Deletes a game from the database by its ID.
+     *
+     * @param gameId The ID of the game to be deleted.
+     * @return {@code true} if the game was successfully deleted; {@code false} otherwise.
+     */
     @Override
     public boolean deleteGame(int gameId) {
         String query = QueryLoader.getQuery("game.deleteGame");
@@ -72,7 +96,11 @@ public class GameDAOImpl implements GameDAO {
         return false;
     }
 
-
+    /**
+     * Retrieves all games from the database.
+     *
+     * @return A list of all {@code Game} objects in the database.
+     */
     @Override
     public List<Game> getAllGames() {
         List<Game> games = new ArrayList<>();
@@ -95,9 +123,15 @@ public class GameDAOImpl implements GameDAO {
         return games;
     }
 
+    /**
+     * Searches for games by name using a keyword.
+     *
+     * @param keyword The keyword to search for in the game names.
+     * @return A list of {@code Game} objects that match the keyword.
+     */
     @Override
     public List<Game> searchGamesByName(String keyword) {
-        String query = QueryLoader.getQuery("game.findByName");
+        String query = "SELECT id, name, genre, price FROM Games WHERE name LIKE ?";
         List<Game> games = new ArrayList<>();
         try (PreparedStatement stmt = connection.prepareStatement(query)) {
             stmt.setString(1, "%" + keyword + "%");
@@ -117,6 +151,4 @@ public class GameDAOImpl implements GameDAO {
         }
         return games;
     }
-
-
 }

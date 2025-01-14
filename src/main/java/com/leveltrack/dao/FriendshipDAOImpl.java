@@ -180,7 +180,7 @@ public class FriendshipDAOImpl implements FriendshipDAO {
      * Receives a friend request from one user to another.
      *
      * @param userId The ID of the user sending the request.
-     * @return A list of the friendship request received by the user with the Id userId
+     * @return A list of the friendship requests received by the user with the Id userId
      */
     @Override
     public List<Friendship> getFriendRequests(int userId) {
@@ -202,7 +202,13 @@ public class FriendshipDAOImpl implements FriendshipDAO {
         }
         return requests;
     }
-
+    /**
+     * Updates the friendship status.
+     *
+     * @param friendshipId The ID of the friendhsip between the users.
+     * @param status  The status of the request, pending, accepted...
+     * @return {@code true} if the request was successfully updated; {@code false} otherwise.
+     */
     @Override
     public boolean updateFriendRequestStatus(int friendshipId, String status) {
         String query = QueryLoader.getQuery("friendship.updateStatus");
@@ -215,7 +221,12 @@ public class FriendshipDAOImpl implements FriendshipDAO {
             return false;
         }
     }
-
+    /**
+     * Searchs an user ID based on the email.
+     *
+     * @param email The email of the user.
+     * @return The ID of the user if it can be found; -1 otherwise.
+     */
     @Override
     public int getUserIdByEmail(String email) {
         String query = QueryLoader.getQuery("friendship.getUserIdByUserEmail");
@@ -234,6 +245,13 @@ public class FriendshipDAOImpl implements FriendshipDAO {
         }
     }
 
+    /**
+     * Deletes a friend.
+     *
+     * @param userId The ID of the user that wants to delete a friend.
+     * @param friendId  The ID of the friend that is going to be deleted by the user.
+     * @return {@code true} if the friendship was successfully removed; {@code false} otherwise.
+     */
     @Override
     public boolean deleteFriend(int userId, int friendId){
         String query = QueryLoader.getQuery("friendship.deleteFriend");
