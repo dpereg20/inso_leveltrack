@@ -167,15 +167,7 @@ public class LibraryDAOImpl implements LibraryDAO {
                 }
             }
         } catch (SQLException e) {
-            System.err.println("Error retrieving games by genre: " + e.getMessage());
         }
-
-
-        if (games.isEmpty()) {
-            System.out.println("No games found for genre: " + genre);
-        }
-
-
         return games;
     }
 

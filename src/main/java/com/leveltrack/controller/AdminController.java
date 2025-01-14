@@ -40,14 +40,9 @@ public class AdminController {
      */
     public void assignUserRole(int adminId, int userId, String newRole) {
         try {
-            if (userService.updateUserRole(userId, newRole)) {
-                System.out.println("Role updated successfully for user ID " + userId);
-            } else {
-                System.out.println("Failed to update role for user ID " + userId);
-            }
+            userService.updateUserRole(userId, newRole);
         } catch (Exception e) {
             e.printStackTrace();
-            System.out.println("Error updating role: " + e.getMessage());
         }
     }
 
@@ -137,7 +132,6 @@ public class AdminController {
                     return user;
                 }
             }
-            System.out.println("User not found with name: " + selectedName);
             return null;
         } catch (Exception e) {
             e.printStackTrace();
@@ -159,7 +153,6 @@ public class AdminController {
                     return game;
                 }
             }
-            System.out.println("Game not found with name: " + selectedName);
             return null;
         } catch (Exception e) {
             e.printStackTrace();

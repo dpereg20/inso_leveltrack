@@ -139,7 +139,6 @@ public class LibraryController {
      * @return {@code true} if the score was updated successfully, {@code false} otherwise.
      */
     public boolean updateGameScore(int gameId, int userId, int score) {
-        System.out.println("Updating score for gameId: " + gameId + ", userId: " + userId + " to " + score);
         return libraryService.updateGameScore(gameId, userId, score);
     }
 
@@ -162,7 +161,6 @@ public class LibraryController {
                     return game;
                 }
             }
-            System.out.println("Game not found with name: " + selectedName);
             return null;
         } catch (Exception e) {
             e.printStackTrace();

@@ -166,7 +166,6 @@ public class UserService {
      * @return A subclass instance of UserBase.
      */
     private UserBase createUserInstance(String role, UserBase user) {
-        System.out.println("Creating user with role: " + role);
         return switch (role.toUpperCase()) {
             case "ADMINISTRATOR" -> new Administrator(user.getId(), user.getName(), user.getEmail());
             case "MODERATOR" -> new Moderator(user.getId(), user.getName(), user.getEmail());

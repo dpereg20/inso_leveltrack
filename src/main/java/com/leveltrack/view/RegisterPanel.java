@@ -33,7 +33,6 @@ class RegisterPanel extends JPanel {
                 try {
                     parentFrame.add(new LoginPanel(parentFrame, new LoginController(), user -> {
                         parentFrame.getContentPane().removeAll();
-                        System.out.println(user.getRole());
                         if ("ADMINISTRATOR".equalsIgnoreCase(user.getRole())) {
                             parentFrame.add(new AdminDashboard(parentFrame, user.getId()));
                         } else {
@@ -56,7 +55,6 @@ class RegisterPanel extends JPanel {
             try {
                 parentFrame.add(new LoginPanel(parentFrame, new LoginController(), user -> {
                     parentFrame.getContentPane().removeAll();
-                    System.out.println(user.getRole());
                     if ("ADMINISTRATOR".equalsIgnoreCase(user.getRole())) {
                         parentFrame.add(new AdminDashboard(parentFrame, user.getId()));
                     } else {

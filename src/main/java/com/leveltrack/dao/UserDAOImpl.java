@@ -29,7 +29,6 @@ public class UserDAOImpl implements UserDAO {
             ResultSet rs = stmt.executeQuery();
             if (rs.next()) {
                 String role = rs.getString("role");
-                System.out.println("Role from database: " + role);
                 user = createUserInstance(
                         role,
                         rs.getInt("id"),
