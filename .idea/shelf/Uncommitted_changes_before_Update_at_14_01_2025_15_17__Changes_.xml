@@ -1,0 +1,59 @@
+<changelist name="Uncommitted_changes_before_Update_at_14_01_2025_15_17_[Changes]" date="1736864514299" recycled="true" deleted="true">
+  <option name="PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_14_01_2025_15_17_[Changes]/shelved.patch" />
+  <option name="DESCRIPTION" value="Uncommitted changes before Update at 14/01/2025 15:17 [Changes]" />
+  <binary>
+    <option name="BEFORE_PATH" value="out/production/inso_leveltrack/com/leveltrack/view/LibraryView.class" />
+    <option name="AFTER_PATH" value="out/production/inso_leveltrack/com/leveltrack/view/LibraryView.class" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_14_01_2025_15_17_[Changes]/LibraryView.class" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="out/production/inso_leveltrack/com/leveltrack/dao/LibraryDAOImpl.class" />
+    <option name="AFTER_PATH" value="out/production/inso_leveltrack/com/leveltrack/dao/LibraryDAOImpl.class" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_14_01_2025_15_17_[Changes]/LibraryDAOImpl.class" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="out/production/inso_leveltrack/com/leveltrack/service/FriendshipService.class" />
+    <option name="AFTER_PATH" value="out/production/inso_leveltrack/com/leveltrack/service/FriendshipService.class" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_14_01_2025_15_17_[Changes]/FriendshipService.class" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="out/production/inso_leveltrack/com/leveltrack/controller/AdminController.class" />
+    <option name="AFTER_PATH" value="out/production/inso_leveltrack/com/leveltrack/controller/AdminController.class" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_14_01_2025_15_17_[Changes]/AdminController.class" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="out/production/inso_leveltrack/com/leveltrack/dao/UserDAOImpl.class" />
+    <option name="AFTER_PATH" value="out/production/inso_leveltrack/com/leveltrack/dao/UserDAOImpl.class" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_14_01_2025_15_17_[Changes]/UserDAOImpl.class" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="out/production/inso_leveltrack/com/leveltrack/dao/FriendshipDAOImpl.class" />
+    <option name="AFTER_PATH" value="out/production/inso_leveltrack/com/leveltrack/dao/FriendshipDAOImpl.class" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_14_01_2025_15_17_[Changes]/FriendshipDAOImpl.class" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="out/production/inso_leveltrack/com/leveltrack/dao/GameDAO.class" />
+    <option name="AFTER_PATH" value="out/production/inso_leveltrack/com/leveltrack/dao/GameDAO.class" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_14_01_2025_15_17_[Changes]/GameDAO.class" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="out/production/inso_leveltrack/com/leveltrack/service/LibraryService.class" />
+    <option name="AFTER_PATH" value="out/production/inso_leveltrack/com/leveltrack/service/LibraryService.class" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_14_01_2025_15_17_[Changes]/LibraryService.class" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="out/production/inso_leveltrack/com/leveltrack/controller/LibraryController.class" />
+    <option name="AFTER_PATH" value="out/production/inso_leveltrack/com/leveltrack/controller/LibraryController.class" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_14_01_2025_15_17_[Changes]/LibraryController.class" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="out/production/inso_leveltrack/com/leveltrack/view/LibraryView$1.class" />
+    <option name="AFTER_PATH" value="out/production/inso_leveltrack/com/leveltrack/view/LibraryView$1.class" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_14_01_2025_15_17_[Changes]/LibraryView$1.class" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="out/production/inso_leveltrack/com/leveltrack/dao/GameDAOImpl.class" />
+    <option name="AFTER_PATH" value="out/production/inso_leveltrack/com/leveltrack/dao/GameDAOImpl.class" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_14_01_2025_15_17_[Changes]/GameDAOImpl.class" />
+  </binary>
+</changelist>

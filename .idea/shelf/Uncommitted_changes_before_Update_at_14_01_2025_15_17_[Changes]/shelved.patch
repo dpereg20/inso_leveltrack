@@ -1,0 +1,1196 @@
+Index: src/main/java/com/leveltrack/dao/GameDAOImpl.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package com.leveltrack.dao;\r\n\r\nimport com.leveltrack.model.Game;\r\nimport com.leveltrack.util.DatabaseConnection;\r\nimport com.leveltrack.util.QueryLoader;\r\n\r\nimport java.sql.Connection;\r\nimport java.sql.PreparedStatement;\r\nimport java.sql.ResultSet;\r\nimport java.sql.SQLException;\r\nimport java.util.ArrayList;\r\nimport java.util.List;\r\n\r\npublic class GameDAOImpl implements GameDAO {\r\n    private final Connection connection;\r\n\r\n    public GameDAOImpl() throws SQLException {\r\n        this.connection = DatabaseConnection.getInstance().getConnection();\r\n    }\r\n\r\n    @Override\r\n    public boolean saveGame(Game game) {\r\n        String query = QueryLoader.getQuery(\"game.add\");\r\n        try (PreparedStatement stmt = connection.prepareStatement(query)) {\r\n            stmt.setString(1, game.getName());\r\n            stmt.setString(2, game.getGenre());\r\n            stmt.setDouble(3, game.getPrice());\r\n            return stmt.executeUpdate() > 0;\r\n        } catch (SQLException e) {\r\n            e.printStackTrace();\r\n        }\r\n        return false;\r\n    }\r\n\r\n    @Override\r\n    public boolean isGameInDatabase(String gameName) {\r\n        String query = QueryLoader.getQuery(\"game.existsByName\");\r\n        try (PreparedStatement stmt = connection.prepareStatement(query)) {\r\n            stmt.setString(1, gameName);\r\n            ResultSet rs = stmt.executeQuery();\r\n            return rs.next();\r\n        } catch (SQLException e) {\r\n            e.printStackTrace();\r\n            return false;\r\n        }\r\n    }\r\n\r\n\r\n    @Override\r\n    public Game findGameBySteamAppId(int steamAppId) {\r\n        String query = \"SELECT * FROM Games WHERE steam_app_id = ?\";\r\n        try (PreparedStatement stmt = connection.prepareStatement(query)) {\r\n            stmt.setInt(1, steamAppId);\r\n            ResultSet rs = stmt.executeQuery();\r\n            if (rs.next()) {\r\n                return new Game(\r\n                        rs.getInt(\"id\"),\r\n                        rs.getString(\"name\"),\r\n                        rs.getString(\"genre\"),\r\n                        rs.getDouble(\"price\"),\r\n                        rs.getString(\"state\"),\r\n                        0\r\n                );\r\n            }\r\n        } catch (SQLException e) {\r\n            e.printStackTrace();\r\n        }\r\n        return null;\r\n    }\r\n\r\n    @Override\r\n    public List<Game> findGamesByGenre(String genre) {\r\n        List<Game> games = new ArrayList<>();\r\n        String query = QueryLoader.getQuery(\"game.findByGenre\");\r\n        try (PreparedStatement stmt = connection.prepareStatement(query)) {\r\n            stmt.setString(1, \"%\" + genre + \"%\");\r\n            ResultSet rs = stmt.executeQuery();\r\n            while (rs.next()) {\r\n                games.add(new Game(\r\n                        rs.getInt(\"id\"),\r\n                        rs.getString(\"name\"),\r\n                        rs.getString(\"genre\"),\r\n                        rs.getDouble(\"price\"),\r\n                        rs.getString(\"state\"),\r\n                        0\r\n                        )\r\n                );\r\n            }\r\n        } catch (SQLException e) {\r\n            e.printStackTrace();\r\n        }\r\n        return games;\r\n    }\r\n\r\n    @Override\r\n    public Game findGameByName(String name) {\r\n        String query = QueryLoader.getQuery(\"game.findByName\");\r\n        try (PreparedStatement stmt = connection.prepareStatement(query)) {\r\n            stmt.setString(1, name);\r\n            ResultSet rs = stmt.executeQuery();\r\n            if (rs.next()) {\r\n                return new Game(\r\n                        rs.getInt(\"id\"),\r\n                        rs.getString(\"name\"),\r\n                        rs.getString(\"genre\"),\r\n                        rs.getDouble(\"price\"),\r\n                        rs.getString(\"state\"),\r\n                        0\r\n                );\r\n            }\r\n        } catch (SQLException e) {\r\n            e.printStackTrace();\r\n        }\r\n        return null;\r\n    }\r\n\r\n    @Override\r\n    public boolean addGame(Game game) {\r\n        String query = QueryLoader.getQuery(\"game.addGame\");\r\n        try (PreparedStatement stmt = connection.prepareStatement(query)) {\r\n            stmt.setString(1, game.getName());\r\n            stmt.setString(2, game.getGenre());\r\n            stmt.setDouble(3, game.getPrice());\r\n            return stmt.executeUpdate() > 0;\r\n        } catch (SQLException e) {\r\n            e.printStackTrace();\r\n        }\r\n        return false;\r\n    }\r\n\r\n    @Override\r\n    public boolean updateGame(Game game) {\r\n        String query = QueryLoader.getQuery(\"game.updateGame\");\r\n        try (PreparedStatement stmt = connection.prepareStatement(query)) {\r\n            stmt.setString(1, game.getName());\r\n            stmt.setString(2, game.getGenre());\r\n            stmt.setDouble(3, game.getPrice());\r\n            stmt.setInt(4, game.getId());\r\n            return stmt.executeUpdate() > 0;\r\n        } catch (SQLException e) {\r\n            e.printStackTrace();\r\n        }\r\n        return false;\r\n    }\r\n\r\n    @Override\r\n    public boolean deleteGame(int gameId) {\r\n        String query = QueryLoader.getQuery(\"game.deleteGame\");\r\n        try (PreparedStatement stmt = connection.prepareStatement(query)) {\r\n            stmt.setInt(1, gameId);\r\n            return stmt.executeUpdate() > 0;\r\n        } catch (SQLException e) {\r\n            e.printStackTrace();\r\n        }\r\n        return false;\r\n    }\r\n\r\n\r\n    @Override\r\n    public List<Game> getAllGames() {\r\n        List<Game> games = new ArrayList<>();\r\n        String query = QueryLoader.getQuery(\"game.findAll\");\r\n        try (PreparedStatement stmt = connection.prepareStatement(query);\r\n             ResultSet rs = stmt.executeQuery()) {\r\n            while (rs.next()) {\r\n                games.add(new Game(\r\n                        rs.getInt(\"id\"),\r\n                        rs.getString(\"name\"),\r\n                        rs.getString(\"genre\"),\r\n                        rs.getDouble(\"price\"),\r\n                        \"Available\", // Default state or fetch it if stored in DB\r\n                        0\r\n                ));\r\n            }\r\n        } catch (Exception e) {\r\n            e.printStackTrace();\r\n        }\r\n        return games;\r\n    }\r\n\r\n    @Override\r\n    public List<Game> searchGamesByName(String keyword) {\r\n        String query = \"SELECT id, name, genre, price FROM Games WHERE name LIKE ?\";\r\n        List<Game> games = new ArrayList<>();\r\n        try (PreparedStatement stmt = connection.prepareStatement(query)) {\r\n            stmt.setString(1, \"%\" + keyword + \"%\");\r\n            ResultSet rs = stmt.executeQuery();\r\n            while (rs.next()) {\r\n                games.add(new Game(\r\n                        rs.getInt(\"id\"),\r\n                        rs.getString(\"name\"),\r\n                        rs.getString(\"genre\"),\r\n                        rs.getDouble(\"price\"),\r\n                        null,\r\n                        0\r\n                ));\r\n            }\r\n        } catch (SQLException e) {\r\n            e.printStackTrace();\r\n        }\r\n        return games;\r\n    }\r\n\r\n\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/java/com/leveltrack/dao/GameDAOImpl.java b/src/main/java/com/leveltrack/dao/GameDAOImpl.java
+--- a/src/main/java/com/leveltrack/dao/GameDAOImpl.java	(revision f6dc640427e0779ba8b93b20012ceec17a0c0f62)
++++ b/src/main/java/com/leveltrack/dao/GameDAOImpl.java	(date 1736861470365)
+@@ -18,20 +18,6 @@
+         this.connection = DatabaseConnection.getInstance().getConnection();
+     }
+ 
+-    @Override
+-    public boolean saveGame(Game game) {
+-        String query = QueryLoader.getQuery("game.add");
+-        try (PreparedStatement stmt = connection.prepareStatement(query)) {
+-            stmt.setString(1, game.getName());
+-            stmt.setString(2, game.getGenre());
+-            stmt.setDouble(3, game.getPrice());
+-            return stmt.executeUpdate() > 0;
+-        } catch (SQLException e) {
+-            e.printStackTrace();
+-        }
+-        return false;
+-    }
+-
+     @Override
+     public boolean isGameInDatabase(String gameName) {
+         String query = QueryLoader.getQuery("game.existsByName");
+@@ -45,75 +31,6 @@
+         }
+     }
+ 
+-
+-    @Override
+-    public Game findGameBySteamAppId(int steamAppId) {
+-        String query = "SELECT * FROM Games WHERE steam_app_id = ?";
+-        try (PreparedStatement stmt = connection.prepareStatement(query)) {
+-            stmt.setInt(1, steamAppId);
+-            ResultSet rs = stmt.executeQuery();
+-            if (rs.next()) {
+-                return new Game(
+-                        rs.getInt("id"),
+-                        rs.getString("name"),
+-                        rs.getString("genre"),
+-                        rs.getDouble("price"),
+-                        rs.getString("state"),
+-                        0
+-                );
+-            }
+-        } catch (SQLException e) {
+-            e.printStackTrace();
+-        }
+-        return null;
+-    }
+-
+-    @Override
+-    public List<Game> findGamesByGenre(String genre) {
+-        List<Game> games = new ArrayList<>();
+-        String query = QueryLoader.getQuery("game.findByGenre");
+-        try (PreparedStatement stmt = connection.prepareStatement(query)) {
+-            stmt.setString(1, "%" + genre + "%");
+-            ResultSet rs = stmt.executeQuery();
+-            while (rs.next()) {
+-                games.add(new Game(
+-                        rs.getInt("id"),
+-                        rs.getString("name"),
+-                        rs.getString("genre"),
+-                        rs.getDouble("price"),
+-                        rs.getString("state"),
+-                        0
+-                        )
+-                );
+-            }
+-        } catch (SQLException e) {
+-            e.printStackTrace();
+-        }
+-        return games;
+-    }
+-
+-    @Override
+-    public Game findGameByName(String name) {
+-        String query = QueryLoader.getQuery("game.findByName");
+-        try (PreparedStatement stmt = connection.prepareStatement(query)) {
+-            stmt.setString(1, name);
+-            ResultSet rs = stmt.executeQuery();
+-            if (rs.next()) {
+-                return new Game(
+-                        rs.getInt("id"),
+-                        rs.getString("name"),
+-                        rs.getString("genre"),
+-                        rs.getDouble("price"),
+-                        rs.getString("state"),
+-                        0
+-                );
+-            }
+-        } catch (SQLException e) {
+-            e.printStackTrace();
+-        }
+-        return null;
+-    }
+-
+     @Override
+     public boolean addGame(Game game) {
+         String query = QueryLoader.getQuery("game.addGame");
+@@ -168,7 +85,7 @@
+                         rs.getString("name"),
+                         rs.getString("genre"),
+                         rs.getDouble("price"),
+-                        "Available", // Default state or fetch it if stored in DB
++                        "Available",
+                         0
+                 ));
+             }
+Index: src/main/java/com/leveltrack/dao/UserDAO.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package com.leveltrack.dao;\r\n\r\nimport com.leveltrack.model.UserBase;\r\nimport java.util.List;\r\n\r\npublic interface UserDAO {\r\n    UserBase findById(int id);\r\n    List<UserBase> findAll();\r\n    boolean delete(int id);\r\n    UserBase findByEmailAndPassword(String email, String password);\r\n    boolean createUser(UserBase user);\r\n    boolean updateProfiled(UserBase user);\r\n\r\n    boolean updateUserRole(int userId, String newRole);\r\n    boolean updateProfile(int id, String name, String email, String password);\r\n    boolean emailExists(String email);\r\n}\r\n\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/java/com/leveltrack/dao/UserDAO.java b/src/main/java/com/leveltrack/dao/UserDAO.java
+--- a/src/main/java/com/leveltrack/dao/UserDAO.java	(revision f6dc640427e0779ba8b93b20012ceec17a0c0f62)
++++ b/src/main/java/com/leveltrack/dao/UserDAO.java	(date 1736861416482)
+@@ -10,7 +10,6 @@
+     UserBase findByEmailAndPassword(String email, String password);
+     boolean createUser(UserBase user);
+     boolean updateProfiled(UserBase user);
+-
+     boolean updateUserRole(int userId, String newRole);
+     boolean updateProfile(int id, String name, String email, String password);
+     boolean emailExists(String email);
+Index: src/main/java/com/leveltrack/dao/FriendshipDAOImpl.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package com.leveltrack.dao;\r\n\r\nimport com.leveltrack.model.*;\r\nimport com.leveltrack.util.DatabaseConnection;\r\nimport com.leveltrack.util.QueryLoader;\r\n\r\nimport java.sql.Connection;\r\nimport java.sql.PreparedStatement;\r\nimport java.sql.ResultSet;\r\nimport java.sql.SQLException;\r\nimport java.util.ArrayList;\r\nimport java.util.List;\r\n\r\npublic class FriendshipDAOImpl implements FriendshipDAO {\r\n    private final Connection connection;\r\n\r\n    public FriendshipDAOImpl() throws Exception {\r\n        this.connection = DatabaseConnection.getInstance().getConnection();\r\n    }\r\n\r\n    @Override\r\n    public List<UserBase> searchUsers(String keyword) {\r\n        List<UserBase> users = new ArrayList<>();\r\n        String query = QueryLoader.getQuery(\"friendship.searchUsers\");\r\n        try (PreparedStatement stmt = connection.prepareStatement(query)) {\r\n            stmt.setString(1,  keyword);\r\n            ResultSet rs = stmt.executeQuery();\r\n            while (rs.next()) {\r\n                users.add(createUserInstance(\r\n                        rs.getString(\"role\"),\r\n                        rs.getInt(\"id\"),\r\n                        rs.getString(\"name\"),\r\n                        rs.getString(\"email\")\r\n                ));\r\n            }\r\n        } catch (SQLException e) {\r\n            e.printStackTrace();\r\n        }\r\n        return users;\r\n    }\r\n\r\n    private UserBase createUserInstance(String role, int id, String name, String email) {\r\n        switch (role) {\r\n            case \"ADMINISTRATOR\":\r\n                return new Administrator(id, name, email);\r\n            case \"MODERATOR\":\r\n                return new Moderator(id, name, email);\r\n            case \"REGULAR_USER\":\r\n            default:\r\n                return new Regular_User(id, name, email);\r\n        }\r\n    }\r\n\r\n\r\n    @Override\r\n    public List<UserBase> getFriends(int userId) {\r\n        List<UserBase> friends = new ArrayList<>();\r\n        String query = QueryLoader.getQuery(\"friendship.getFriends\");\r\n        try (PreparedStatement stmt = connection.prepareStatement(query)) {\r\n            stmt.setInt(1, userId);\r\n            stmt.setInt(2, userId);\r\n            stmt.setInt(3, userId); // To exclude the current user from the friends list\r\n            ResultSet rs = stmt.executeQuery();\r\n            while (rs.next()) {\r\n                String role = rs.getString(\"role\");\r\n                UserBase user = createUserInstance(\r\n                        role,\r\n                        rs.getInt(\"id\"),\r\n                        rs.getString(\"name\"),\r\n                        rs.getString(\"email\")\r\n                );\r\n                friends.add(user);\r\n            }\r\n        } catch (SQLException e) {\r\n            e.printStackTrace();\r\n        }\r\n        return friends;\r\n    }\r\n\r\n\r\n    @Override\r\n    public boolean sendFriendRequest(int requesterId, int receiverId) {\r\n        if(requesterId == receiverId){\r\n            return false;\r\n        }\r\n        String query = QueryLoader.getQuery(\"friendship.sendRequest\");\r\n        try (PreparedStatement stmt = connection.prepareStatement(query)) {\r\n            stmt.setInt(1, requesterId);\r\n            stmt.setInt(2, receiverId);\r\n            stmt.setString(3, \"Pending\");\r\n            return stmt.executeUpdate() > 0;\r\n        } catch (SQLException e) {\r\n            e.printStackTrace();\r\n            return false;\r\n        }\r\n    }\r\n\r\n    public boolean checkValidRequest(int requesterId, int receiverId){\r\n        String checkFriendshipQuery = QueryLoader.getQuery(\"friendship.checkFriendship\");\r\n        try (PreparedStatement checkFriendshipStmt = connection.prepareStatement(checkFriendshipQuery)) {\r\n            checkFriendshipStmt.setInt(1, requesterId);\r\n            checkFriendshipStmt.setInt(2, receiverId);\r\n            checkFriendshipStmt.setInt(3, receiverId);\r\n            checkFriendshipStmt.setInt(4, requesterId);\r\n            try (ResultSet rs = checkFriendshipStmt.executeQuery()) {\r\n                if (rs.next()) {\r\n                    return false; // Ya son amigos\r\n                }\r\n            }\r\n\r\n        String checkPendingRequestQuery = QueryLoader.getQuery(\"friendship.checkPendingRequest\");\r\n        try (PreparedStatement checkPendingRequestStmt = connection.prepareStatement(checkPendingRequestQuery)) {\r\n            checkPendingRequestStmt.setInt(1, requesterId);\r\n            checkPendingRequestStmt.setInt(2, receiverId);\r\n            checkPendingRequestStmt.setInt(3, receiverId);\r\n            checkPendingRequestStmt.setInt(4, requesterId);\r\n            try (ResultSet rs = checkPendingRequestStmt.executeQuery()) {\r\n                if (rs.next()) {\r\n                    return false; // Ya hay una solicitud pendiente\r\n                }\r\n            }\r\n        }\r\n\r\n        // Si no son amigos y no hay solicitudes pendientes, se puede enviar la solicitud\r\n        return true;\r\n    } catch (SQLException e) {\r\n        e.printStackTrace();\r\n        throw new RuntimeException(\"Error checking valid request\", e);\r\n    }\r\n    }\r\n\r\n    @Override\r\n    public List<Friendship> getFriendRequests(int userId) {\r\n        List<Friendship> requests = new ArrayList<>();\r\n        String query = QueryLoader.getQuery(\"friendship.getRequests\");\r\n        try (PreparedStatement stmt = connection.prepareStatement(query)) {\r\n            stmt.setInt(1, userId);\r\n            ResultSet rs = stmt.executeQuery();\r\n            while (rs.next()) {\r\n                requests.add(new Friendship(\r\n                        rs.getInt(\"id\"),\r\n                        rs.getInt(\"requester_id\"),\r\n                        rs.getInt(\"receiver_id\"),\r\n                        rs.getString(\"status\")\r\n                ));\r\n            }\r\n        } catch (SQLException e) {\r\n            e.printStackTrace();\r\n        }\r\n        return requests;\r\n    }\r\n\r\n    @Override\r\n    public boolean updateFriendRequestStatus(int friendshipId, String status) {\r\n        String query = QueryLoader.getQuery(\"friendship.updateStatus\");\r\n        try (PreparedStatement stmt = connection.prepareStatement(query)) {\r\n            stmt.setString(1, status);\r\n            stmt.setInt(2, friendshipId);\r\n            return stmt.executeUpdate() > 0;\r\n        } catch (SQLException e) {\r\n            e.printStackTrace();\r\n            return false;\r\n        }\r\n    }\r\n\r\n    @Override\r\n    public int getUserIdByEmail(String email) {\r\n        String query = QueryLoader.getQuery(\"friendship.getUserIdByUserEmail\");  // Consulta SQL\r\n        try (PreparedStatement stmt = connection.prepareStatement(query)) {\r\n            stmt.setString(1, email);  // Establecer el email como parámetro en la consulta\r\n            ResultSet rs = stmt.executeQuery();\r\n\r\n            if (rs.next()) {\r\n                return rs.getInt(\"id\");  // Retorna el userId si se encuentra el email\r\n            } else {\r\n                return -1;  // Si no se encuentra el usuario, retorna -1\r\n            }\r\n        } catch (SQLException e) {\r\n            e.printStackTrace();\r\n            return -1;  // Retorna -1 en caso de error en la consulta\r\n        }\r\n    }\r\n\r\n    @Override\r\n    public boolean deleteFriend(int userId, int friendId){\r\n        String query = QueryLoader.getQuery(\"friendship.deleteFriend\");\r\n        try(PreparedStatement stmt = connection.prepareStatement(query)){\r\n            stmt.setInt(1, userId);\r\n            stmt.setInt(2, friendId);\r\n            stmt.setInt(3, friendId);\r\n            stmt.setInt(4, userId);\r\n\r\n            return stmt.executeUpdate() > 0;\r\n        }catch (SQLException e){\r\n            e.printStackTrace();\r\n            return false;\r\n        }\r\n    }\r\n}\r\n\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/java/com/leveltrack/dao/FriendshipDAOImpl.java b/src/main/java/com/leveltrack/dao/FriendshipDAOImpl.java
+--- a/src/main/java/com/leveltrack/dao/FriendshipDAOImpl.java	(revision f6dc640427e0779ba8b93b20012ceec17a0c0f62)
++++ b/src/main/java/com/leveltrack/dao/FriendshipDAOImpl.java	(date 1736860965359)
+@@ -59,7 +59,7 @@
+         try (PreparedStatement stmt = connection.prepareStatement(query)) {
+             stmt.setInt(1, userId);
+             stmt.setInt(2, userId);
+-            stmt.setInt(3, userId); // To exclude the current user from the friends list
++            stmt.setInt(3, userId);
+             ResultSet rs = stmt.executeQuery();
+             while (rs.next()) {
+                 String role = rs.getString("role");
+@@ -104,7 +104,7 @@
+             checkFriendshipStmt.setInt(4, requesterId);
+             try (ResultSet rs = checkFriendshipStmt.executeQuery()) {
+                 if (rs.next()) {
+-                    return false; // Ya son amigos
++                    return false;
+                 }
+             }
+ 
+@@ -116,12 +116,11 @@
+             checkPendingRequestStmt.setInt(4, requesterId);
+             try (ResultSet rs = checkPendingRequestStmt.executeQuery()) {
+                 if (rs.next()) {
+-                    return false; // Ya hay una solicitud pendiente
++                    return false;
+                 }
+             }
+         }
+ 
+-        // Si no son amigos y no hay solicitudes pendientes, se puede enviar la solicitud
+         return true;
+     } catch (SQLException e) {
+         e.printStackTrace();
+@@ -165,19 +164,19 @@
+ 
+     @Override
+     public int getUserIdByEmail(String email) {
+-        String query = QueryLoader.getQuery("friendship.getUserIdByUserEmail");  // Consulta SQL
++        String query = QueryLoader.getQuery("friendship.getUserIdByUserEmail");
+         try (PreparedStatement stmt = connection.prepareStatement(query)) {
+-            stmt.setString(1, email);  // Establecer el email como parámetro en la consulta
++            stmt.setString(1, email);
+             ResultSet rs = stmt.executeQuery();
+ 
+             if (rs.next()) {
+-                return rs.getInt("id");  // Retorna el userId si se encuentra el email
++                return rs.getInt("id");
+             } else {
+-                return -1;  // Si no se encuentra el usuario, retorna -1
++                return -1;
+             }
+         } catch (SQLException e) {
+             e.printStackTrace();
+-            return -1;  // Retorna -1 en caso de error en la consulta
++            return -1;
+         }
+     }
+ 
+Index: src/main/java/com/leveltrack/dao/GameDAO.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package com.leveltrack.dao;\r\n\r\nimport com.leveltrack.model.Game;\r\n\r\nimport java.util.List;\r\n\r\npublic interface GameDAO {\r\n    boolean saveGame(Game game);\r\n    Game findGameBySteamAppId(int steamAppId);\r\n    List<Game> findGamesByGenre(String genre);\r\n    Game findGameByName(String name);\r\n    boolean isGameInDatabase(String gameName);\r\n\r\n    boolean addGame(Game game);\r\n    boolean updateGame(Game game);\r\n    boolean deleteGame(int gameId);\r\n\r\n    List<Game> getAllGames();\r\n\r\n    List<Game> searchGamesByName(String keyword);\r\n}\r\n\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/java/com/leveltrack/dao/GameDAO.java b/src/main/java/com/leveltrack/dao/GameDAO.java
+--- a/src/main/java/com/leveltrack/dao/GameDAO.java	(revision f6dc640427e0779ba8b93b20012ceec17a0c0f62)
++++ b/src/main/java/com/leveltrack/dao/GameDAO.java	(date 1736861398660)
+@@ -5,18 +5,11 @@
+ import java.util.List;
+ 
+ public interface GameDAO {
+-    boolean saveGame(Game game);
+-    Game findGameBySteamAppId(int steamAppId);
+-    List<Game> findGamesByGenre(String genre);
+-    Game findGameByName(String name);
+     boolean isGameInDatabase(String gameName);
+-
+     boolean addGame(Game game);
+     boolean updateGame(Game game);
+     boolean deleteGame(int gameId);
+-
+     List<Game> getAllGames();
+-
+     List<Game> searchGamesByName(String keyword);
+ }
+ 
+Index: src/main/java/com/leveltrack/controller/AdminController.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package com.leveltrack.controller;\r\n\r\nimport com.leveltrack.model.Game;\r\nimport com.leveltrack.model.UserBase;\r\nimport com.leveltrack.service.GameService;\r\nimport com.leveltrack.service.UserService;\r\n\r\nimport java.util.List;\r\n\r\npublic class AdminController {\r\n    private final UserService userService;\r\n    private final GameService gameService;\r\n\r\n    public AdminController() throws Exception {\r\n        this.userService = new UserService();\r\n        this.gameService = new GameService();\r\n    }\r\n\r\n    public void assignUserRole(int adminId, int userId, String newRole) {\r\n        try {\r\n            // Update the role\r\n            if (userService.updateUserRole(userId, newRole)) {\r\n                System.out.println(\"Role updated successfully for user ID \" + userId);\r\n            } else {\r\n                System.out.println(\"Failed to update role for user ID \" + userId);\r\n            }\r\n        } catch (Exception e) {\r\n            e.printStackTrace();\r\n            System.out.println(\"Error updating role: \" + e.getMessage());\r\n        }\r\n    }\r\n\r\n    public boolean addGame(Game game) {\r\n        if(gameService.isGameInDatabase(game.getName())){\r\n            return false;\r\n        }else{\r\n            return gameService.addGame(game);\r\n        }\r\n    }\r\n\r\n    public boolean updateGame(Game game) {\r\n        return gameService.updateGame(game);\r\n    }\r\n\r\n    public boolean deleteGame(int gameId) {\r\n        return gameService.deleteGame(gameId);\r\n    }\r\n\r\n    public boolean deleteUser(int userId) {\r\n        return userService.deleteUser(userId);\r\n    }\r\n\r\n    public List<Game> getAllGames() {\r\n        try {\r\n            return gameService.getAllGames();\r\n        } catch (Exception e) {\r\n            e.printStackTrace();\r\n            return null;\r\n        }\r\n    }\r\n\r\n    public List<UserBase> getAllUsers() {\r\n        try {\r\n            return userService.getAllUsers();\r\n        } catch (Exception e) {\r\n            e.printStackTrace();\r\n            return null;\r\n        }\r\n    }\r\n\r\n    public UserBase findUserByName(String selectedName) {\r\n        try {\r\n            List<UserBase> users = userService.getAllUsers();\r\n            for (UserBase user : users) {\r\n                if (user.getName().equalsIgnoreCase(selectedName)) {\r\n                    return user;\r\n                }\r\n            }\r\n            System.out.println(\"User not found with name: \" + selectedName);\r\n            return null;\r\n        } catch (Exception e) {\r\n            e.printStackTrace();\r\n            return null;\r\n        }\r\n    }\r\n\r\n    public Game findGameByName(String selectedName) {\r\n        try {\r\n            List<Game> games = gameService.getAllGames();\r\n            for (Game game : games) {\r\n                if (game.getName().equalsIgnoreCase(selectedName)) {\r\n                    return game;\r\n                }\r\n            }\r\n            System.out.println(\"Game not found with name: \" + selectedName);\r\n            return null;\r\n        } catch (Exception e) {\r\n            e.printStackTrace();\r\n            return null;\r\n        }\r\n    }\r\n}\r\n\r\n\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/java/com/leveltrack/controller/AdminController.java b/src/main/java/com/leveltrack/controller/AdminController.java
+--- a/src/main/java/com/leveltrack/controller/AdminController.java	(revision f6dc640427e0779ba8b93b20012ceec17a0c0f62)
++++ b/src/main/java/com/leveltrack/controller/AdminController.java	(date 1736861545909)
+@@ -18,7 +18,6 @@
+ 
+     public void assignUserRole(int adminId, int userId, String newRole) {
+         try {
+-            // Update the role
+             if (userService.updateUserRole(userId, newRole)) {
+                 System.out.println("Role updated successfully for user ID " + userId);
+             } else {
+Index: src/main/java/com/leveltrack/util/GameAPIClient.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package com.leveltrack.util;\r\n\r\nimport java.io.BufferedReader;\r\nimport java.io.InputStreamReader;\r\nimport java.net.HttpURLConnection;\r\nimport java.net.URL;\r\n\r\npublic class GameAPIClient {\r\n\r\n    public static String fetchGameDetailsFromSteam(int appId) throws Exception {\r\n        String url = \"https://store.steampowered.com/api/appdetails?appids=\" + appId;\r\n        HttpURLConnection connection = (HttpURLConnection) new URL(url).openConnection();\r\n        connection.setRequestMethod(\"GET\");\r\n\r\n        BufferedReader in = new BufferedReader(new InputStreamReader(connection.getInputStream()));\r\n        String inputLine;\r\n        StringBuilder response = new StringBuilder();\r\n        while ((inputLine = in.readLine()) != null) {\r\n            response.append(inputLine);\r\n        }\r\n        in.close();\r\n\r\n        return response.toString(); // Devuelve el JSON\r\n    }\r\n}\r\n\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/java/com/leveltrack/util/GameAPIClient.java b/src/main/java/com/leveltrack/util/GameAPIClient.java
+--- a/src/main/java/com/leveltrack/util/GameAPIClient.java	(revision f6dc640427e0779ba8b93b20012ceec17a0c0f62)
++++ b/src/main/java/com/leveltrack/util/GameAPIClient.java	(date 1736861976349)
+@@ -20,7 +20,7 @@
+         }
+         in.close();
+ 
+-        return response.toString(); // Devuelve el JSON
++        return response.toString();
+     }
+ }
+ 
+Index: src/main/java/com/leveltrack/dao/UserDAOImpl.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package com.leveltrack.dao;\r\n\r\nimport com.leveltrack.model.Administrator;\r\nimport com.leveltrack.model.Moderator;\r\nimport com.leveltrack.model.Regular_User;\r\nimport com.leveltrack.model.UserBase;\r\nimport com.leveltrack.util.DatabaseConnection;\r\nimport com.leveltrack.util.QueryLoader;\r\n\r\nimport javax.management.Query;\r\nimport java.sql.*;\r\nimport java.util.ArrayList;\r\nimport java.util.List;\r\n\r\npublic class UserDAOImpl implements UserDAO {\r\n    private final Connection connection;\r\n\r\n    public UserDAOImpl() throws SQLException {\r\n        this.connection = DatabaseConnection.getInstance().getConnection();\r\n    }\r\n\r\n    @Override\r\n    public UserBase findByEmailAndPassword(String email, String password) {\r\n        UserBase user = null;\r\n        String query = QueryLoader.getQuery(\"user.findByEmailAndPassword\");\r\n        try (PreparedStatement stmt = connection.prepareStatement(query)) {\r\n            stmt.setString(1, email);\r\n            stmt.setString(2, password);\r\n            ResultSet rs = stmt.executeQuery();\r\n            if (rs.next()) {\r\n                String role = rs.getString(\"role\");\r\n                System.out.println(\"Role from database: \" + role);  // Verifica si el rol es correcto\r\n                user = createUserInstance(\r\n                        role,\r\n                        rs.getInt(\"id\"),\r\n                        rs.getString(\"name\"),\r\n                        rs.getString(\"email\")\r\n                );\r\n            }\r\n        } catch (SQLException e) {\r\n            e.printStackTrace();\r\n        }\r\n        return user;\r\n    }\r\n\r\n\r\n    private UserBase createUserInstance(String role, int id, String name, String email) {\r\n        switch (role) {\r\n            case \"ADMINISTRATOR\":\r\n                return new Administrator(id, name, email);\r\n            case \"MODERATOR\":\r\n                return new Moderator(id, name, email);\r\n            default:\r\n                return new Regular_User(id, name, email);\r\n        }\r\n    }\r\n\r\n\r\n    @Override\r\n    public UserBase findById(int id) {\r\n        String query = QueryLoader.getQuery(\"user.findById\");\r\n        try (PreparedStatement stmt = connection.prepareStatement(query)) {\r\n            stmt.setInt(1, id);\r\n            ResultSet rs = stmt.executeQuery();\r\n            if (rs.next()) {\r\n                String role = rs.getString(\"role\");\r\n                return createUserInstance(\r\n                        role,\r\n                        rs.getInt(\"id\"),\r\n                        rs.getString(\"name\"),\r\n                        rs.getString(\"email\"),\r\n                        rs.getString(\"password\")\r\n                );\r\n            }\r\n        } catch (SQLException e) {\r\n            e.printStackTrace();\r\n        }\r\n        return null;\r\n    }\r\n\r\n    private UserBase createUserInstance(String role, int id, String name, String email, String password) {\r\n        UserBase user;\r\n        switch (role) {\r\n            case \"ADMINISTRATOR\":\r\n                user = new Administrator(id, name, email);\r\n                break;\r\n            case \"MODERATOR\":\r\n                user = new Moderator(id, name, email);\r\n                break;\r\n            case \"REGULAR_USER\":\r\n            default:\r\n                user = new Regular_User(id, name, email);\r\n                break;\r\n        }\r\n        user.setPassword(password);\r\n        return user;\r\n    }\r\n\r\n    @Override\r\n    public List<UserBase> findAll() {\r\n        List<UserBase> users = new ArrayList<>();\r\n        String query = QueryLoader.getQuery(\"user.findAll\");\r\n        try (PreparedStatement stmt = connection.prepareStatement(query);\r\n             ResultSet rs = stmt.executeQuery()) {\r\n            while (rs.next()) {\r\n                String role = rs.getString(\"role\");\r\n                users.add(createUserInstance(\r\n                        role,\r\n                        rs.getInt(\"id\"),\r\n                        rs.getString(\"name\"),\r\n                        rs.getString(\"email\")\r\n                ));\r\n            }\r\n        } catch (SQLException e) {\r\n            e.printStackTrace();\r\n        }\r\n        return users;\r\n    }\r\n\r\n    @Override\r\n    public boolean delete(int id) {\r\n        String query = QueryLoader.getQuery(\"user.delete\");\r\n        try (PreparedStatement stmt = connection.prepareStatement(query)) {\r\n            stmt.setInt(1, id);\r\n            return stmt.executeUpdate() > 0;\r\n        } catch (SQLException e) {\r\n            e.printStackTrace();\r\n        }\r\n        return false;\r\n    }\r\n\r\n    @Override\r\n    public boolean createUser(UserBase user) {\r\n        String query = QueryLoader.getQuery(\"user.insert\");\r\n        String query2 = QueryLoader.getQuery(\"library.insert\");\r\n\r\n        // Manejo de transacciones\r\n        try {\r\n            // Desactivamos autocommit para manejar la transacción\r\n            connection.setAutoCommit(false);\r\n\r\n            try (PreparedStatement stmt = connection.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);\r\n                 PreparedStatement stmt2 = connection.prepareStatement(query2)) {\r\n\r\n                // Insertamos el nuevo usuario\r\n                stmt.setString(1, user.getName());\r\n                stmt.setString(2, user.getEmail());\r\n                stmt.setString(3, user.getPassword());\r\n                stmt.setString(4, user.getRole());\r\n\r\n                int rowsAffected = stmt.executeUpdate();\r\n\r\n                // Obtenemos el user_id generado\r\n                if (rowsAffected > 0) {\r\n                    try (ResultSet rs = stmt.getGeneratedKeys()) {\r\n                        if (rs.next()) {\r\n                            int userId = rs.getInt(1);  // El user_id generado automáticamente\r\n\r\n                            // Insertamos la librería para el nuevo usuario\r\n                            stmt2.setInt(1, userId);  // Usamos el userId obtenido\r\n                            stmt2.executeUpdate();\r\n\r\n                            // Confirmamos la transacción\r\n                            connection.commit();\r\n                            return true;\r\n                        }\r\n                    }\r\n                }\r\n            } catch (SQLException e) {\r\n                // En caso de error, revertimos la transacción\r\n                connection.rollback();\r\n                e.printStackTrace();\r\n            }\r\n        } catch (SQLException e) {\r\n            e.printStackTrace();\r\n        }\r\n        return false;\r\n    }\r\n\r\n\r\n    @Override\r\n    public boolean updateProfiled(UserBase user) {\r\n        String query = QueryLoader.getQuery(\"user.updateProfile\");\r\n        try (PreparedStatement stmt = connection.prepareStatement(query)) {\r\n            stmt.setString(1, user.getName());\r\n            stmt.setString(2, user.getEmail());\r\n            stmt.setString(3, user.getPassword());\r\n            stmt.setInt(4, user.getId());\r\n            return stmt.executeUpdate() > 0;\r\n        } catch (SQLException e) {\r\n            e.printStackTrace();\r\n        }\r\n        return false;\r\n    }\r\n\r\n    @Override\r\n    public boolean updateProfile(int id, String name, String email, String password) {\r\n        String query = QueryLoader.getQuery(\"user.updateProfile\");\r\n        try (PreparedStatement stmt = connection.prepareStatement(query)) {\r\n            stmt.setString(1, name);\r\n            stmt.setString(2, email);\r\n            stmt.setString(3, password);\r\n            stmt.setInt(4, id);\r\n            return stmt.executeUpdate() > 0;\r\n        } catch (SQLException e) {\r\n            e.printStackTrace();\r\n            return false;\r\n        }\r\n    }\r\n\r\n\r\n\r\n    @Override\r\n    public boolean updateUserRole(int userId, String newRole) {\r\n        String query = QueryLoader.getQuery(\"user.updateRole\");\r\n        try (PreparedStatement stmt = connection.prepareStatement(query)) {\r\n            stmt.setString(1, newRole);\r\n            stmt.setInt(2, userId);\r\n            int rowsUpdated = stmt.executeUpdate();\r\n            return rowsUpdated > 0;\r\n        } catch (SQLException e) {\r\n            e.printStackTrace();\r\n            return false;\r\n        }\r\n    }\r\n\r\n    @Override\r\n    public boolean emailExists(String email) {\r\n        String query = QueryLoader.getQuery(\"user.emailExists\");\r\n        try (PreparedStatement stmt = connection.prepareStatement(query)) {\r\n            stmt.setString(1, email);\r\n            ResultSet rs = stmt.executeQuery();\r\n            return rs.next(); // Returns true if a row is found\r\n        } catch (SQLException e) {\r\n            e.printStackTrace();\r\n            return false;\r\n        }\r\n    }\r\n\r\n\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/java/com/leveltrack/dao/UserDAOImpl.java b/src/main/java/com/leveltrack/dao/UserDAOImpl.java
+--- a/src/main/java/com/leveltrack/dao/UserDAOImpl.java	(revision f6dc640427e0779ba8b93b20012ceec17a0c0f62)
++++ b/src/main/java/com/leveltrack/dao/UserDAOImpl.java	(date 1736861362195)
+@@ -29,7 +29,7 @@
+             ResultSet rs = stmt.executeQuery();
+             if (rs.next()) {
+                 String role = rs.getString("role");
+-                System.out.println("Role from database: " + role);  // Verifica si el rol es correcto
++                System.out.println("Role from database: " + role);
+                 user = createUserInstance(
+                         role,
+                         rs.getInt("id"),
+@@ -134,15 +134,12 @@
+         String query = QueryLoader.getQuery("user.insert");
+         String query2 = QueryLoader.getQuery("library.insert");
+ 
+-        // Manejo de transacciones
+         try {
+-            // Desactivamos autocommit para manejar la transacción
+             connection.setAutoCommit(false);
+ 
+             try (PreparedStatement stmt = connection.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
+                  PreparedStatement stmt2 = connection.prepareStatement(query2)) {
+ 
+-                // Insertamos el nuevo usuario
+                 stmt.setString(1, user.getName());
+                 stmt.setString(2, user.getEmail());
+                 stmt.setString(3, user.getPassword());
+@@ -150,24 +147,20 @@
+ 
+                 int rowsAffected = stmt.executeUpdate();
+ 
+-                // Obtenemos el user_id generado
+                 if (rowsAffected > 0) {
+                     try (ResultSet rs = stmt.getGeneratedKeys()) {
+                         if (rs.next()) {
+-                            int userId = rs.getInt(1);  // El user_id generado automáticamente
++                            int userId = rs.getInt(1);
+ 
+-                            // Insertamos la librería para el nuevo usuario
+-                            stmt2.setInt(1, userId);  // Usamos el userId obtenido
++                            stmt2.setInt(1, userId);
+                             stmt2.executeUpdate();
+ 
+-                            // Confirmamos la transacción
+                             connection.commit();
+                             return true;
+                         }
+                     }
+                 }
+             } catch (SQLException e) {
+-                // En caso de error, revertimos la transacción
+                 connection.rollback();
+                 e.printStackTrace();
+             }
+@@ -230,7 +223,7 @@
+         try (PreparedStatement stmt = connection.prepareStatement(query)) {
+             stmt.setString(1, email);
+             ResultSet rs = stmt.executeQuery();
+-            return rs.next(); // Returns true if a row is found
++            return rs.next();
+         } catch (SQLException e) {
+             e.printStackTrace();
+             return false;
+Index: src/main/java/com/leveltrack/view/LibraryView.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package com.leveltrack.view;\r\n\r\nimport com.leveltrack.controller.LibraryController;\r\nimport com.leveltrack.model.Game;\r\n\r\nimport javax.swing.*;\r\nimport javax.swing.table.DefaultTableModel;\r\nimport javax.swing.table.TableColumn;\r\nimport java.awt.*;\r\nimport java.awt.event.ActionEvent;\r\nimport java.util.List;\r\n\r\nclass LibraryView extends JPanel {\r\n    private final LibraryController libraryController;\r\n    private final int userId;\r\n    private final String userRole;\r\n    private final JTable gamesTable;\r\n    private final DefaultTableModel tableModel;\r\n\r\n    public LibraryView(int userId, String userRole, JFrame parentFrame) throws Exception {\r\n        this.userId = userId;\r\n        this.userRole = userRole;\r\n        this.libraryController = new LibraryController();\r\n\r\n        setLayout(new BorderLayout());\r\n\r\n        // Título\r\n        JLabel titleLabel = new JLabel(\"Your Library\", SwingConstants.CENTER);\r\n        titleLabel.setFont(new Font(\"Arial\", Font.BOLD, 18));\r\n        add(titleLabel, BorderLayout.NORTH);\r\n\r\n        // Configuración de la tabla\r\n        String[] columnNames = {\"ID\", \"Name\", \"Genre\", \"Price\", \"State\", \"Score\"};\r\n        tableModel = new DefaultTableModel(columnNames, 0) {\r\n            @Override\r\n            public boolean isCellEditable(int row, int column) {\r\n                // Permitir edición solo en la columna de Score y State\r\n                return column == 4 || column == 5;\r\n            }\r\n        };\r\n        gamesTable = new JTable(tableModel);\r\n        refreshGamesList();\r\n\r\n        JScrollPane scrollPane = new JScrollPane(gamesTable);\r\n        add(scrollPane, BorderLayout.CENTER);\r\n\r\n        // Configuración del desplegable para los estados\r\n        String[] states = {\"Available\", \"Playing\", \"Paused\", \"Completed\", \"Dropped\", \"Wishlist\", \"Replaying\"};\r\n        JComboBox<String> stateComboBox = new JComboBox<>(states);\r\n\r\n        TableColumn stateColumn = gamesTable.getColumnModel().getColumn(4); // Columna de estado\r\n        stateColumn.setCellEditor(new DefaultCellEditor(stateComboBox));\r\n\r\n        // Detectar cambios en el estado y la puntuación\r\n        gamesTable.getModel().addTableModelListener(e -> {\r\n            int row = e.getFirstRow();\r\n            int column = e.getColumn();\r\n            int gameId = (int) tableModel.getValueAt(row, 0);\r\n\r\n            if (column == 4) { // Columna de estado\r\n                String newState = (String) tableModel.getValueAt(row, column);\r\n                try {\r\n                    boolean success = libraryController.updateGameState(gameId, userId, newState);\r\n                    if (success) {\r\n                        JOptionPane.showMessageDialog(this, \"Game state updated successfully!\");\r\n                    } else {\r\n                        JOptionPane.showMessageDialog(this, \"Failed to update game state.\", \"Error\", JOptionPane.ERROR_MESSAGE);\r\n                    }\r\n                } catch (Exception ex) {\r\n                    JOptionPane.showMessageDialog(this, \"Error updating game state: \" + ex.getMessage(), \"Error\", JOptionPane.ERROR_MESSAGE);\r\n                }\r\n            } else if (column == 5) { // Columna de puntuación\r\n                try {\r\n                    String scoreInput = (String) tableModel.getValueAt(row, column);\r\n                    int score = Integer.parseInt(scoreInput);\r\n\r\n                    if (score >= 0 && score <= 10) {\r\n                        boolean success = libraryController.updateGameScore(gameId, userId, score);\r\n                        if (success) {\r\n                            JOptionPane.showMessageDialog(this, \"Game score updated successfully!\");\r\n                        } else {\r\n                            JOptionPane.showMessageDialog(this, \"Failed to update game score.\", \"Error\", JOptionPane.ERROR_MESSAGE);\r\n                        }\r\n                    } else {\r\n                        JOptionPane.showMessageDialog(this, \"Score must be between 0 and 10.\", \"Invalid Input\", JOptionPane.ERROR_MESSAGE);\r\n                        tableModel.setValueAt(\"\", row, column); // Limpiar el campo inválido\r\n                    }\r\n                } catch (NumberFormatException ex) {\r\n                    JOptionPane.showMessageDialog(this, \"Score must be a valid integer.\", \"Invalid Input\", JOptionPane.ERROR_MESSAGE);\r\n                    tableModel.setValueAt(0, row, column); // Limpiar el campo inválido\r\n                }\r\n            }\r\n        });\r\n\r\n        // Panel de controles\r\n        JPanel controlsPanel = new JPanel(new GridLayout(1, 2, 10, 10));\r\n        JButton addGameButton = new JButton(\"Add Game\");\r\n        JButton backButton = new JButton(\"Back to Main Menu\");\r\n\r\n        controlsPanel.add(addGameButton);\r\n        controlsPanel.add(backButton);\r\n\r\n        add(controlsPanel, BorderLayout.SOUTH);\r\n\r\n        // Acción del botón para añadir juegos\r\n        addGameButton.addActionListener((ActionEvent e) -> {\r\n            String gameNameInput = JOptionPane.showInputDialog(\"Enter Game Name to Add:\");\r\n            try {\r\n                if (libraryController.addGameToLibrary(userId, gameNameInput)) {\r\n                    JOptionPane.showMessageDialog(this, \"Game added to library!\");\r\n                    refreshGamesList();\r\n                } else {\r\n                    JOptionPane.showMessageDialog(this, \"Failed to add game. Game might not exist or is already in your library.\");\r\n                }\r\n            } catch (Exception ex) {\r\n                JOptionPane.showMessageDialog(this, \"Error adding game: \" + ex.getMessage(), \"Error\", JOptionPane.ERROR_MESSAGE);\r\n            }\r\n        });\r\n\r\n        // Acción del botón para regresar\r\n        backButton.addActionListener((ActionEvent e) -> {\r\n            parentFrame.getContentPane().removeAll();\r\n            parentFrame.add(new UserDashboard(parentFrame, userId, userRole));\r\n            parentFrame.revalidate();\r\n            parentFrame.repaint();\r\n        });\r\n    }\r\n\r\n    private void refreshGamesList() {\r\n        tableModel.setRowCount(0);\r\n        List<Game> games = libraryController.getGamesByUserId(userId);\r\n        for (Game game : games) {\r\n            tableModel.addRow(new Object[]{\r\n                    game.getId(),\r\n                    game.getName(),\r\n                    game.getGenre(),\r\n                    game.getPrice(),\r\n                    game.getState(),\r\n                    game.getScore(), // Campo Score inicial vacío\r\n            });\r\n        }\r\n    }\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/java/com/leveltrack/view/LibraryView.java b/src/main/java/com/leveltrack/view/LibraryView.java
+--- a/src/main/java/com/leveltrack/view/LibraryView.java	(revision f6dc640427e0779ba8b93b20012ceec17a0c0f62)
++++ b/src/main/java/com/leveltrack/view/LibraryView.java	(date 1736864022242)
+@@ -34,7 +34,6 @@
+         tableModel = new DefaultTableModel(columnNames, 0) {
+             @Override
+             public boolean isCellEditable(int row, int column) {
+-                // Permitir edición solo en la columna de Score y State
+                 return column == 4 || column == 5;
+             }
+         };
+@@ -53,6 +52,9 @@
+ 
+         // Detectar cambios en el estado y la puntuación
+         gamesTable.getModel().addTableModelListener(e -> {
++            if (tableModel.getRowCount() == 0) {
++                return;
++            }
+             int row = e.getFirstRow();
+             int column = e.getColumn();
+             int gameId = (int) tableModel.getValueAt(row, 0);
+@@ -95,9 +97,11 @@
+         // Panel de controles
+         JPanel controlsPanel = new JPanel(new GridLayout(1, 2, 10, 10));
+         JButton addGameButton = new JButton("Add Game");
++        JButton removeGameButton = new JButton("Remove Game");
+         JButton backButton = new JButton("Back to Main Menu");
+ 
+         controlsPanel.add(addGameButton);
++        controlsPanel.add(removeGameButton);
+         controlsPanel.add(backButton);
+ 
+         add(controlsPanel, BorderLayout.SOUTH);
+@@ -117,7 +121,22 @@
+             }
+         });
+ 
+-        // Acción del botón para regresar
++        removeGameButton.addActionListener((ActionEvent e) ->{
++            int selectedRow = gamesTable.getSelectedRow();
++            if (selectedRow != -1) {
++                String selectedName = gamesTable.getValueAt(selectedRow, 0).toString();
++                Game selectedGame = libraryController.findGameByName(selectedName);
++                if (libraryController.removeGame(userId, selectedGame.getId())) {
++                    JOptionPane.showMessageDialog(this, "Game deleted successfully!");
++                    refreshGamesList();
++                } else {
++                    JOptionPane.showMessageDialog(this, "Failed to delete game.", "Error", JOptionPane.ERROR_MESSAGE);
++                }
++            }else{
++                JOptionPane.showMessageDialog(this, "Game not found.");
++            }
++        });
++
+         backButton.addActionListener((ActionEvent e) -> {
+             parentFrame.getContentPane().removeAll();
+             parentFrame.add(new UserDashboard(parentFrame, userId, userRole));
+@@ -136,7 +155,7 @@
+                     game.getGenre(),
+                     game.getPrice(),
+                     game.getState(),
+-                    game.getScore(), // Campo Score inicial vacío
++                    game.getScore(),
+             });
+         }
+     }
+Index: src/main/java/com/leveltrack/service/UserService.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package com.leveltrack.service;\r\n\r\nimport com.leveltrack.dao.UserDAO;\r\nimport com.leveltrack.dao.UserDAOImpl;\r\nimport com.leveltrack.model.Administrator;\r\nimport com.leveltrack.model.Moderator;\r\nimport com.leveltrack.model.Regular_User;\r\nimport com.leveltrack.model.UserBase;\r\n\r\nimport java.util.List;\r\n\r\npublic class UserService {\r\n    private final UserDAO userDAO;\r\n\r\n    public UserService() throws Exception {\r\n        this.userDAO = new UserDAOImpl();\r\n    }\r\n\r\n    /**\r\n     * Authenticates a user based on email and password.\r\n     * @param email The user's email.\r\n     * @param password The user's password.\r\n     * @return The authenticated UserBase object or null if authentication fails.\r\n     */\r\n    public UserBase authenticate(String email, String password) {\r\n        if (email == null || email.isEmpty() || password == null || password.isEmpty()) {\r\n            throw new IllegalArgumentException(\"Email and password are required.\");\r\n        }\r\n\r\n        UserBase user = userDAO.findByEmailAndPassword(email, password);\r\n        if (user == null) {\r\n            return null; // Authentication failed\r\n        }\r\n\r\n        return createUserInstance(user.getRole(), user);\r\n    }\r\n\r\n    /**\r\n     * Registers a new user in the system.\r\n     * @param name The user's name.\r\n     * @param email The user's email.\r\n     * @param password The user's password.\r\n     * @param role The user's role (Administrator, Moderator, Regular_User).\r\n     * @return True if the user was successfully registered, false otherwise.\r\n     */\r\n    public boolean registerUser(String name, String email, String password, String role) {\r\n        if (name == null || name.isEmpty() || email == null || email.isEmpty() || password == null || password.isEmpty() || role == null || role.isEmpty()) {\r\n            throw new IllegalArgumentException(\"All fields are required.\");\r\n        }\r\n\r\n        if (!isValidEmail(email)) {\r\n            throw new IllegalArgumentException(\"Invalid email format.\");\r\n        }\r\n\r\n        if (!isValidRole(role)) {\r\n            throw new IllegalArgumentException(\"Invalid role. Accepted roles: Administrator, Moderator, Regular_User.\");\r\n        }\r\n\r\n        UserBase user = createUserInstance(role, 0, name, email, password);\r\n        return userDAO.createUser(user);\r\n    }\r\n\r\n    /**\r\n     * Updates a user's profile.\r\n     * @param id The user's ID.\r\n     * @param name The updated name.\r\n     * @param email The updated email.\r\n     * @param password The updated password.\r\n     * @return True if the profile was successfully updated, false otherwise.\r\n     */\r\n    public boolean updateUserProfile(int id, String name, String email, String password) {\r\n        if (id <= 0 || name == null || name.isEmpty() || email == null || email.isEmpty() || password == null || password.isEmpty()) {\r\n            throw new IllegalArgumentException(\"All fields are required, and ID must be positive.\");\r\n        }\r\n\r\n        if (!isValidEmail(email)) {\r\n            throw new IllegalArgumentException(\"Invalid email format.\");\r\n        }\r\n\r\n        UserBase user = userDAO.findById(id);\r\n        if (user == null) {\r\n            throw new IllegalArgumentException(\"User not found.\");\r\n        }\r\n\r\n        user.setName(name);\r\n        user.setEmail(email);\r\n        user.setPassword(password);\r\n\r\n        return userDAO.updateProfiled(user);\r\n    }\r\n\r\n    /**\r\n     * Helper method to validate the email format.\r\n     * @param email The email to validate.\r\n     * @return True if the email format is valid, false otherwise.\r\n     */\r\n    private boolean isValidEmail(String email) {\r\n        String emailRegex = \"^[A-Za-z0-9+_.-]+@[A-Za-z0-9.-]+$\";\r\n        return email.matches(emailRegex);\r\n    }\r\n\r\n    /**\r\n     * Helper method to validate the role input.\r\n     * @param userId The role to validate.\r\n     * @return True if the role is valid, false otherwise.\r\n     */\r\n    public boolean isAdmin(int userId) {\r\n        UserBase user = userDAO.findById(userId);\r\n        return user != null && \"ADMINISTRATOR\".equalsIgnoreCase(user.getRole());\r\n    }\r\n\r\n    public boolean updateUserRole(int userId, String newRole) {\r\n        if (!isValidRole(newRole)) {\r\n            throw new IllegalArgumentException(\"Invalid role: \" + newRole);\r\n        }\r\n        return userDAO.updateUserRole(userId, newRole);\r\n    }\r\n\r\n    public boolean partialUpdateUserProfile(int id, String name, String email, String password) {\r\n        // Fetch the current user details\r\n        UserBase existingUser = userDAO.findById(id);\r\n\r\n        if (existingUser == null) {\r\n            throw new IllegalArgumentException(\"User not found.\");\r\n        }\r\n\r\n        // Use existing values if new ones are empty\r\n        String updatedName = (name == null || name.isEmpty()) ? existingUser.getName() : name;\r\n        String updatedEmail = (email == null || email.isEmpty()) ? existingUser.getEmail() : email;\r\n        String updatedPassword = (password == null || password.isEmpty()) ? existingUser.getPassword() : password;\r\n\r\n        return userDAO.updateProfile(id, updatedName, updatedEmail, updatedPassword);\r\n    }\r\n\r\n\r\n\r\n    public boolean isValidRole(String role) {\r\n        return role.equalsIgnoreCase(\"ADMINISTRATOR\") ||\r\n                role.equalsIgnoreCase(\"MODERATOR\") ||\r\n                role.equalsIgnoreCase(\"REGULAR_USER\");\r\n    }\r\n\r\n\r\n    /**\r\n     * Helper method to create an instance of a UserBase subclass based on role.\r\n     * @param role The user's role.\r\n     * @param user A UserBase object with basic data (for database retrieval).\r\n     * @return A subclass instance of UserBase.\r\n     */\r\n    private UserBase createUserInstance(String role, UserBase user) {\r\n        System.out.println(\"Creating user with role: \" + role);  // Verifica el rol aquí\r\n        return switch (role.toUpperCase()) {\r\n            case \"ADMINISTRATOR\" -> new Administrator(user.getId(), user.getName(), user.getEmail());\r\n            case \"MODERATOR\" -> new Moderator(user.getId(), user.getName(), user.getEmail());\r\n            default -> new Regular_User(user.getId(), user.getName(), user.getEmail());\r\n        };\r\n    }\r\n\r\n    /**\r\n     * Overloaded helper method to create a new user instance from scratch.\r\n     * @param role The user's role.\r\n     * @param id The user's ID.\r\n     * @param name The user's name.\r\n     * @param email The user's email.\r\n     * @param password The user's password.\r\n     * @return A subclass instance of UserBase.\r\n     */\r\n    private UserBase createUserInstance(String role, int id, String name, String email, String password) {\r\n        UserBase user;\r\n\r\n\r\n        switch (role) {\r\n            case \"ADMINISTRATOR\":\r\n                user = new Administrator(id, name, email);\r\n                break;\r\n            case \"MODERATOR\":\r\n                user = new Moderator(id, name, email);\r\n                break;\r\n            default:\r\n                user = new Regular_User(id, name, email);\r\n                break;\r\n        }\r\n\r\n\r\n        user.setPassword(password);\r\n        return user;\r\n    }\r\n\r\n\r\n\r\n\r\n    public boolean emailExists(String email) {\r\n        if (email == null || email.isEmpty()) {\r\n            throw new IllegalArgumentException(\"Email is required.\");\r\n        }\r\n        return userDAO.emailExists(email);\r\n    }\r\n\r\n\r\n    public List<UserBase> findAllUsers() {\r\n        return userDAO.findAll();\r\n    }\r\n\r\n    public List<UserBase> getAllUsers() {\r\n        return userDAO.findAll();\r\n    }\r\n\r\n    public boolean deleteUser(int userId){\r\n        return userDAO.delete(userId);\r\n    }\r\n}\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/java/com/leveltrack/service/UserService.java b/src/main/java/com/leveltrack/service/UserService.java
+--- a/src/main/java/com/leveltrack/service/UserService.java	(revision f6dc640427e0779ba8b93b20012ceec17a0c0f62)
++++ b/src/main/java/com/leveltrack/service/UserService.java	(date 1736861969829)
+@@ -7,6 +7,9 @@
+ import com.leveltrack.model.Regular_User;
+ import com.leveltrack.model.UserBase;
+ 
++import java.nio.charset.StandardCharsets;
++import java.security.MessageDigest;
++import java.security.NoSuchAlgorithmException;
+ import java.util.List;
+ 
+ public class UserService {
+@@ -29,7 +32,7 @@
+ 
+         UserBase user = userDAO.findByEmailAndPassword(email, password);
+         if (user == null) {
+-            return null; // Authentication failed
++            return null;
+         }
+ 
+         return createUserInstance(user.getRole(), user);
+@@ -117,21 +120,36 @@
+     }
+ 
+     public boolean partialUpdateUserProfile(int id, String name, String email, String password) {
+-        // Fetch the current user details
+         UserBase existingUser = userDAO.findById(id);
+ 
+         if (existingUser == null) {
+             throw new IllegalArgumentException("User not found.");
+         }
+ 
+-        // Use existing values if new ones are empty
+         String updatedName = (name == null || name.isEmpty()) ? existingUser.getName() : name;
+         String updatedEmail = (email == null || email.isEmpty()) ? existingUser.getEmail() : email;
+-        String updatedPassword = (password == null || password.isEmpty()) ? existingUser.getPassword() : password;
++        String updatedPassword = (password == null || password.isEmpty()) ? existingUser.getPassword() : hashPassword(password);
+ 
+         return userDAO.updateProfile(id, updatedName, updatedEmail, updatedPassword);
+     }
+ 
++    private String hashPassword(String password) {
++        try {
++            MessageDigest digest = MessageDigest.getInstance("SHA-256");
++            byte[] encodedhash = digest.digest(password.getBytes(StandardCharsets.UTF_8));
++            StringBuilder hexString = new StringBuilder();
++            for (byte b : encodedhash) {
++                String hex = Integer.toHexString(0xff & b);
++                if (hex.length() == 1) {
++                    hexString.append('0');
++                }
++                hexString.append(hex);
++            }
++            return hexString.toString();
++        } catch (NoSuchAlgorithmException e) {
++            throw new RuntimeException("Error al inicializar el algoritmo de hash", e);
++        }
++    }
+ 
+ 
+     public boolean isValidRole(String role) {
+@@ -186,9 +204,6 @@
+         return user;
+     }
+ 
+-
+-
+-
+     public boolean emailExists(String email) {
+         if (email == null || email.isEmpty()) {
+             throw new IllegalArgumentException("Email is required.");
+@@ -196,11 +211,6 @@
+         return userDAO.emailExists(email);
+     }
+ 
+-
+-    public List<UserBase> findAllUsers() {
+-        return userDAO.findAll();
+-    }
+-
+     public List<UserBase> getAllUsers() {
+         return userDAO.findAll();
+     }
+Index: src/main/java/com/leveltrack/service/LibraryService.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package com.leveltrack.service;\r\n\r\nimport com.leveltrack.dao.LibraryDAO;\r\nimport com.leveltrack.dao.GameDAO;\r\nimport com.leveltrack.dao.LibraryDAOImpl;\r\nimport com.leveltrack.dao.GameDAOImpl;\r\nimport com.leveltrack.model.Game;\r\n\r\nimport java.util.List;\r\n\r\npublic class LibraryService {\r\n    private final LibraryDAO libraryDAO;\r\n    private final GameDAO gameDAO;\r\n\r\n    public LibraryService() throws Exception {\r\n        this.libraryDAO = new LibraryDAOImpl();\r\n        this.gameDAO = new GameDAOImpl();\r\n    }\r\n\r\n    public List<Game> getGamesByUserId(int userId) {\r\n        return libraryDAO.getGamesByUserId(userId);\r\n    }\r\n\r\n    public boolean isGameInLibrary(int userId, int gameId) {\r\n        return libraryDAO.isGameInLibrary(userId, gameId);\r\n    }\r\n\r\n    public List<Game> getGamesByGenreUser(int userId, String genre) {\r\n        return libraryDAO.getGamesByGenreUser(userId, genre);\r\n    }\r\n\r\n    public boolean addGameToLibrary(int userId, int gameId, String state) {\r\n        return libraryDAO.addGameToLibrary(userId, gameId, state);\r\n    }\r\n\r\n    public boolean removeGameFromLibrary(int libraryId, int gameId) {\r\n        return libraryDAO.removeGameFromLibrary(libraryId, gameId);\r\n    }\r\n\r\n    public boolean updateGameState(int gameId, int userId, String newState) {\r\n        return libraryDAO.updateGameState(gameId, userId, newState);\r\n    }\r\n\r\n    public boolean isGameInDatabase(String gameName) {\r\n        return libraryDAO.isGameInDatabase(gameName);\r\n    }\r\n\r\n    public Game getGameByName(String gameName) {\r\n        return libraryDAO.getGameByName(gameName);\r\n    }\r\n\r\n    public int getLibraryIdByUserId(int userId) {\r\n        return libraryDAO.getLibraryIdByUserId(userId);\r\n    }\r\n\r\n    public List<Game> getAllGamesFromDatabase() {\r\n        return libraryDAO.getAllGames();\r\n    }\r\n\r\n    public List<Game> getAllGames() {\r\n        return gameDAO.getAllGames();\r\n    }\r\n\r\n    public List<Game> searchGamesByName(String keyword) {\r\n        return gameDAO.searchGamesByName(keyword);\r\n    }\r\n\r\n    public List<Game> getGamesByGenre(String genre) {\r\n        return libraryDAO.getGamesByGenre(genre);\r\n    }\r\n\r\n    public List<String> getAllGenres() {\r\n        return libraryDAO.getAllGenres();\r\n    }\r\n\r\n    // Nuevo método para actualizar la puntuación de un juego\r\n    public boolean updateGameScore(int gameId, int userId, int score) {\r\n        return libraryDAO.updateGameScore(gameId, userId, score);\r\n    }\r\n\r\n    // Nuevo método para obtener la puntuación de un juego\r\n    public int getGameScore(int gameId, int userId) {\r\n        return libraryDAO.getGameScore(gameId, userId);\r\n    }\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/java/com/leveltrack/service/LibraryService.java b/src/main/java/com/leveltrack/service/LibraryService.java
+--- a/src/main/java/com/leveltrack/service/LibraryService.java	(revision f6dc640427e0779ba8b93b20012ceec17a0c0f62)
++++ b/src/main/java/com/leveltrack/service/LibraryService.java	(date 1736862920425)
+@@ -45,6 +45,10 @@
+         return libraryDAO.isGameInDatabase(gameName);
+     }
+ 
++    public boolean removeGame(int userId, int gameId){
++        return libraryDAO.removeGameFromLibrary(userId, gameId);
++    }
++
+     public Game getGameByName(String gameName) {
+         return libraryDAO.getGameByName(gameName);
+     }
+@@ -53,10 +57,6 @@
+         return libraryDAO.getLibraryIdByUserId(userId);
+     }
+ 
+-    public List<Game> getAllGamesFromDatabase() {
+-        return libraryDAO.getAllGames();
+-    }
+-
+     public List<Game> getAllGames() {
+         return gameDAO.getAllGames();
+     }
+@@ -73,12 +73,10 @@
+         return libraryDAO.getAllGenres();
+     }
+ 
+-    // Nuevo método para actualizar la puntuación de un juego
+     public boolean updateGameScore(int gameId, int userId, int score) {
+         return libraryDAO.updateGameScore(gameId, userId, score);
+     }
+ 
+-    // Nuevo método para obtener la puntuación de un juego
+     public int getGameScore(int gameId, int userId) {
+         return libraryDAO.getGameScore(gameId, userId);
+     }
+Index: src/main/java/com/leveltrack/service/FriendshipService.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package com.leveltrack.service;\r\n\r\nimport com.leveltrack.dao.FriendshipDAO;\r\nimport com.leveltrack.dao.FriendshipDAOImpl;\r\nimport com.leveltrack.model.Friendship;\r\nimport com.leveltrack.model.Game;\r\nimport com.leveltrack.model.UserBase;\r\n\r\nimport java.util.List;\r\n\r\npublic class FriendshipService {\r\n    private final FriendshipDAO friendshipDAO;\r\n\r\n    public FriendshipService() throws Exception {\r\n        this.friendshipDAO = new FriendshipDAOImpl();\r\n    }\r\n    \r\n\r\n    public List<UserBase> searchUsers(String keyword) {\r\n        return friendshipDAO.searchUsers(keyword);\r\n    }\r\n\r\n    public boolean sendFriendRequest(int requesterId, int receiverId) {\r\n        return friendshipDAO.sendFriendRequest(requesterId, receiverId);\r\n    }\r\n\r\n    public boolean checkValidRequest(int requesterId, int receiverId){\r\n        return friendshipDAO.checkValidRequest(requesterId, receiverId);\r\n    }\r\n\r\n    public List<Friendship> getFriendRequests(int userId) {\r\n        return friendshipDAO.getFriendRequests(userId);\r\n    }\r\n\r\n    public boolean respondToFriendRequest(int friendshipId, String status) {\r\n        return friendshipDAO.updateFriendRequestStatus(friendshipId, status);\r\n    }\r\n\r\n    public List<UserBase> getFriends(int userId) {\r\n        return friendshipDAO.getFriends(userId);\r\n    }\r\n\r\n    public int getUserIdByEmail(String userEmail){\r\n        return friendshipDAO.getUserIdByEmail(userEmail);\r\n    }\r\n\r\n    public List<Game> getGamesByUserId;\r\n\r\n    public boolean deleteFriend(int userId, int friendId){\r\n        return friendshipDAO.deleteFriend(userId, friendId);\r\n    }\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/java/com/leveltrack/service/FriendshipService.java b/src/main/java/com/leveltrack/service/FriendshipService.java
+--- a/src/main/java/com/leveltrack/service/FriendshipService.java	(revision f6dc640427e0779ba8b93b20012ceec17a0c0f62)
++++ b/src/main/java/com/leveltrack/service/FriendshipService.java	(date 1736861832978)
+@@ -44,8 +44,6 @@
+         return friendshipDAO.getUserIdByEmail(userEmail);
+     }
+ 
+-    public List<Game> getGamesByUserId;
+-
+     public boolean deleteFriend(int userId, int friendId){
+         return friendshipDAO.deleteFriend(userId, friendId);
+     }
+Index: src/main/java/com/leveltrack/dao/LibraryDAO.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package com.leveltrack.dao;\r\n\r\nimport com.leveltrack.model.Game;\r\n\r\nimport java.util.List;\r\n\r\npublic interface LibraryDAO {\r\n    List<Game> getGamesByUserId(int userId);\r\n    boolean addGameToLibrary(int libraryId, int gameId, String state);\r\n    boolean removeGameFromLibrary(int libraryId, int gameId);\r\n     boolean updateGameState(int gameId, int userId, String newState);\r\n    boolean isGameInDatabase(String gameName);\r\n    Game getGameByName(String gameName);\r\n    int getLibraryIdByUserId(int userId);\r\n    List<Game> getAllGames();\r\n    List<Game> getGamesByGenreUser(int userId, String genre);\r\n    List<Game> getGamesByGenre(String genre);\r\n    boolean isGameInLibrary(int libraryId, int gameId);\r\n    int getGameScore(int gameId, int userId);\r\n    boolean updateGameScore(int gameId, int userId, int score);\r\n\r\n    List<String> getAllGenres();\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/java/com/leveltrack/dao/LibraryDAO.java b/src/main/java/com/leveltrack/dao/LibraryDAO.java
+--- a/src/main/java/com/leveltrack/dao/LibraryDAO.java	(revision f6dc640427e0779ba8b93b20012ceec17a0c0f62)
++++ b/src/main/java/com/leveltrack/dao/LibraryDAO.java	(date 1736861416470)
+@@ -18,6 +18,5 @@
+     boolean isGameInLibrary(int libraryId, int gameId);
+     int getGameScore(int gameId, int userId);
+     boolean updateGameScore(int gameId, int userId, int score);
+-
+     List<String> getAllGenres();
+ }
+Index: src/main/java/com/leveltrack/controller/LoginController.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package com.leveltrack.controller;\r\n\r\nimport com.leveltrack.model.UserBase;\r\nimport com.leveltrack.service.UserService;\r\n\r\nimport javax.swing.*;\r\n\r\npublic class LoginController {\r\n    private final UserService userService;\r\n\r\n    public LoginController() throws Exception {\r\n        this.userService = new UserService();\r\n    }\r\n\r\n    public UserBase login(String email, String password) {\r\n        try {\r\n            UserBase user = userService.authenticate(email, password);\r\n            if (user != null) {\r\n                return user;\r\n            }\r\n        } catch (Exception e) {\r\n            e.printStackTrace();\r\n        }\r\n        return null; // Return null if authentication fails\r\n    }\r\n\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/java/com/leveltrack/controller/LoginController.java b/src/main/java/com/leveltrack/controller/LoginController.java
+--- a/src/main/java/com/leveltrack/controller/LoginController.java	(revision f6dc640427e0779ba8b93b20012ceec17a0c0f62)
++++ b/src/main/java/com/leveltrack/controller/LoginController.java	(date 1736861666754)
+@@ -21,7 +21,7 @@
+         } catch (Exception e) {
+             e.printStackTrace();
+         }
+-        return null; // Return null if authentication fails
++        return null;
+     }
+ 
+ }
+Index: src/main/java/com/leveltrack/dao/LibraryDAOImpl.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package com.leveltrack.dao;\r\n\r\nimport com.leveltrack.model.Game;\r\nimport com.leveltrack.util.DatabaseConnection;\r\nimport com.leveltrack.util.QueryLoader;\r\n\r\nimport java.sql.Connection;\r\nimport java.sql.PreparedStatement;\r\nimport java.sql.ResultSet;\r\nimport java.sql.SQLException;\r\nimport java.util.ArrayList;\r\nimport java.util.List;\r\n\r\npublic class LibraryDAOImpl implements LibraryDAO {\r\n    private final Connection connection;\r\n\r\n    public LibraryDAOImpl() throws Exception {\r\n        this.connection = DatabaseConnection.getInstance().getConnection();\r\n    }\r\n\r\n    @Override\r\n    public List<Game> getGamesByUserId(int userId) {\r\n        List<Game> games = new ArrayList<>();\r\n        String query = QueryLoader.getQuery(\"library.getGamesByUserId\");\r\n        try (PreparedStatement stmt = connection.prepareStatement(query)) {\r\n            stmt.setInt(1, userId);\r\n            ResultSet rs = stmt.executeQuery();\r\n            while (rs.next()) {\r\n                games.add(new Game(\r\n                        rs.getInt(\"id\"),\r\n                        rs.getString(\"name\"),\r\n                        rs.getString(\"genre\"),\r\n                        rs.getDouble(\"price\"),\r\n                        rs.getString(\"state\"),\r\n                        rs.getInt(\"game_score\")\r\n                ));\r\n            }\r\n        } catch (SQLException e) {\r\n            e.printStackTrace();\r\n        }\r\n        return games;\r\n    }\r\n\r\n\r\n    @Override\r\n    public boolean addGameToLibrary(int userId, int gameId, String state) {\r\n        String query = QueryLoader.getQuery(\"library.addGame\");\r\n        try (PreparedStatement stmt = connection.prepareStatement(query)) {\r\n            // Cambiar los índices para reflejar la consulta\r\n            stmt.setInt(1, getLibraryIdByUserId(userId)); // Método para obtener el libraryId\r\n            stmt.setInt(2, userId);\r\n            stmt.setInt(3, gameId);\r\n            stmt.setString(4, state);\r\n            stmt.setInt(5, 0);\r\n            int rowsAffected = stmt.executeUpdate();\r\n            return rowsAffected > 0;\r\n        } catch (SQLException e) {\r\n            e.printStackTrace();\r\n            return false;\r\n        }\r\n    }\r\n\r\n    @Override\r\n    public boolean removeGameFromLibrary(int libraryId, int gameId) {\r\n        String query = QueryLoader.getQuery(\"library.removeGame\");\r\n        try (PreparedStatement stmt = connection.prepareStatement(query)) {\r\n            stmt.setInt(1, libraryId);\r\n            stmt.setInt(2, gameId);\r\n            return stmt.executeUpdate() > 0;\r\n        } catch (SQLException e) {\r\n            e.printStackTrace();\r\n        }\r\n        return false;\r\n    }\r\n\r\n    @Override\r\n    public boolean updateGameState(int gameId, int userId, String newState) {\r\n        String query = QueryLoader.getQuery(\"library.updateGameState\");\r\n        try (PreparedStatement stmt = connection.prepareStatement(query)) {\r\n            stmt.setString(1, newState);\r\n            stmt.setInt(2, gameId);\r\n            stmt.setInt(3, userId); // Agrega el userId aquí\r\n            return stmt.executeUpdate() > 0;\r\n        } catch (SQLException e) {\r\n            e.printStackTrace();\r\n        }\r\n        return false;\r\n    }\r\n\r\n\r\n    @Override\r\n    public boolean isGameInDatabase(String gameName) {\r\n        String query = QueryLoader.getQuery(\"game.isGameInDatabase\");\r\n        try (PreparedStatement stmt = connection.prepareStatement(query)) {\r\n            stmt.setString(1, gameName);\r\n            ResultSet rs = stmt.executeQuery();\r\n            return rs.next();\r\n        } catch (SQLException e) {\r\n            e.printStackTrace();\r\n        }\r\n        return false;\r\n    }\r\n\r\n    @Override\r\n    public Game getGameByName(String gameName) {\r\n        String query = QueryLoader.getQuery(\"game.getGameByName\");\r\n        try (PreparedStatement stmt = connection.prepareStatement(query)) {\r\n            stmt.setString(1, gameName);\r\n            ResultSet rs = stmt.executeQuery();\r\n            if (rs.next()) {\r\n                return new Game(\r\n                        rs.getInt(\"id\"),\r\n                        rs.getString(\"name\"),\r\n                        rs.getString(\"genre\"),\r\n                        rs.getDouble(\"price\"),\r\n                        \"Available\",\r\n                        0\r\n                );\r\n            }\r\n        } catch (SQLException e) {\r\n            e.printStackTrace();\r\n        }\r\n        return null;\r\n    }\r\n\r\n    @Override\r\n    public int getLibraryIdByUserId(int userId) {\r\n        String query = QueryLoader.getQuery(\"library.getLibraryIdByUserId\");\r\n        try (PreparedStatement stmt = connection.prepareStatement(query)) {\r\n            stmt.setInt(1, userId);\r\n            ResultSet rs = stmt.executeQuery();\r\n            if (rs.next()) {\r\n                return rs.getInt(\"id\");\r\n            }\r\n        } catch (SQLException e) {\r\n            e.printStackTrace();\r\n        }\r\n        throw new IllegalStateException(\"Library not found for user ID: \" + userId);\r\n    }\r\n\r\n\r\n    @Override\r\n    public List<Game> getAllGames() {\r\n        List<Game> games = new ArrayList<>();\r\n        String query = QueryLoader.getQuery(\"library.findAll\");\r\n        try (PreparedStatement stmt = connection.prepareStatement(query);\r\n             ResultSet rs = stmt.executeQuery()) {\r\n            while (rs.next()) {\r\n                games.add(new Game(\r\n                        rs.getInt(\"id\"),\r\n                        rs.getString(\"name\"),\r\n                        rs.getString(\"genre\"),\r\n                        rs.getDouble(\"price\"),\r\n                        \"Available\", // Default state when fetching from database\r\n                        rs.getInt(\"game_score\")\r\n                ));\r\n            }\r\n        } catch (SQLException e) {\r\n            e.printStackTrace();\r\n        }\r\n        return games;\r\n    }\r\n\r\n    @Override\r\n    public List<Game> getGamesByGenreUser(int userId, String genre) {\r\n        List<Game> games = new ArrayList<>();\r\n        String query = QueryLoader.getQuery(\"library.getGamesByGenreUser\"); // Carga la consulta desde el archivo\r\n        try (PreparedStatement stmt = connection.prepareStatement(query)) {\r\n            stmt.setInt(1, userId); // Establece el ID del usuario\r\n            stmt.setString(2, \"%\" + genre + \"%\"); // Género con comodines para LIKE\r\n            ResultSet rs = stmt.executeQuery();\r\n            while (rs.next()) {\r\n                games.add(new Game(\r\n                        rs.getInt(\"id\"),\r\n                        rs.getString(\"name\"),\r\n                        rs.getString(\"genre\"),\r\n                        rs.getDouble(\"price\"),\r\n                        rs.getString(\"state\"),\r\n                        rs.getInt(\"game_score\")\r\n                ));\r\n            }\r\n        } catch (SQLException e) {\r\n            e.printStackTrace(); // Imprime cualquier excepción SQL\r\n        }\r\n        return games; // Devuelve la lista de juegos\r\n    }\r\n\r\n    @Override\r\n    public List<Game> getGamesByGenre(String genre) {\r\n        List<Game> games = new ArrayList<>();\r\n        String query = QueryLoader.getQuery(\"library.getGamesByGenre\"); // Define la consulta en tu archivo de queries\r\n\r\n        try (PreparedStatement stmt = connection.prepareStatement(query)) {\r\n            stmt.setString(1, genre); // Género exacto\r\n            try (ResultSet rs = stmt.executeQuery()) {\r\n                while (rs.next()) {\r\n                    games.add(new Game(\r\n                            rs.getInt(\"id\"),\r\n                            rs.getString(\"name\"),\r\n                            rs.getString(\"genre\"),\r\n                            rs.getDouble(\"price\"),\r\n                            \"Available\",\r\n                            0\r\n                    ));\r\n                }\r\n            }\r\n        } catch (SQLException e) {\r\n            System.err.println(\"Error retrieving games by genre: \" + e.getMessage());\r\n        }\r\n\r\n\r\n        if (games.isEmpty()) {\r\n            System.out.println(\"No games found for genre: \" + genre);\r\n        }\r\n\r\n\r\n        return games; // Devuelve la lista de juegos\r\n    }\r\n\r\n\r\n    @Override\r\n    public boolean isGameInLibrary(int userId, int gameId) {\r\n        String query = QueryLoader.getQuery(\"library.isGameInLibrary\");\r\n        try (PreparedStatement stmt = connection.prepareStatement(query)) {\r\n            stmt.setInt(1, getLibraryIdByUserId(userId));\r\n            stmt.setInt(2, gameId);\r\n            ResultSet rs = stmt.executeQuery();\r\n            return rs.next();\r\n        } catch (SQLException e) {\r\n            e.printStackTrace();\r\n        }\r\n        return false;\r\n    }\r\n\r\n    // Nuevo método para actualizar la puntuación de un juego\r\n    @Override\r\n    public boolean updateGameScore(int gameId, int userId, int score) {\r\n        String query = QueryLoader.getQuery(\"library.updateGameScore\");\r\n        try (PreparedStatement stmt = connection.prepareStatement(query)) {\r\n            stmt.setInt(1, score);\r\n            stmt.setInt(2, gameId);\r\n            stmt.setInt(3, userId);\r\n            stmt.setInt(4, getLibraryIdByUserId(userId));\r\n            int rowsAffected = stmt.executeUpdate();\r\n            return rowsAffected > 0;\r\n        } catch (SQLException e) {\r\n            e.printStackTrace();\r\n        }\r\n        return false;\r\n    }\r\n\r\n    // Nuevo método para obtener la puntuación de un juego\r\n    @Override\r\n    public int getGameScore(int gameId, int userId) {\r\n        String query = QueryLoader.getQuery(\"library.getGameScore\");\r\n        try (PreparedStatement stmt = connection.prepareStatement(query)) {\r\n            stmt.setInt(1, gameId);\r\n            stmt.setInt(2, userId);\r\n            stmt.setInt(3, getLibraryIdByUserId(userId));\r\n            ResultSet rs = stmt.executeQuery();\r\n            if (rs.next()) {\r\n                return rs.getInt(\"game_score\");\r\n            }\r\n        } catch (SQLException e) {\r\n            e.printStackTrace();\r\n        }\r\n        return -1; // Retorna -1 si no se encuentra la puntuación\r\n    }\r\n\r\n    @Override\r\n    public List<String> getAllGenres() {\r\n        List<String> genres = new ArrayList<>();\r\n        String query =  QueryLoader.getQuery(\"library.getAllGenres\");\r\n        try (PreparedStatement stmt = connection.prepareStatement(query);\r\n             ResultSet rs = stmt.executeQuery()) {\r\n            while (rs.next()) {\r\n                genres.add(rs.getString(\"genre\"));\r\n            }\r\n        } catch (SQLException e) {\r\n            e.printStackTrace();\r\n        }\r\n        return genres;\r\n    }\r\n\r\n\r\n}\r\n\r\n\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/java/com/leveltrack/dao/LibraryDAOImpl.java b/src/main/java/com/leveltrack/dao/LibraryDAOImpl.java
+--- a/src/main/java/com/leveltrack/dao/LibraryDAOImpl.java	(revision f6dc640427e0779ba8b93b20012ceec17a0c0f62)
++++ b/src/main/java/com/leveltrack/dao/LibraryDAOImpl.java	(date 1736861138333)
+@@ -46,8 +46,7 @@
+     public boolean addGameToLibrary(int userId, int gameId, String state) {
+         String query = QueryLoader.getQuery("library.addGame");
+         try (PreparedStatement stmt = connection.prepareStatement(query)) {
+-            // Cambiar los índices para reflejar la consulta
+-            stmt.setInt(1, getLibraryIdByUserId(userId)); // Método para obtener el libraryId
++            stmt.setInt(1, getLibraryIdByUserId(userId));
+             stmt.setInt(2, userId);
+             stmt.setInt(3, gameId);
+             stmt.setString(4, state);
+@@ -79,7 +78,7 @@
+         try (PreparedStatement stmt = connection.prepareStatement(query)) {
+             stmt.setString(1, newState);
+             stmt.setInt(2, gameId);
+-            stmt.setInt(3, userId); // Agrega el userId aquí
++            stmt.setInt(3, userId);
+             return stmt.executeUpdate() > 0;
+         } catch (SQLException e) {
+             e.printStackTrace();
+@@ -151,7 +150,7 @@
+                         rs.getString("name"),
+                         rs.getString("genre"),
+                         rs.getDouble("price"),
+-                        "Available", // Default state when fetching from database
++                        "Available",
+                         rs.getInt("game_score")
+                 ));
+             }
+@@ -164,10 +163,10 @@
+     @Override
+     public List<Game> getGamesByGenreUser(int userId, String genre) {
+         List<Game> games = new ArrayList<>();
+-        String query = QueryLoader.getQuery("library.getGamesByGenreUser"); // Carga la consulta desde el archivo
++        String query = QueryLoader.getQuery("library.getGamesByGenreUser");
+         try (PreparedStatement stmt = connection.prepareStatement(query)) {
+-            stmt.setInt(1, userId); // Establece el ID del usuario
+-            stmt.setString(2, "%" + genre + "%"); // Género con comodines para LIKE
++            stmt.setInt(1, userId);
++            stmt.setString(2, "%" + genre + "%");
+             ResultSet rs = stmt.executeQuery();
+             while (rs.next()) {
+                 games.add(new Game(
+@@ -180,18 +179,18 @@
+                 ));
+             }
+         } catch (SQLException e) {
+-            e.printStackTrace(); // Imprime cualquier excepción SQL
++            e.printStackTrace();
+         }
+-        return games; // Devuelve la lista de juegos
++        return games;
+     }
+ 
+     @Override
+     public List<Game> getGamesByGenre(String genre) {
+         List<Game> games = new ArrayList<>();
+-        String query = QueryLoader.getQuery("library.getGamesByGenre"); // Define la consulta en tu archivo de queries
++        String query = QueryLoader.getQuery("library.getGamesByGenre");
+ 
+         try (PreparedStatement stmt = connection.prepareStatement(query)) {
+-            stmt.setString(1, genre); // Género exacto
++            stmt.setString(1, genre);
+             try (ResultSet rs = stmt.executeQuery()) {
+                 while (rs.next()) {
+                     games.add(new Game(
+@@ -214,7 +213,7 @@
+         }
+ 
+ 
+-        return games; // Devuelve la lista de juegos
++        return games;
+     }
+ 
+ 
+@@ -232,7 +231,6 @@
+         return false;
+     }
+ 
+-    // Nuevo método para actualizar la puntuación de un juego
+     @Override
+     public boolean updateGameScore(int gameId, int userId, int score) {
+         String query = QueryLoader.getQuery("library.updateGameScore");
+@@ -249,7 +247,6 @@
+         return false;
+     }
+ 
+-    // Nuevo método para obtener la puntuación de un juego
+     @Override
+     public int getGameScore(int gameId, int userId) {
+         String query = QueryLoader.getQuery("library.getGameScore");
+@@ -264,7 +261,7 @@
+         } catch (SQLException e) {
+             e.printStackTrace();
+         }
+-        return -1; // Retorna -1 si no se encuentra la puntuación
++        return -1;
+     }
+ 
+     @Override
+Index: src/main/java/com/leveltrack/controller/LibraryController.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package com.leveltrack.controller;\r\n\r\nimport com.leveltrack.model.Game;\r\nimport com.leveltrack.service.LibraryService;\r\n\r\nimport java.util.List;\r\n\r\npublic class LibraryController {\r\n    private final LibraryService libraryService;\r\n\r\n    public LibraryController() throws Exception {\r\n        this.libraryService = new LibraryService();\r\n    }\r\n\r\n    public List<Game> getGamesByUserId(int userId) {\r\n        return libraryService.getGamesByUserId(userId);\r\n    }\r\n\r\n    public List<Game> getGamesByGenreUser(int userId, String genre) {\r\n        return libraryService.getGamesByGenreUser(userId, genre);\r\n    }\r\n\r\n    public boolean addGameToLibrary(int userId, String gameName) throws Exception {\r\n        Game game = libraryService.getGameByName(gameName);\r\n        if (game == null) {\r\n            throw new Exception(\"Game not found in the database.\");\r\n        }\r\n        boolean alreadyInLibrary = libraryService.isGameInLibrary(userId, game.getId());\r\n        if (alreadyInLibrary) {\r\n            return false;\r\n        }\r\n        return libraryService.addGameToLibrary(userId, game.getId(), \"Available\");\r\n    }\r\n\r\n    public boolean removeGame(int userId, int gameId) {\r\n        int libraryId = libraryService.getLibraryIdByUserId(userId);\r\n        return libraryService.removeGameFromLibrary(libraryId, gameId);\r\n    }\r\n\r\n    public List<Game> getAllGames() {\r\n        return libraryService.getAllGames();\r\n    }\r\n\r\n    public List<Game> searchGamesByName(String keyword) {\r\n        return libraryService.searchGamesByName(keyword);\r\n    }\r\n\r\n    public List<Game> getGamesByGenre(String genre) {\r\n        return libraryService.getGamesByGenre(genre);\r\n    }\r\n\r\n    public List<String> getAllGenres() {\r\n        return libraryService.getAllGenres();\r\n    }\r\n\r\n    public boolean updateGameState(int gameId, int userId, String newState) {\r\n        return libraryService.updateGameState(gameId, userId, newState);\r\n    }\r\n\r\n    // Nuevo método para actualizar la puntuación del juego\r\n    public boolean updateGameScore(int gameId, int userId, int score) {\r\n        System.out.println(\"Updating score for gameId: \" + gameId + \", userId: \" + userId + \" to \" + score);\r\n        return libraryService.updateGameScore(gameId, userId, score);\r\n    }\r\n\r\n    // Nuevo método para obtener la puntuación de un juego\r\n    public int getGameScore(int gameId, int userId) {\r\n        return libraryService.getGameScore(gameId, userId);\r\n    }\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/java/com/leveltrack/controller/LibraryController.java b/src/main/java/com/leveltrack/controller/LibraryController.java
+--- a/src/main/java/com/leveltrack/controller/LibraryController.java	(revision f6dc640427e0779ba8b93b20012ceec17a0c0f62)
++++ b/src/main/java/com/leveltrack/controller/LibraryController.java	(date 1736863006459)
+@@ -57,14 +57,28 @@
+         return libraryService.updateGameState(gameId, userId, newState);
+     }
+ 
+-    // Nuevo método para actualizar la puntuación del juego
+     public boolean updateGameScore(int gameId, int userId, int score) {
+         System.out.println("Updating score for gameId: " + gameId + ", userId: " + userId + " to " + score);
+         return libraryService.updateGameScore(gameId, userId, score);
+     }
+ 
+-    // Nuevo método para obtener la puntuación de un juego
+     public int getGameScore(int gameId, int userId) {
+         return libraryService.getGameScore(gameId, userId);
+     }
++
++    public Game findGameByName(String selectedName) {
++        try {
++            List<Game> games = libraryService.getAllGames();
++            for (Game game : games) {
++                if (game.getName().equalsIgnoreCase(selectedName)) {
++                    return game;
++                }
++            }
++            System.out.println("Game not found with name: " + selectedName);
++            return null;
++        } catch (Exception e) {
++            e.printStackTrace();
++            return null;
++        }
++    }
+ }
+Index: out/production/inso_leveltrack/main/resources/queries.properties
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+># Queries para Login\r\nuser.findByEmailAndPassword=SELECT * FROM Users WHERE email = ? AND password = SHA2(?, 256)\r\n\r\n\r\n# Queries para Usuarios\r\nuser.findById=SELECT id, name, email, role, password FROM Users WHERE id = ?\r\nuser.findAll=SELECT * FROM Users\r\nuser.insert=INSERT INTO Users (name, email, password, role) VALUES (?, ?, SHA2(?, 256), ?)\r\nuser.delete=DELETE FROM Users WHERE id = ?\r\nuser.updateProfile=UPDATE Users SET name = ?, email = ?, password = SHA2(?, 256) WHERE id = ?\r\nuser.updateRole=UPDATE Users SET role = ? WHERE id = ?\r\nuser.emailExists=SELECT id FROM Users WHERE email = ?\r\n\r\n\r\n# Queries para Juegos\r\ngame.add=INSERT INTO Games (name, genre, price) VALUES (?, ?, ?)\r\ngame.existsByName=SELECT 1 FROM Games WHERE name = ?\r\ngame.findByName=SELECT id, name, genre, price FROM Games WHERE name = ?\r\ngame.addGame=INSERT INTO Games (name, genre, price) VALUES (?, ?, ?);\r\ngame.updateGame=UPDATE Games SET name = ?, genre = ?, price = ? WHERE id = ?;\r\ngame.deleteGame=DELETE FROM Games WHERE id = ?;\r\n# Check if a game exists in the database\r\ngame.isGameInDatabase=SELECT id FROM Games WHERE name = ?;\r\n# Get game details by name\r\ngame.getGameByName=SELECT id, name, genre, price FROM Games WHERE name = ?;\r\n# Retrieve all games from the database\r\ngame.findAll=SELECT id, name, genre, price FROM Games ORDER BY name ASC\r\n# Retrieve games by genre\r\ngame.findByGenre=SELECT id, name, genre, price FROM Games WHERE genre = ? ORDER BY name ASC\r\n\r\n\r\n# Queries para Puntuaciones\r\nlibrary.updateGameScore=UPDATE LibraryGames SET game_score = ? WHERE game_id = ? AND user_id = ? AND library_id = ?\r\nlibrary.getGameScore=SELECT game_score FROM LibraryGames WHERE game_id = ? AND user_id = ? AND library_id = ?\r\n# query para insertar una librería para un usuario\r\nlibrary.insert=INSERT INTO Libraries (user_id) VALUES (?);\r\n# Check if a game is in the user's library\r\nlibrary.isGameInLibrary=SELECT 1 FROM LibraryGames WHERE library_id = ? AND game_id = ?;\r\n# Get games in the user's library\r\nlibrary.getGamesByUserId=SELECT g.id, g.name, g.genre, g.price, lg.state, lg.game_score \\\r\nFROM LibraryGames lg \\\r\nJOIN Games g ON lg.game_id = g.id \\\r\nWHERE lg.library_id = (SELECT id FROM Libraries WHERE user_id = ?);\r\nlibrary.getGamesByGenreUser=SELECT g.id AS id, g.name, g.genre, g.price, lg.state, lg.game_score \\\r\nFROM LibraryGames lg \\\r\nJOIN Games g ON lg.game_id = g.id \\\r\nWHERE lg.user_id = ? AND g.genre LIKE ?\r\n# Add a game to the user's library\r\nlibrary.addGame=INSERT INTO LibraryGames (library_id, user_id, game_id, state, game_score) VALUES (?, ?, ?, ?, ?);\r\n# Remove a game from the library\r\nlibrary.removeGame=DELETE FROM LibraryGames WHERE library_id = ? AND game_id = ?;\r\n# Update the state of a game in the library\r\nlibrary.updateGameState=UPDATE LibraryGames SET state = ? WHERE game_id = ? AND user_id = ?;\r\nlibrary.getLibraryIdByUserId=SELECT id FROM Libraries WHERE user_id = ?;\r\nlibrary.getAllGenres=SELECT DISTINCT genre FROM Games;\r\nlibrary.getGamesByGenre=SELECT id, name, genre, price FROM Games WHERE genre LIKE ?;\r\n\r\n\r\n# Queries para Amistades\r\n# Search users by name\r\nfriendship.searchUsers=SELECT id, name, email, role FROM Users WHERE id = ?;\r\nfriendship.getUserIdByUserEmail=SELECT id FROM Users WHERE email = ?;\r\n# Get friends of a user\r\nfriendship.getFriends=SELECT u.id, u.name, u.email, u.role \\\r\nFROM Friendships f \\\r\nJOIN Users u ON (f.requester_id = u.id OR f.receiver_id = u.id) \\\r\nWHERE (f.requester_id = ? OR f.receiver_id = ?) AND f.status = 'Accepted' AND u.id != ?;\r\n# Send a friend request\r\nfriendship.sendRequest=INSERT INTO Friendships (requester_id, receiver_id, status) VALUES (?, ?, ?);\r\n# Get pending requests for a user\r\nfriendship.getRequests=SELECT id, requester_id, receiver_id, status FROM Friendships WHERE receiver_id = ? AND status = 'Pending';\r\n# Update request status\r\nfriendship.updateStatus=UPDATE Friendships SET status = ? WHERE id = ?;\r\n# Consulta para verificar si dos usuarios ya son amigos\r\nfriendship.checkFriendship=SELECT 1 FROM Friendships WHERE \\\r\n((requester_id = ? AND receiver_id = ?) OR (requester_id = ? AND receiver_id = ?)) \\\r\nAND status = 'Accepted'\r\n# Consulta para verificar si existe una solicitud de amistad pendiente\r\nfriendship.checkPendingRequest=SELECT 1 FROM Friendships WHERE \\\r\n((requester_id = ? AND receiver_id = ?) OR (requester_id = ? AND receiver_id = ?)) \\\r\nAND status = 'Pending'\r\nfriendship.deleteFriend = DELETE FROM Friendships \\\r\nWHERE (requester_id = ? AND receiver_id = ?) \\\r\nOR (requester_id = ? AND receiver_id = ?);\r\n\r\n# Queries para Reseñas\r\nreview.findByGameId=SELECT * FROM Reviews WHERE game_id = ?\r\nreview.insert=INSERT INTO Reviews (comment, rating, user_id, game_id) VALUES (?, ?, ?, ?)\r\nreview.delete=DELETE FROM Reviews WHERE id = ?
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>ISO-8859-1
+===================================================================
+diff --git a/out/production/inso_leveltrack/main/resources/queries.properties b/out/production/inso_leveltrack/main/resources/queries.properties
+--- a/out/production/inso_leveltrack/main/resources/queries.properties	(revision f6dc640427e0779ba8b93b20012ceec17a0c0f62)
++++ b/out/production/inso_leveltrack/main/resources/queries.properties	(date 1736860876696)
+@@ -7,7 +7,7 @@
+ user.findAll=SELECT * FROM Users
+ user.insert=INSERT INTO Users (name, email, password, role) VALUES (?, ?, SHA2(?, 256), ?)
+ user.delete=DELETE FROM Users WHERE id = ?
+-user.updateProfile=UPDATE Users SET name = ?, email = ?, password = SHA2(?, 256) WHERE id = ?
++user.updateProfile=UPDATE Users SET name = ?, email = ?, password = ? WHERE id = ?
+ user.updateRole=UPDATE Users SET role = ? WHERE id = ?
+ user.emailExists=SELECT id FROM Users WHERE email = ?
+ 
+@@ -19,24 +19,17 @@
+ game.addGame=INSERT INTO Games (name, genre, price) VALUES (?, ?, ?);
+ game.updateGame=UPDATE Games SET name = ?, genre = ?, price = ? WHERE id = ?;
+ game.deleteGame=DELETE FROM Games WHERE id = ?;
+-# Check if a game exists in the database
+ game.isGameInDatabase=SELECT id FROM Games WHERE name = ?;
+-# Get game details by name
+ game.getGameByName=SELECT id, name, genre, price FROM Games WHERE name = ?;
+-# Retrieve all games from the database
+ game.findAll=SELECT id, name, genre, price FROM Games ORDER BY name ASC
+-# Retrieve games by genre
+ game.findByGenre=SELECT id, name, genre, price FROM Games WHERE genre = ? ORDER BY name ASC
+ 
+ 
+ # Queries para Puntuaciones
+ library.updateGameScore=UPDATE LibraryGames SET game_score = ? WHERE game_id = ? AND user_id = ? AND library_id = ?
+ library.getGameScore=SELECT game_score FROM LibraryGames WHERE game_id = ? AND user_id = ? AND library_id = ?
+-# query para insertar una librería para un usuario
+ library.insert=INSERT INTO Libraries (user_id) VALUES (?);
+-# Check if a game is in the user's library
+ library.isGameInLibrary=SELECT 1 FROM LibraryGames WHERE library_id = ? AND game_id = ?;
+-# Get games in the user's library
+ library.getGamesByUserId=SELECT g.id, g.name, g.genre, g.price, lg.state, lg.game_score \
+ FROM LibraryGames lg \
+ JOIN Games g ON lg.game_id = g.id \
+@@ -45,11 +38,8 @@
+ FROM LibraryGames lg \
+ JOIN Games g ON lg.game_id = g.id \
+ WHERE lg.user_id = ? AND g.genre LIKE ?
+-# Add a game to the user's library
+ library.addGame=INSERT INTO LibraryGames (library_id, user_id, game_id, state, game_score) VALUES (?, ?, ?, ?, ?);
+-# Remove a game from the library
+ library.removeGame=DELETE FROM LibraryGames WHERE library_id = ? AND game_id = ?;
+-# Update the state of a game in the library
+ library.updateGameState=UPDATE LibraryGames SET state = ? WHERE game_id = ? AND user_id = ?;
+ library.getLibraryIdByUserId=SELECT id FROM Libraries WHERE user_id = ?;
+ library.getAllGenres=SELECT DISTINCT genre FROM Games;
+@@ -57,33 +47,21 @@
+ 
+ 
+ # Queries para Amistades
+-# Search users by name
+ friendship.searchUsers=SELECT id, name, email, role FROM Users WHERE id = ?;
+ friendship.getUserIdByUserEmail=SELECT id FROM Users WHERE email = ?;
+-# Get friends of a user
+ friendship.getFriends=SELECT u.id, u.name, u.email, u.role \
+ FROM Friendships f \
+ JOIN Users u ON (f.requester_id = u.id OR f.receiver_id = u.id) \
+ WHERE (f.requester_id = ? OR f.receiver_id = ?) AND f.status = 'Accepted' AND u.id != ?;
+-# Send a friend request
+ friendship.sendRequest=INSERT INTO Friendships (requester_id, receiver_id, status) VALUES (?, ?, ?);
+-# Get pending requests for a user
+ friendship.getRequests=SELECT id, requester_id, receiver_id, status FROM Friendships WHERE receiver_id = ? AND status = 'Pending';
+-# Update request status
+ friendship.updateStatus=UPDATE Friendships SET status = ? WHERE id = ?;
+-# Consulta para verificar si dos usuarios ya son amigos
+ friendship.checkFriendship=SELECT 1 FROM Friendships WHERE \
+ ((requester_id = ? AND receiver_id = ?) OR (requester_id = ? AND receiver_id = ?)) \
+ AND status = 'Accepted'
+-# Consulta para verificar si existe una solicitud de amistad pendiente
+ friendship.checkPendingRequest=SELECT 1 FROM Friendships WHERE \
+ ((requester_id = ? AND receiver_id = ?) OR (requester_id = ? AND receiver_id = ?)) \
+ AND status = 'Pending'
+ friendship.deleteFriend = DELETE FROM Friendships \
+ WHERE (requester_id = ? AND receiver_id = ?) \
+-OR (requester_id = ? AND receiver_id = ?);
+-
+-# Queries para Reseñas
+-review.findByGameId=SELECT * FROM Reviews WHERE game_id = ?
+-review.insert=INSERT INTO Reviews (comment, rating, user_id, game_id) VALUES (?, ?, ?, ?)
+-review.delete=DELETE FROM Reviews WHERE id = ?
+\ No newline at end of file
++OR (requester_id = ? AND receiver_id = ?);
+\ No newline at end of file
+Index: out/production/inso_leveltrack/queries.properties
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+># Queries para Login\r\nuser.findByEmailAndPassword=SELECT * FROM Users WHERE email = ? AND password = SHA2(?, 256)\r\n\r\n\r\n# Queries para Usuarios\r\nuser.findById=SELECT id, name, email, role, password FROM Users WHERE id = ?\r\nuser.findAll=SELECT * FROM Users\r\nuser.insert=INSERT INTO Users (name, email, password, role) VALUES (?, ?, SHA2(?, 256), ?)\r\nuser.delete=DELETE FROM Users WHERE id = ?\r\nuser.updateProfile=UPDATE Users SET name = ?, email = ?, password = SHA2(?, 256) WHERE id = ?\r\nuser.updateRole=UPDATE Users SET role = ? WHERE id = ?\r\nuser.emailExists=SELECT id FROM Users WHERE email = ?\r\n\r\n\r\n# Queries para Juegos\r\ngame.add=INSERT INTO Games (name, genre, price) VALUES (?, ?, ?)\r\ngame.existsByName=SELECT 1 FROM Games WHERE name = ?\r\ngame.findByName=SELECT id, name, genre, price FROM Games WHERE name = ?\r\ngame.addGame=INSERT INTO Games (name, genre, price) VALUES (?, ?, ?);\r\ngame.updateGame=UPDATE Games SET name = ?, genre = ?, price = ? WHERE id = ?;\r\ngame.deleteGame=DELETE FROM Games WHERE id = ?;\r\n# Check if a game exists in the database\r\ngame.isGameInDatabase=SELECT id FROM Games WHERE name = ?;\r\n# Get game details by name\r\ngame.getGameByName=SELECT id, name, genre, price FROM Games WHERE name = ?;\r\n# Retrieve all games from the database\r\ngame.findAll=SELECT id, name, genre, price FROM Games ORDER BY name ASC\r\n# Retrieve games by genre\r\ngame.findByGenre=SELECT id, name, genre, price FROM Games WHERE genre = ? ORDER BY name ASC\r\n\r\n\r\n# Queries para Puntuaciones\r\nlibrary.updateGameScore=UPDATE LibraryGames SET game_score = ? WHERE game_id = ? AND user_id = ? AND library_id = ?\r\nlibrary.getGameScore=SELECT game_score FROM LibraryGames WHERE game_id = ? AND user_id = ? AND library_id = ?\r\n# query para insertar una librería para un usuario\r\nlibrary.insert=INSERT INTO Libraries (user_id) VALUES (?);\r\n# Check if a game is in the user's library\r\nlibrary.isGameInLibrary=SELECT 1 FROM LibraryGames WHERE library_id = ? AND game_id = ?;\r\n# Get games in the user's library\r\nlibrary.getGamesByUserId=SELECT g.id, g.name, g.genre, g.price, lg.state, lg.game_score \\\r\nFROM LibraryGames lg \\\r\nJOIN Games g ON lg.game_id = g.id \\\r\nWHERE lg.library_id = (SELECT id FROM Libraries WHERE user_id = ?);\r\nlibrary.getGamesByGenreUser=SELECT g.id AS id, g.name, g.genre, g.price, lg.state, lg.game_score \\\r\nFROM LibraryGames lg \\\r\nJOIN Games g ON lg.game_id = g.id \\\r\nWHERE lg.user_id = ? AND g.genre LIKE ?\r\n# Add a game to the user's library\r\nlibrary.addGame=INSERT INTO LibraryGames (library_id, user_id, game_id, state, game_score) VALUES (?, ?, ?, ?, ?);\r\n# Remove a game from the library\r\nlibrary.removeGame=DELETE FROM LibraryGames WHERE library_id = ? AND game_id = ?;\r\n# Update the state of a game in the library\r\nlibrary.updateGameState=UPDATE LibraryGames SET state = ? WHERE game_id = ? AND user_id = ?;\r\nlibrary.getLibraryIdByUserId=SELECT id FROM Libraries WHERE user_id = ?;\r\nlibrary.getAllGenres=SELECT DISTINCT genre FROM Games;\r\nlibrary.getGamesByGenre=SELECT id, name, genre, price FROM Games WHERE genre LIKE ?;\r\n\r\n\r\n# Queries para Amistades\r\n# Search users by name\r\nfriendship.searchUsers=SELECT id, name, email, role FROM Users WHERE id = ?;\r\nfriendship.getUserIdByUserEmail=SELECT id FROM Users WHERE email = ?;\r\n# Get friends of a user\r\nfriendship.getFriends=SELECT u.id, u.name, u.email, u.role \\\r\nFROM Friendships f \\\r\nJOIN Users u ON (f.requester_id = u.id OR f.receiver_id = u.id) \\\r\nWHERE (f.requester_id = ? OR f.receiver_id = ?) AND f.status = 'Accepted' AND u.id != ?;\r\n# Send a friend request\r\nfriendship.sendRequest=INSERT INTO Friendships (requester_id, receiver_id, status) VALUES (?, ?, ?);\r\n# Get pending requests for a user\r\nfriendship.getRequests=SELECT id, requester_id, receiver_id, status FROM Friendships WHERE receiver_id = ? AND status = 'Pending';\r\n# Update request status\r\nfriendship.updateStatus=UPDATE Friendships SET status = ? WHERE id = ?;\r\n# Consulta para verificar si dos usuarios ya son amigos\r\nfriendship.checkFriendship=SELECT 1 FROM Friendships WHERE \\\r\n((requester_id = ? AND receiver_id = ?) OR (requester_id = ? AND receiver_id = ?)) \\\r\nAND status = 'Accepted'\r\n# Consulta para verificar si existe una solicitud de amistad pendiente\r\nfriendship.checkPendingRequest=SELECT 1 FROM Friendships WHERE \\\r\n((requester_id = ? AND receiver_id = ?) OR (requester_id = ? AND receiver_id = ?)) \\\r\nAND status = 'Pending'\r\nfriendship.deleteFriend = DELETE FROM Friendships \\\r\nWHERE (requester_id = ? AND receiver_id = ?) \\\r\nOR (requester_id = ? AND receiver_id = ?);\r\n\r\n# Queries para Reseñas\r\nreview.findByGameId=SELECT * FROM Reviews WHERE game_id = ?\r\nreview.insert=INSERT INTO Reviews (comment, rating, user_id, game_id) VALUES (?, ?, ?, ?)\r\nreview.delete=DELETE FROM Reviews WHERE id = ?
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>ISO-8859-1
+===================================================================
+diff --git a/out/production/inso_leveltrack/queries.properties b/out/production/inso_leveltrack/queries.properties
+--- a/out/production/inso_leveltrack/queries.properties	(revision f6dc640427e0779ba8b93b20012ceec17a0c0f62)
++++ b/out/production/inso_leveltrack/queries.properties	(date 1736860876696)
+@@ -7,7 +7,7 @@
+ user.findAll=SELECT * FROM Users
+ user.insert=INSERT INTO Users (name, email, password, role) VALUES (?, ?, SHA2(?, 256), ?)
+ user.delete=DELETE FROM Users WHERE id = ?
+-user.updateProfile=UPDATE Users SET name = ?, email = ?, password = SHA2(?, 256) WHERE id = ?
++user.updateProfile=UPDATE Users SET name = ?, email = ?, password = ? WHERE id = ?
+ user.updateRole=UPDATE Users SET role = ? WHERE id = ?
+ user.emailExists=SELECT id FROM Users WHERE email = ?
+ 
+@@ -19,24 +19,17 @@
+ game.addGame=INSERT INTO Games (name, genre, price) VALUES (?, ?, ?);
+ game.updateGame=UPDATE Games SET name = ?, genre = ?, price = ? WHERE id = ?;
+ game.deleteGame=DELETE FROM Games WHERE id = ?;
+-# Check if a game exists in the database
+ game.isGameInDatabase=SELECT id FROM Games WHERE name = ?;
+-# Get game details by name
+ game.getGameByName=SELECT id, name, genre, price FROM Games WHERE name = ?;
+-# Retrieve all games from the database
+ game.findAll=SELECT id, name, genre, price FROM Games ORDER BY name ASC
+-# Retrieve games by genre
+ game.findByGenre=SELECT id, name, genre, price FROM Games WHERE genre = ? ORDER BY name ASC
+ 
+ 
+ # Queries para Puntuaciones
+ library.updateGameScore=UPDATE LibraryGames SET game_score = ? WHERE game_id = ? AND user_id = ? AND library_id = ?
+ library.getGameScore=SELECT game_score FROM LibraryGames WHERE game_id = ? AND user_id = ? AND library_id = ?
+-# query para insertar una librería para un usuario
+ library.insert=INSERT INTO Libraries (user_id) VALUES (?);
+-# Check if a game is in the user's library
+ library.isGameInLibrary=SELECT 1 FROM LibraryGames WHERE library_id = ? AND game_id = ?;
+-# Get games in the user's library
+ library.getGamesByUserId=SELECT g.id, g.name, g.genre, g.price, lg.state, lg.game_score \
+ FROM LibraryGames lg \
+ JOIN Games g ON lg.game_id = g.id \
+@@ -45,11 +38,8 @@
+ FROM LibraryGames lg \
+ JOIN Games g ON lg.game_id = g.id \
+ WHERE lg.user_id = ? AND g.genre LIKE ?
+-# Add a game to the user's library
+ library.addGame=INSERT INTO LibraryGames (library_id, user_id, game_id, state, game_score) VALUES (?, ?, ?, ?, ?);
+-# Remove a game from the library
+ library.removeGame=DELETE FROM LibraryGames WHERE library_id = ? AND game_id = ?;
+-# Update the state of a game in the library
+ library.updateGameState=UPDATE LibraryGames SET state = ? WHERE game_id = ? AND user_id = ?;
+ library.getLibraryIdByUserId=SELECT id FROM Libraries WHERE user_id = ?;
+ library.getAllGenres=SELECT DISTINCT genre FROM Games;
+@@ -57,33 +47,21 @@
+ 
+ 
+ # Queries para Amistades
+-# Search users by name
+ friendship.searchUsers=SELECT id, name, email, role FROM Users WHERE id = ?;
+ friendship.getUserIdByUserEmail=SELECT id FROM Users WHERE email = ?;
+-# Get friends of a user
+ friendship.getFriends=SELECT u.id, u.name, u.email, u.role \
+ FROM Friendships f \
+ JOIN Users u ON (f.requester_id = u.id OR f.receiver_id = u.id) \
+ WHERE (f.requester_id = ? OR f.receiver_id = ?) AND f.status = 'Accepted' AND u.id != ?;
+-# Send a friend request
+ friendship.sendRequest=INSERT INTO Friendships (requester_id, receiver_id, status) VALUES (?, ?, ?);
+-# Get pending requests for a user
+ friendship.getRequests=SELECT id, requester_id, receiver_id, status FROM Friendships WHERE receiver_id = ? AND status = 'Pending';
+-# Update request status
+ friendship.updateStatus=UPDATE Friendships SET status = ? WHERE id = ?;
+-# Consulta para verificar si dos usuarios ya son amigos
+ friendship.checkFriendship=SELECT 1 FROM Friendships WHERE \
+ ((requester_id = ? AND receiver_id = ?) OR (requester_id = ? AND receiver_id = ?)) \
+ AND status = 'Accepted'
+-# Consulta para verificar si existe una solicitud de amistad pendiente
+ friendship.checkPendingRequest=SELECT 1 FROM Friendships WHERE \
+ ((requester_id = ? AND receiver_id = ?) OR (requester_id = ? AND receiver_id = ?)) \
+ AND status = 'Pending'
+ friendship.deleteFriend = DELETE FROM Friendships \
+ WHERE (requester_id = ? AND receiver_id = ?) \
+-OR (requester_id = ? AND receiver_id = ?);
+-
+-# Queries para Reseñas
+-review.findByGameId=SELECT * FROM Reviews WHERE game_id = ?
+-review.insert=INSERT INTO Reviews (comment, rating, user_id, game_id) VALUES (?, ?, ?, ?)
+-review.delete=DELETE FROM Reviews WHERE id = ?
+\ No newline at end of file
++OR (requester_id = ? AND receiver_id = ?);
+\ No newline at end of file
+Index: src/main/resources/queries.properties
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+># Queries para Login\r\nuser.findByEmailAndPassword=SELECT * FROM Users WHERE email = ? AND password = SHA2(?, 256)\r\n\r\n\r\n# Queries para Usuarios\r\nuser.findById=SELECT id, name, email, role, password FROM Users WHERE id = ?\r\nuser.findAll=SELECT * FROM Users\r\nuser.insert=INSERT INTO Users (name, email, password, role) VALUES (?, ?, SHA2(?, 256), ?)\r\nuser.delete=DELETE FROM Users WHERE id = ?\r\nuser.updateProfile=UPDATE Users SET name = ?, email = ?, password = SHA2(?, 256) WHERE id = ?\r\nuser.updateRole=UPDATE Users SET role = ? WHERE id = ?\r\nuser.emailExists=SELECT id FROM Users WHERE email = ?\r\n\r\n\r\n# Queries para Juegos\r\ngame.add=INSERT INTO Games (name, genre, price) VALUES (?, ?, ?)\r\ngame.existsByName=SELECT 1 FROM Games WHERE name = ?\r\ngame.findByName=SELECT id, name, genre, price FROM Games WHERE name = ?\r\ngame.addGame=INSERT INTO Games (name, genre, price) VALUES (?, ?, ?);\r\ngame.updateGame=UPDATE Games SET name = ?, genre = ?, price = ? WHERE id = ?;\r\ngame.deleteGame=DELETE FROM Games WHERE id = ?;\r\n# Check if a game exists in the database\r\ngame.isGameInDatabase=SELECT id FROM Games WHERE name = ?;\r\n# Get game details by name\r\ngame.getGameByName=SELECT id, name, genre, price FROM Games WHERE name = ?;\r\n# Retrieve all games from the database\r\ngame.findAll=SELECT id, name, genre, price FROM Games ORDER BY name ASC\r\n# Retrieve games by genre\r\ngame.findByGenre=SELECT id, name, genre, price FROM Games WHERE genre = ? ORDER BY name ASC\r\n\r\n\r\n# Queries para Puntuaciones\r\nlibrary.updateGameScore=UPDATE LibraryGames SET game_score = ? WHERE game_id = ? AND user_id = ? AND library_id = ?\r\nlibrary.getGameScore=SELECT game_score FROM LibraryGames WHERE game_id = ? AND user_id = ? AND library_id = ?\r\n# query para insertar una librería para un usuario\r\nlibrary.insert=INSERT INTO Libraries (user_id) VALUES (?);\r\n# Check if a game is in the user's library\r\nlibrary.isGameInLibrary=SELECT 1 FROM LibraryGames WHERE library_id = ? AND game_id = ?;\r\n# Get games in the user's library\r\nlibrary.getGamesByUserId=SELECT g.id, g.name, g.genre, g.price, lg.state, lg.game_score \\\r\nFROM LibraryGames lg \\\r\nJOIN Games g ON lg.game_id = g.id \\\r\nWHERE lg.library_id = (SELECT id FROM Libraries WHERE user_id = ?);\r\nlibrary.getGamesByGenreUser=SELECT g.id AS id, g.name, g.genre, g.price, lg.state, lg.game_score \\\r\nFROM LibraryGames lg \\\r\nJOIN Games g ON lg.game_id = g.id \\\r\nWHERE lg.user_id = ? AND g.genre LIKE ?\r\n# Add a game to the user's library\r\nlibrary.addGame=INSERT INTO LibraryGames (library_id, user_id, game_id, state, game_score) VALUES (?, ?, ?, ?, ?);\r\n# Remove a game from the library\r\nlibrary.removeGame=DELETE FROM LibraryGames WHERE library_id = ? AND game_id = ?;\r\n# Update the state of a game in the library\r\nlibrary.updateGameState=UPDATE LibraryGames SET state = ? WHERE game_id = ? AND user_id = ?;\r\nlibrary.getLibraryIdByUserId=SELECT id FROM Libraries WHERE user_id = ?;\r\nlibrary.getAllGenres=SELECT DISTINCT genre FROM Games;\r\nlibrary.getGamesByGenre=SELECT id, name, genre, price FROM Games WHERE genre LIKE ?;\r\n\r\n\r\n# Queries para Amistades\r\n# Search users by name\r\nfriendship.searchUsers=SELECT id, name, email, role FROM Users WHERE id = ?;\r\nfriendship.getUserIdByUserEmail=SELECT id FROM Users WHERE email = ?;\r\n# Get friends of a user\r\nfriendship.getFriends=SELECT u.id, u.name, u.email, u.role \\\r\nFROM Friendships f \\\r\nJOIN Users u ON (f.requester_id = u.id OR f.receiver_id = u.id) \\\r\nWHERE (f.requester_id = ? OR f.receiver_id = ?) AND f.status = 'Accepted' AND u.id != ?;\r\n# Send a friend request\r\nfriendship.sendRequest=INSERT INTO Friendships (requester_id, receiver_id, status) VALUES (?, ?, ?);\r\n# Get pending requests for a user\r\nfriendship.getRequests=SELECT id, requester_id, receiver_id, status FROM Friendships WHERE receiver_id = ? AND status = 'Pending';\r\n# Update request status\r\nfriendship.updateStatus=UPDATE Friendships SET status = ? WHERE id = ?;\r\n# Consulta para verificar si dos usuarios ya son amigos\r\nfriendship.checkFriendship=SELECT 1 FROM Friendships WHERE \\\r\n((requester_id = ? AND receiver_id = ?) OR (requester_id = ? AND receiver_id = ?)) \\\r\nAND status = 'Accepted'\r\n# Consulta para verificar si existe una solicitud de amistad pendiente\r\nfriendship.checkPendingRequest=SELECT 1 FROM Friendships WHERE \\\r\n((requester_id = ? AND receiver_id = ?) OR (requester_id = ? AND receiver_id = ?)) \\\r\nAND status = 'Pending'\r\nfriendship.deleteFriend = DELETE FROM Friendships \\\r\nWHERE (requester_id = ? AND receiver_id = ?) \\\r\nOR (requester_id = ? AND receiver_id = ?);\r\n\r\n# Queries para Reseñas\r\nreview.findByGameId=SELECT * FROM Reviews WHERE game_id = ?\r\nreview.insert=INSERT INTO Reviews (comment, rating, user_id, game_id) VALUES (?, ?, ?, ?)\r\nreview.delete=DELETE FROM Reviews WHERE id = ?
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>ISO-8859-1
+===================================================================
+diff --git a/src/main/resources/queries.properties b/src/main/resources/queries.properties
+--- a/src/main/resources/queries.properties	(revision f6dc640427e0779ba8b93b20012ceec17a0c0f62)
++++ b/src/main/resources/queries.properties	(date 1736860876696)
+@@ -7,7 +7,7 @@
+ user.findAll=SELECT * FROM Users
+ user.insert=INSERT INTO Users (name, email, password, role) VALUES (?, ?, SHA2(?, 256), ?)
+ user.delete=DELETE FROM Users WHERE id = ?
+-user.updateProfile=UPDATE Users SET name = ?, email = ?, password = SHA2(?, 256) WHERE id = ?
++user.updateProfile=UPDATE Users SET name = ?, email = ?, password = ? WHERE id = ?
+ user.updateRole=UPDATE Users SET role = ? WHERE id = ?
+ user.emailExists=SELECT id FROM Users WHERE email = ?
+ 
+@@ -19,24 +19,17 @@
+ game.addGame=INSERT INTO Games (name, genre, price) VALUES (?, ?, ?);
+ game.updateGame=UPDATE Games SET name = ?, genre = ?, price = ? WHERE id = ?;
+ game.deleteGame=DELETE FROM Games WHERE id = ?;
+-# Check if a game exists in the database
+ game.isGameInDatabase=SELECT id FROM Games WHERE name = ?;
+-# Get game details by name
+ game.getGameByName=SELECT id, name, genre, price FROM Games WHERE name = ?;
+-# Retrieve all games from the database
+ game.findAll=SELECT id, name, genre, price FROM Games ORDER BY name ASC
+-# Retrieve games by genre
+ game.findByGenre=SELECT id, name, genre, price FROM Games WHERE genre = ? ORDER BY name ASC
+ 
+ 
+ # Queries para Puntuaciones
+ library.updateGameScore=UPDATE LibraryGames SET game_score = ? WHERE game_id = ? AND user_id = ? AND library_id = ?
+ library.getGameScore=SELECT game_score FROM LibraryGames WHERE game_id = ? AND user_id = ? AND library_id = ?
+-# query para insertar una librería para un usuario
+ library.insert=INSERT INTO Libraries (user_id) VALUES (?);
+-# Check if a game is in the user's library
+ library.isGameInLibrary=SELECT 1 FROM LibraryGames WHERE library_id = ? AND game_id = ?;
+-# Get games in the user's library
+ library.getGamesByUserId=SELECT g.id, g.name, g.genre, g.price, lg.state, lg.game_score \
+ FROM LibraryGames lg \
+ JOIN Games g ON lg.game_id = g.id \
+@@ -45,11 +38,8 @@
+ FROM LibraryGames lg \
+ JOIN Games g ON lg.game_id = g.id \
+ WHERE lg.user_id = ? AND g.genre LIKE ?
+-# Add a game to the user's library
+ library.addGame=INSERT INTO LibraryGames (library_id, user_id, game_id, state, game_score) VALUES (?, ?, ?, ?, ?);
+-# Remove a game from the library
+ library.removeGame=DELETE FROM LibraryGames WHERE library_id = ? AND game_id = ?;
+-# Update the state of a game in the library
+ library.updateGameState=UPDATE LibraryGames SET state = ? WHERE game_id = ? AND user_id = ?;
+ library.getLibraryIdByUserId=SELECT id FROM Libraries WHERE user_id = ?;
+ library.getAllGenres=SELECT DISTINCT genre FROM Games;
+@@ -57,33 +47,21 @@
+ 
+ 
+ # Queries para Amistades
+-# Search users by name
+ friendship.searchUsers=SELECT id, name, email, role FROM Users WHERE id = ?;
+ friendship.getUserIdByUserEmail=SELECT id FROM Users WHERE email = ?;
+-# Get friends of a user
+ friendship.getFriends=SELECT u.id, u.name, u.email, u.role \
+ FROM Friendships f \
+ JOIN Users u ON (f.requester_id = u.id OR f.receiver_id = u.id) \
+ WHERE (f.requester_id = ? OR f.receiver_id = ?) AND f.status = 'Accepted' AND u.id != ?;
+-# Send a friend request
+ friendship.sendRequest=INSERT INTO Friendships (requester_id, receiver_id, status) VALUES (?, ?, ?);
+-# Get pending requests for a user
+ friendship.getRequests=SELECT id, requester_id, receiver_id, status FROM Friendships WHERE receiver_id = ? AND status = 'Pending';
+-# Update request status
+ friendship.updateStatus=UPDATE Friendships SET status = ? WHERE id = ?;
+-# Consulta para verificar si dos usuarios ya son amigos
+ friendship.checkFriendship=SELECT 1 FROM Friendships WHERE \
+ ((requester_id = ? AND receiver_id = ?) OR (requester_id = ? AND receiver_id = ?)) \
+ AND status = 'Accepted'
+-# Consulta para verificar si existe una solicitud de amistad pendiente
+ friendship.checkPendingRequest=SELECT 1 FROM Friendships WHERE \
+ ((requester_id = ? AND receiver_id = ?) OR (requester_id = ? AND receiver_id = ?)) \
+ AND status = 'Pending'
+ friendship.deleteFriend = DELETE FROM Friendships \
+ WHERE (requester_id = ? AND receiver_id = ?) \
+-OR (requester_id = ? AND receiver_id = ?);
+-
+-# Queries para Reseñas
+-review.findByGameId=SELECT * FROM Reviews WHERE game_id = ?
+-review.insert=INSERT INTO Reviews (comment, rating, user_id, game_id) VALUES (?, ?, ?, ?)
+-review.delete=DELETE FROM Reviews WHERE id = ?
+\ No newline at end of file
++OR (requester_id = ? AND receiver_id = ?);
+\ No newline at end of file
+Index: .idea/workspace.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n<project version=\"4\">\r\n  <component name=\"AutoImportSettings\">\r\n    <option name=\"autoReloadType\" value=\"SELECTIVE\" />\r\n  </component>\r\n  <component name=\"ChangeListManager\">\r\n    <list default=\"true\" id=\"83ec2d2c-8ca2-4ce5-863a-fac5b017337d\" name=\"Changes\" comment=\"Ya se pueden añadir juegos a las librerias de los usuarios y filtrarlos por genero, también funcionan creo que todos los botones de back&#10;Tamnbien se crea una entrada de la tabla libreria cada vesz que se crea un usuario, es decir cada vez que se crea un usuario se crea una libreria asociada a este\">\r\n      <change beforePath=\"$PROJECT_DIR$/.idea/workspace.xml\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/.idea/workspace.xml\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/out/production/inso_leveltrack/com/leveltrack/controller/LibraryController.class\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/out/production/inso_leveltrack/com/leveltrack/controller/LibraryController.class\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/out/production/inso_leveltrack/com/leveltrack/dao/LibraryDAO.class\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/out/production/inso_leveltrack/com/leveltrack/dao/LibraryDAO.class\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/out/production/inso_leveltrack/com/leveltrack/dao/LibraryDAOImpl.class\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/out/production/inso_leveltrack/com/leveltrack/dao/LibraryDAOImpl.class\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/out/production/inso_leveltrack/com/leveltrack/service/LibraryService.class\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/out/production/inso_leveltrack/com/leveltrack/service/LibraryService.class\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/out/production/inso_leveltrack/com/leveltrack/view/LibraryView.class\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/out/production/inso_leveltrack/com/leveltrack/view/LibraryView.class\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/out/production/inso_leveltrack/main/resources/queries.properties\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/out/production/inso_leveltrack/main/resources/queries.properties\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/out/production/inso_leveltrack/queries.properties\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/out/production/inso_leveltrack/queries.properties\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/src/main/java/com/leveltrack/controller/LibraryController.java\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/src/main/java/com/leveltrack/controller/LibraryController.java\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/src/main/java/com/leveltrack/dao/LibraryDAO.java\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/src/main/java/com/leveltrack/dao/LibraryDAO.java\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/src/main/java/com/leveltrack/dao/LibraryDAOImpl.java\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/src/main/java/com/leveltrack/dao/LibraryDAOImpl.java\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/src/main/java/com/leveltrack/model/Game.java\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/src/main/java/com/leveltrack/model/Game.java\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/src/main/java/com/leveltrack/service/LibraryService.java\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/src/main/java/com/leveltrack/service/LibraryService.java\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/src/main/java/com/leveltrack/view/LibraryView.java\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/src/main/java/com/leveltrack/view/LibraryView.java\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/src/main/resources/queries.properties\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/src/main/resources/queries.properties\" afterDir=\"false\" />\r\n    </list>\r\n    <option name=\"SHOW_DIALOG\" value=\"false\" />\r\n    <option name=\"HIGHLIGHT_CONFLICTS\" value=\"true\" />\r\n    <option name=\"HIGHLIGHT_NON_ACTIVE_CHANGELIST\" value=\"false\" />\r\n    <option name=\"LAST_RESOLUTION\" value=\"IGNORE\" />\r\n  </component>\r\n  <component name=\"FileTemplateManagerImpl\">\r\n    <option name=\"RECENT_TEMPLATES\">\r\n      <list>\r\n        <option value=\"Class\" />\r\n      </list>\r\n    </option>\r\n  </component>\r\n  <component name=\"Git.Settings\">\r\n    <option name=\"RECENT_GIT_ROOT_PATH\" value=\"$PROJECT_DIR$\" />\r\n  </component>\r\n  <component name=\"GitHubPullRequestSearchHistory\">{\r\n  &quot;lastFilter&quot;: {\r\n    &quot;state&quot;: &quot;OPEN&quot;,\r\n    &quot;assignee&quot;: &quot;eondig00&quot;\r\n  }\r\n}</component>\r\n  <component name=\"GithubPullRequestsUISettings\">{\r\n  &quot;selectedUrlAndAccountId&quot;: {\r\n    &quot;url&quot;: &quot;https://github.com/dpereg20/inso_leveltrack.git&quot;,\r\n    &quot;accountId&quot;: &quot;08519b9d-d934-4805-89e9-d2edb20ec919&quot;\r\n  }\r\n}</component>\r\n  <component name=\"KubernetesApiPersistence\">{}</component>\r\n  <component name=\"KubernetesApiProvider\">{\r\n  &quot;isMigrated&quot;: true\r\n}</component>\r\n  <component name=\"ProblemsViewState\">\r\n    <option name=\"selectedTabId\" value=\"CurrentFile\" />\r\n  </component>\r\n  <component name=\"ProjectColorInfo\">{\r\n  &quot;associatedIndex&quot;: 4\r\n}</component>\r\n  <component name=\"ProjectId\" id=\"2r4RtESkdPHzenpy3OiGezxsPVo\" />\r\n  <component name=\"ProjectLevelVcsManager\">\r\n    <ConfirmationsSetting value=\"1\" id=\"Add\" />\r\n  </component>\r\n  <component name=\"ProjectViewState\">\r\n    <option name=\"hideEmptyMiddlePackages\" value=\"true\" />\r\n    <option name=\"showLibraryContents\" value=\"true\" />\r\n  </component>\r\n  <component name=\"PropertiesComponent\">{\r\n  &quot;keyToString&quot;: {\r\n    &quot;Application.LoginView.executor&quot;: &quot;Run&quot;,\r\n    &quot;Application.MainApp.executor&quot;: &quot;Run&quot;,\r\n    &quot;Application.RegisterView.executor&quot;: &quot;Run&quot;,\r\n    &quot;Application.UserManagementView.executor&quot;: &quot;Run&quot;,\r\n    &quot;Docker.docker-compose.yml: Compose Deployment.executor&quot;: &quot;Run&quot;,\r\n    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,\r\n    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,\r\n    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,\r\n    &quot;full.screen.before.presentation.mode&quot;: &quot;false&quot;,\r\n    &quot;git-widget-placeholder&quot;: &quot;main&quot;,\r\n    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,\r\n    &quot;last_opened_file_path&quot;: &quot;D:/Descargas/mysql-connector-j-9.1.0.jar&quot;,\r\n    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,\r\n    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,\r\n    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,\r\n    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,\r\n    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,\r\n    &quot;project.structure.last.edited&quot;: &quot;Project&quot;,\r\n    &quot;project.structure.proportion&quot;: &quot;0.15&quot;,\r\n    &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,\r\n    &quot;settings.editor.selected.configurable&quot;: &quot;Errors&quot;,\r\n    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;\r\n  },\r\n  &quot;keyToStringList&quot;: {\r\n    &quot;DatabaseDriversLRU&quot;: [\r\n      &quot;mysql&quot;\r\n    ]\r\n  }\r\n}</component>\r\n  <component name=\"RecentsManager\">\r\n    <key name=\"CopyFile.RECENT_KEYS\">\r\n      <recent name=\"C:\\Users\\elena\\IdeaProjects\\inso_leveltrack\\\" />\r\n      <recent name=\"C:\\Users\\elena\\IdeaProjects\\inso_leveltrack\\src\\main\" />\r\n      <recent name=\"C:\\Users\\elena\\Documents\\GitHub\\inso_leveltrack\" />\r\n    </key>\r\n    <key name=\"MoveFile.RECENT_KEYS\">\r\n      <recent name=\"C:\\Users\\oscar\\Documents\\GitHub\\inso_leveltrack\\src\\.idea\\libraries\" />\r\n    </key>\r\n  </component>\r\n  <component name=\"RunManager\" selected=\"Application.MainApp\">\r\n    <configuration name=\"MainApp\" type=\"Application\" factoryName=\"Application\" temporary=\"true\" nameIsGenerated=\"true\">\r\n      <option name=\"MAIN_CLASS_NAME\" value=\"com.leveltrack.view.MainApp\" />\r\n      <module name=\"inso_leveltrack\" />\r\n      <extension name=\"coverage\">\r\n        <pattern>\r\n          <option name=\"PATTERN\" value=\"com.leveltrack.view.*\" />\r\n          <option name=\"ENABLED\" value=\"true\" />\r\n        </pattern>\r\n      </extension>\r\n      <method v=\"2\">\r\n        <option name=\"Make\" enabled=\"true\" />\r\n      </method>\r\n    </configuration>\r\n    <configuration name=\"UserManagementView\" type=\"Application\" factoryName=\"Application\" temporary=\"true\" nameIsGenerated=\"true\">\r\n      <option name=\"MAIN_CLASS_NAME\" value=\"com.leveltrack.view.UserManagementView\" />\r\n      <module name=\"inso_leveltrack\" />\r\n      <extension name=\"coverage\">\r\n        <pattern>\r\n          <option name=\"PATTERN\" value=\"com.leveltrack.view.*\" />\r\n          <option name=\"ENABLED\" value=\"true\" />\r\n        </pattern>\r\n      </extension>\r\n      <method v=\"2\">\r\n        <option name=\"Make\" enabled=\"true\" />\r\n      </method>\r\n    </configuration>\r\n    <configuration name=\"com.leveltrack.view.LoginView\" type=\"Application\" factoryName=\"Application\" temporary=\"true\" nameIsGenerated=\"true\">\r\n      <option name=\"MAIN_CLASS_NAME\" value=\"com.leveltrack.view.LoginView\" />\r\n      <module name=\"inso_leveltrack\" />\r\n      <extension name=\"coverage\">\r\n        <pattern>\r\n          <option name=\"PATTERN\" value=\"com.leveltrack.view.*\" />\r\n          <option name=\"ENABLED\" value=\"true\" />\r\n        </pattern>\r\n      </extension>\r\n      <method v=\"2\">\r\n        <option name=\"Make\" enabled=\"true\" />\r\n      </method>\r\n    </configuration>\r\n    <configuration name=\"com.leveltrack.view.RegisterView\" type=\"Application\" factoryName=\"Application\" temporary=\"true\" nameIsGenerated=\"true\">\r\n      <option name=\"MAIN_CLASS_NAME\" value=\"com.leveltrack.view.RegisterView\" />\r\n      <module name=\"inso_leveltrack\" />\r\n      <extension name=\"coverage\">\r\n        <pattern>\r\n          <option name=\"PATTERN\" value=\"com.leveltrack.view.*\" />\r\n          <option name=\"ENABLED\" value=\"true\" />\r\n        </pattern>\r\n      </extension>\r\n      <method v=\"2\">\r\n        <option name=\"Make\" enabled=\"true\" />\r\n      </method>\r\n    </configuration>\r\n    <configuration default=\"true\" type=\"docker-deploy\" factoryName=\"docker-compose.yml\" temporary=\"true\">\r\n      <deployment type=\"docker-compose.yml\">\r\n        <settings />\r\n      </deployment>\r\n      <method v=\"2\" />\r\n    </configuration>\r\n    <configuration name=\"docker-compose.yml: Compose Deployment\" type=\"docker-deploy\" factoryName=\"docker-compose.yml\" temporary=\"true\" server-name=\"Docker\">\r\n      <deployment type=\"docker-compose.yml\">\r\n        <settings>\r\n          <option name=\"sourceFilePath\" value=\"docker-compose.yml\" />\r\n        </settings>\r\n      </deployment>\r\n      <method v=\"2\" />\r\n    </configuration>\r\n    <list>\r\n      <item itemvalue=\"Application.UserManagementView\" />\r\n      <item itemvalue=\"Application.MainApp\" />\r\n      <item itemvalue=\"Application.com.leveltrack.view.LoginView\" />\r\n      <item itemvalue=\"Application.com.leveltrack.view.RegisterView\" />\r\n      <item itemvalue=\"Docker.docker-compose.yml: Compose Deployment\" />\r\n    </list>\r\n    <recent_temporary>\r\n      <list>\r\n        <item itemvalue=\"Application.MainApp\" />\r\n        <item itemvalue=\"Application.UserManagementView\" />\r\n        <item itemvalue=\"Docker.docker-compose.yml: Compose Deployment\" />\r\n        <item itemvalue=\"Application.com.leveltrack.view.RegisterView\" />\r\n        <item itemvalue=\"Application.com.leveltrack.view.LoginView\" />\r\n      </list>\r\n    </recent_temporary>\r\n  </component>\r\n  <component name=\"SharedIndexes\">\r\n    <attachedChunks>\r\n      <set>\r\n        <option value=\"bundled-jdk-9823dce3aa75-fdfe4dae3a2d-intellij.indexing.shared.core-IU-243.22562.218\" />\r\n        <option value=\"bundled-js-predefined-d6986cc7102b-deb605915726-JavaScript-IU-243.22562.218\" />\r\n      </set>\r\n    </attachedChunks>\r\n  </component>\r\n  <component name=\"SpellCheckerSettings\" RuntimeDictionaries=\"0\" Folders=\"0\" CustomDictionaries=\"0\" DefaultDictionary=\"application-level\" UseSingleDictionary=\"true\" transferred=\"true\" />\r\n  <component name=\"TaskManager\">\r\n    <task active=\"true\" id=\"Default\" summary=\"Default task\">\r\n      <changelist id=\"83ec2d2c-8ca2-4ce5-863a-fac5b017337d\" name=\"Changes\" comment=\"\" />\r\n      <created>1735816575957</created>\r\n      <option name=\"number\" value=\"Default\" />\r\n      <option name=\"presentableId\" value=\"Default\" />\r\n      <updated>1735816575957</updated>\r\n      <workItem from=\"1735816577947\" duration=\"1808000\" />\r\n      <workItem from=\"1735822993394\" duration=\"973000\" />\r\n      <workItem from=\"1735824212155\" duration=\"1277000\" />\r\n      <workItem from=\"1735848420748\" duration=\"28000\" />\r\n      <workItem from=\"1735848470328\" duration=\"44000\" />\r\n      <workItem from=\"1735848555890\" duration=\"177000\" />\r\n      <workItem from=\"1735848906037\" duration=\"368000\" />\r\n      <workItem from=\"1736274163106\" duration=\"306000\" />\r\n      <workItem from=\"1736274783108\" duration=\"145000\" />\r\n      <workItem from=\"1736357657794\" duration=\"87000\" />\r\n      <workItem from=\"1736358204031\" duration=\"4206000\" />\r\n      <workItem from=\"1736527939169\" duration=\"5766000\" />\r\n      <workItem from=\"1736698948678\" duration=\"7460000\" />\r\n      <workItem from=\"1736782191407\" duration=\"1420000\" />\r\n      <workItem from=\"1736786015684\" duration=\"4026000\" />\r\n    </task>\r\n    <task id=\"LOCAL-00001\" summary=\"prueba login\">\r\n      <option name=\"closed\" value=\"true\" />\r\n      <created>1735824475349</created>\r\n      <option name=\"number\" value=\"00001\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00001\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1735824475349</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00002\" summary=\"friend request\">\r\n      <option name=\"closed\" value=\"true\" />\r\n      <created>1736269748121</created>\r\n      <option name=\"number\" value=\"00002\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00002\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1736269748121</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00003\" summary=\"el admin puede cambiar rol en la ddbb, añadir juegos a la ddbb, eliminarlos y modificarlos\">\r\n      <option name=\"closed\" value=\"true\" />\r\n      <created>1736621740348</created>\r\n      <option name=\"number\" value=\"00003\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00003\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1736621740348</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00004\" summary=\"Ya se pueden añadir juegos a las librerias de los usuarios y filtrarlos por genero, también funcionan creo que todos los botones de back&#10;Tamnbien se crea una entrada de la tabla libreria cada vesz que se crea un usuario, es decir cada vez que se crea un usuario se crea una libreria asociada a este\">\r\n      <option name=\"closed\" value=\"true\" />\r\n      <created>1736654792137</created>\r\n      <option name=\"number\" value=\"00004\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00004\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1736654792137</updated>\r\n    </task>\r\n    <option name=\"localTasksCounter\" value=\"5\" />\r\n    <servers />\r\n  </component>\r\n  <component name=\"TypeScriptGeneratedFilesManager\">\r\n    <option name=\"version\" value=\"3\" />\r\n  </component>\r\n  <component name=\"Vcs.Log.Tabs.Properties\">\r\n    <option name=\"TAB_STATES\">\r\n      <map>\r\n        <entry key=\"MAIN\">\r\n          <value>\r\n            <State />\r\n          </value>\r\n        </entry>\r\n      </map>\r\n    </option>\r\n  </component>\r\n  <component name=\"VcsManagerConfiguration\">\r\n    <MESSAGE value=\"prueba login\" />\r\n    <MESSAGE value=\"aa\" />\r\n    <MESSAGE value=\"friend request\" />\r\n    <MESSAGE value=\"el admin puede cambiar rol en la ddbb, añadir juegos a la ddbb, eliminarlos y modificarlos\" />\r\n    <MESSAGE value=\"Ya se pueden añadir juegos a las librerias de los usuarios y filtrarlos por genero, también funcionan creo que todos los botones de back&#10;Tamnbien se crea una entrada de la tabla libreria cada vesz que se crea un usuario, es decir cada vez que se crea un usuario se crea una libreria asociada a este\" />\r\n    <option name=\"LAST_COMMIT_MESSAGE\" value=\"Ya se pueden añadir juegos a las librerias de los usuarios y filtrarlos por genero, también funcionan creo que todos los botones de back&#10;Tamnbien se crea una entrada de la tabla libreria cada vesz que se crea un usuario, es decir cada vez que se crea un usuario se crea una libreria asociada a este\" />\r\n  </component>\r\n</project>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/workspace.xml b/.idea/workspace.xml
+--- a/.idea/workspace.xml	(revision f6dc640427e0779ba8b93b20012ceec17a0c0f62)
++++ b/.idea/workspace.xml	(date 1736863965523)
+@@ -4,20 +4,35 @@
+     <option name="autoReloadType" value="SELECTIVE" />
+   </component>
+   <component name="ChangeListManager">
+-    <list default="true" id="83ec2d2c-8ca2-4ce5-863a-fac5b017337d" name="Changes" comment="Ya se pueden añadir juegos a las librerias de los usuarios y filtrarlos por genero, también funcionan creo que todos los botones de back&#10;Tamnbien se crea una entrada de la tabla libreria cada vesz que se crea un usuario, es decir cada vez que se crea un usuario se crea una libreria asociada a este">
++    <list default="true" id="83ec2d2c-8ca2-4ce5-863a-fac5b017337d" name="Changes" comment="Corregido pequeño fallo">
+       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/out/production/inso_leveltrack/com/leveltrack/controller/AdminController.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/inso_leveltrack/com/leveltrack/controller/AdminController.class" afterDir="false" />
+       <change beforePath="$PROJECT_DIR$/out/production/inso_leveltrack/com/leveltrack/controller/LibraryController.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/inso_leveltrack/com/leveltrack/controller/LibraryController.class" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/out/production/inso_leveltrack/com/leveltrack/dao/LibraryDAO.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/inso_leveltrack/com/leveltrack/dao/LibraryDAO.class" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/out/production/inso_leveltrack/com/leveltrack/dao/FriendshipDAOImpl.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/inso_leveltrack/com/leveltrack/dao/FriendshipDAOImpl.class" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/out/production/inso_leveltrack/com/leveltrack/dao/GameDAO.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/inso_leveltrack/com/leveltrack/dao/GameDAO.class" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/out/production/inso_leveltrack/com/leveltrack/dao/GameDAOImpl.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/inso_leveltrack/com/leveltrack/dao/GameDAOImpl.class" afterDir="false" />
+       <change beforePath="$PROJECT_DIR$/out/production/inso_leveltrack/com/leveltrack/dao/LibraryDAOImpl.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/inso_leveltrack/com/leveltrack/dao/LibraryDAOImpl.class" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/out/production/inso_leveltrack/com/leveltrack/dao/UserDAOImpl.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/inso_leveltrack/com/leveltrack/dao/UserDAOImpl.class" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/out/production/inso_leveltrack/com/leveltrack/service/FriendshipService.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/inso_leveltrack/com/leveltrack/service/FriendshipService.class" afterDir="false" />
+       <change beforePath="$PROJECT_DIR$/out/production/inso_leveltrack/com/leveltrack/service/LibraryService.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/inso_leveltrack/com/leveltrack/service/LibraryService.class" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/out/production/inso_leveltrack/com/leveltrack/view/LibraryView$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/inso_leveltrack/com/leveltrack/view/LibraryView$1.class" afterDir="false" />
+       <change beforePath="$PROJECT_DIR$/out/production/inso_leveltrack/com/leveltrack/view/LibraryView.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/inso_leveltrack/com/leveltrack/view/LibraryView.class" afterDir="false" />
+       <change beforePath="$PROJECT_DIR$/out/production/inso_leveltrack/main/resources/queries.properties" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/inso_leveltrack/main/resources/queries.properties" afterDir="false" />
+       <change beforePath="$PROJECT_DIR$/out/production/inso_leveltrack/queries.properties" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/inso_leveltrack/queries.properties" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/src/main/java/com/leveltrack/controller/AdminController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/leveltrack/controller/AdminController.java" afterDir="false" />
+       <change beforePath="$PROJECT_DIR$/src/main/java/com/leveltrack/controller/LibraryController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/leveltrack/controller/LibraryController.java" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/src/main/java/com/leveltrack/controller/LoginController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/leveltrack/controller/LoginController.java" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/src/main/java/com/leveltrack/dao/FriendshipDAOImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/leveltrack/dao/FriendshipDAOImpl.java" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/src/main/java/com/leveltrack/dao/GameDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/leveltrack/dao/GameDAO.java" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/src/main/java/com/leveltrack/dao/GameDAOImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/leveltrack/dao/GameDAOImpl.java" afterDir="false" />
+       <change beforePath="$PROJECT_DIR$/src/main/java/com/leveltrack/dao/LibraryDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/leveltrack/dao/LibraryDAO.java" afterDir="false" />
+       <change beforePath="$PROJECT_DIR$/src/main/java/com/leveltrack/dao/LibraryDAOImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/leveltrack/dao/LibraryDAOImpl.java" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/src/main/java/com/leveltrack/model/Game.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/leveltrack/model/Game.java" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/src/main/java/com/leveltrack/dao/UserDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/leveltrack/dao/UserDAO.java" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/src/main/java/com/leveltrack/dao/UserDAOImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/leveltrack/dao/UserDAOImpl.java" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/src/main/java/com/leveltrack/service/FriendshipService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/leveltrack/service/FriendshipService.java" afterDir="false" />
+       <change beforePath="$PROJECT_DIR$/src/main/java/com/leveltrack/service/LibraryService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/leveltrack/service/LibraryService.java" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/src/main/java/com/leveltrack/service/UserService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/leveltrack/service/UserService.java" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/src/main/java/com/leveltrack/util/GameAPIClient.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/leveltrack/util/GameAPIClient.java" afterDir="false" />
+       <change beforePath="$PROJECT_DIR$/src/main/java/com/leveltrack/view/LibraryView.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/leveltrack/view/LibraryView.java" afterDir="false" />
+       <change beforePath="$PROJECT_DIR$/src/main/resources/queries.properties" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/queries.properties" afterDir="false" />
+     </list>
+@@ -42,12 +57,12 @@
+     &quot;assignee&quot;: &quot;eondig00&quot;
+   }
+ }</component>
+-  <component name="GithubPullRequestsUISettings">{
+-  &quot;selectedUrlAndAccountId&quot;: {
+-    &quot;url&quot;: &quot;https://github.com/dpereg20/inso_leveltrack.git&quot;,
+-    &quot;accountId&quot;: &quot;08519b9d-d934-4805-89e9-d2edb20ec919&quot;
+-  }
+-}</component>
++  <component name="GithubPullRequestsUISettings"><![CDATA[{
++  "selectedUrlAndAccountId": {
++    "url": "https://github.com/dpereg20/inso_leveltrack.git",
++    "accountId": "f0535278-107b-435c-bb0e-0c47ab4b0d98"
++  }
++}]]></component>
+   <component name="KubernetesApiPersistence">{}</component>
+   <component name="KubernetesApiProvider">{
+   &quot;isMigrated&quot;: true
+@@ -66,37 +81,37 @@
+     <option name="hideEmptyMiddlePackages" value="true" />
+     <option name="showLibraryContents" value="true" />
+   </component>
+-  <component name="PropertiesComponent">{
+-  &quot;keyToString&quot;: {
+-    &quot;Application.LoginView.executor&quot;: &quot;Run&quot;,
+-    &quot;Application.MainApp.executor&quot;: &quot;Run&quot;,
+-    &quot;Application.RegisterView.executor&quot;: &quot;Run&quot;,
+-    &quot;Application.UserManagementView.executor&quot;: &quot;Run&quot;,
+-    &quot;Docker.docker-compose.yml: Compose Deployment.executor&quot;: &quot;Run&quot;,
+-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+-    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
+-    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+-    &quot;full.screen.before.presentation.mode&quot;: &quot;false&quot;,
+-    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
+-    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
+-    &quot;last_opened_file_path&quot;: &quot;D:/Descargas/mysql-connector-j-9.1.0.jar&quot;,
+-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+-    &quot;project.structure.last.edited&quot;: &quot;Project&quot;,
+-    &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
+-    &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
+-    &quot;settings.editor.selected.configurable&quot;: &quot;Errors&quot;,
+-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
++  <component name="PropertiesComponent"><![CDATA[{
++  "keyToString": {
++    "Application.LoginView.executor": "Run",
++    "Application.MainApp.executor": "Run",
++    "Application.RegisterView.executor": "Run",
++    "Application.UserManagementView.executor": "Run",
++    "Docker.docker-compose.yml: Compose Deployment.executor": "Run",
++    "RunOnceActivity.ShowReadmeOnStart": "true",
++    "RunOnceActivity.git.unshallow": "true",
++    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
++    "full.screen.before.presentation.mode": "false",
++    "git-widget-placeholder": "main",
++    "kotlin-language-version-configured": "true",
++    "last_opened_file_path": "D:/Descargas/mysql-connector-j-9.1.0.jar",
++    "node.js.detected.package.eslint": "true",
++    "node.js.detected.package.tslint": "true",
++    "node.js.selected.package.eslint": "(autodetect)",
++    "node.js.selected.package.tslint": "(autodetect)",
++    "nodejs_package_manager_path": "npm",
++    "project.structure.last.edited": "Project",
++    "project.structure.proportion": "0.15",
++    "project.structure.side.proportion": "0.2",
++    "settings.editor.selected.configurable": "Errors",
++    "vue.rearranger.settings.migration": "true"
+   },
+-  &quot;keyToStringList&quot;: {
+-    &quot;DatabaseDriversLRU&quot;: [
+-      &quot;mysql&quot;
++  "keyToStringList": {
++    "DatabaseDriversLRU": [
++      "mysql"
+     ]
+   }
+-}</component>
++}]]></component>
+   <component name="RecentsManager">
+     <key name="CopyFile.RECENT_KEYS">
+       <recent name="C:\Users\elena\IdeaProjects\inso_leveltrack\" />
+@@ -190,14 +205,6 @@
+         <item itemvalue="Application.com.leveltrack.view.LoginView" />
+       </list>
+     </recent_temporary>
+-  </component>
+-  <component name="SharedIndexes">
+-    <attachedChunks>
+-      <set>
+-        <option value="bundled-jdk-9823dce3aa75-fdfe4dae3a2d-intellij.indexing.shared.core-IU-243.22562.218" />
+-        <option value="bundled-js-predefined-d6986cc7102b-deb605915726-JavaScript-IU-243.22562.218" />
+-      </set>
+-    </attachedChunks>
+   </component>
+   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+   <component name="TaskManager">
+@@ -280,4 +287,14 @@
+     <MESSAGE value="Ya se pueden añadir juegos a las librerias de los usuarios y filtrarlos por genero, también funcionan creo que todos los botones de back&#10;Tamnbien se crea una entrada de la tabla libreria cada vesz que se crea un usuario, es decir cada vez que se crea un usuario se crea una libreria asociada a este" />
+     <option name="LAST_COMMIT_MESSAGE" value="Ya se pueden añadir juegos a las librerias de los usuarios y filtrarlos por genero, también funcionan creo que todos los botones de back&#10;Tamnbien se crea una entrada de la tabla libreria cada vesz que se crea un usuario, es decir cada vez que se crea un usuario se crea una libreria asociada a este" />
+   </component>
++  <component name="XDebuggerManager">
++    <breakpoint-manager>
++      <breakpoints>
++        <breakpoint enabled="true" type="java-exception">
++          <properties class="java.lang.ArrayIndexOutOfBoundsException" package="java.lang" />
++          <option name="timeStamp" value="4" />
++        </breakpoint>
++      </breakpoints>
++    </breakpoint-manager>
++  </component>
+ </project>
+\ No newline at end of file
