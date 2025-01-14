@@ -9,10 +9,8 @@ public interface LibraryDAO {
     boolean addGameToLibrary(int libraryId, int gameId, String state);
     boolean removeGameFromLibrary(int libraryId, int gameId);
      boolean updateGameState(int gameId, int userId, String newState);
-    boolean isGameInDatabase(String gameName);
     Game getGameByName(String gameName);
     int getLibraryIdByUserId(int userId);
-    List<Game> getAllGames();
     List<Game> getGamesByGenreUser(int userId, String genre);
     List<Game> getGamesByGenre(String genre);
     boolean isGameInLibrary(int libraryId, int gameId);

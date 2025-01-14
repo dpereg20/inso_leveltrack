@@ -41,14 +41,6 @@ public class LibraryService {
         return libraryDAO.updateGameState(gameId, userId, newState);
     }
 
-    public boolean isGameInDatabase(String gameName) {
-        return libraryDAO.isGameInDatabase(gameName);
-    }
-
-    public boolean removeGame(int userId, int gameId){
-        return libraryDAO.removeGameFromLibrary(userId, gameId);
-    }
-
     public Game getGameByName(String gameName) {
         return libraryDAO.getGameByName(gameName);
     }

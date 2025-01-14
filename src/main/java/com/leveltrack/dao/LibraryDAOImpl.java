@@ -86,20 +86,6 @@ public class LibraryDAOImpl implements LibraryDAO {
         return false;
     }
 
-
-    @Override
-    public boolean isGameInDatabase(String gameName) {
-        String query = QueryLoader.getQuery("game.isGameInDatabase");
-        try (PreparedStatement stmt = connection.prepareStatement(query)) {
-            stmt.setString(1, gameName);
-            ResultSet rs = stmt.executeQuery();
-            return rs.next();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return false;
-    }
-
     @Override
     public Game getGameByName(String gameName) {
         String query = QueryLoader.getQuery("game.getGameByName");
@@ -135,29 +121,6 @@ public class LibraryDAOImpl implements LibraryDAO {
             e.printStackTrace();
         }
         throw new IllegalStateException("Library not found for user ID: " + userId);
-    }
-
-
-    @Override
-    public List<Game> getAllGames() {
-        List<Game> games = new ArrayList<>();
-        String query = QueryLoader.getQuery("library.findAll");
-        try (PreparedStatement stmt = connection.prepareStatement(query);
-             ResultSet rs = stmt.executeQuery()) {
-            while (rs.next()) {
-                games.add(new Game(
-                        rs.getInt("id"),
-                        rs.getString("name"),
-                        rs.getString("genre"),
-                        rs.getDouble("price"),
-                        "Available",
-                        rs.getInt("game_score")
-                ));
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return games;
     }
 
     @Override

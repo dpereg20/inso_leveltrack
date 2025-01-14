@@ -127,7 +127,7 @@ class LibraryView extends JPanel {
                         }
                     } else {
                         JOptionPane.showMessageDialog(this, "Score must be between 0 and 10.", "Invalid Input", JOptionPane.ERROR_MESSAGE);
-                        tableModel.setValueAt("", row, column); // Limpiar el campo inválido
+                        tableModel.setValueAt(0, row, column); // Limpiar el campo inválido
                     }
                 } catch (NumberFormatException ex) {
                     JOptionPane.showMessageDialog(this, "Score must be a valid integer.", "Invalid Input", JOptionPane.ERROR_MESSAGE);
