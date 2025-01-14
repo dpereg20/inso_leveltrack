@@ -21,7 +21,6 @@ public class AdminDashboard extends JPanel {
 
         setLayout(new BorderLayout());
 
-        // Main Buttons Panel
         JPanel mainButtonsPanel = new JPanel(new GridLayout(1, 2));
         JButton manageUsersButton = new JButton("Manage Users");
         JButton manageGamesButton = new JButton("Manage Games");
@@ -29,10 +28,8 @@ public class AdminDashboard extends JPanel {
         mainButtonsPanel.add(manageGamesButton);
         add(mainButtonsPanel, BorderLayout.NORTH);
 
-        // User Management
         manageUsersButton.addActionListener((ActionEvent e) -> openUserManagement(adminId));
 
-        // Game Management
         manageGamesButton.addActionListener((ActionEvent e) -> openGameManagement(adminId));
 
         JButton logoutButton = new JButton("Logout");
@@ -61,7 +58,7 @@ public class AdminDashboard extends JPanel {
             int selectedRow = userTable.getSelectedRow();
             if (selectedRow != -1) {
                 String selectedName = userTableModel.getValueAt(selectedRow, 0).toString();
-                UserBase selectedUser = adminController.findUserByName(selectedName); // Implement this method
+                UserBase selectedUser = adminController.findUserByName(selectedName);
                 if (selectedUser != null) {
                     String newRole = (String) JOptionPane.showInputDialog(
                             userDialog,
@@ -133,7 +130,7 @@ public class AdminDashboard extends JPanel {
             int selectedRow = gameTable.getSelectedRow();
             if (selectedRow != -1) {
                 String selectedName = gameTableModel.getValueAt(selectedRow, 0).toString();
-                Game selectedGame = adminController.findGameByName(selectedName); // Implement this method
+                Game selectedGame = adminController.findGameByName(selectedName);
                 if (selectedGame != null) {
                     openGameForm("Update Game", selectedGame, gameTableModel);
                 }
@@ -153,7 +150,7 @@ public class AdminDashboard extends JPanel {
                 );
                 if (confirm == JOptionPane.YES_OPTION) {
                     String selectedName = gameTableModel.getValueAt(selectedRow, 0).toString();
-                    Game selectedGame = adminController.findGameByName(selectedName); // Implement this method
+                    Game selectedGame = adminController.findGameByName(selectedName);
                     if (adminController.deleteGame(selectedGame.getId())) {
                         JOptionPane.showMessageDialog(gameDialog, "Game deleted successfully!");
                         refreshGameTable(gameTableModel);
@@ -177,7 +174,6 @@ public class AdminDashboard extends JPanel {
             parentFrame.getContentPane().removeAll();
             try {
                 parentFrame.add(new LoginPanel(parentFrame, new LoginController(), (user) -> {
-                    // Callback para cuando el usuario se loguee
                     parentFrame.getContentPane().removeAll();
                     if ("ADMINISTRATOR".equalsIgnoreCase(user.getRole())) {
                         parentFrame.add(new AdminDashboard(parentFrame, user.getId()));
@@ -195,7 +191,7 @@ public class AdminDashboard extends JPanel {
 
     private void refreshUserTable(DefaultTableModel userTableModel) {
         userTableModel.setRowCount(0);
-        List<UserBase> users = adminController.getAllUsers(); // Fetch users
+        List<UserBase> users = adminController.getAllUsers();
         for (UserBase user : users) {
             userTableModel.addRow(new Object[]{user.getName(), user.getEmail(), user.getRole()});
         }
@@ -203,7 +199,7 @@ public class AdminDashboard extends JPanel {
 
     private void refreshGameTable(DefaultTableModel gameTableModel) {
         gameTableModel.setRowCount(0);
-        List<Game> games = adminController.getAllGames(); // Fetch games
+        List<Game> games = adminController.getAllGames();
         for (Game game : games) {
             gameTableModel.addRow(new Object[]{game.getName(), game.getGenre(), game.getPrice()});
         }
@@ -233,7 +229,7 @@ public class AdminDashboard extends JPanel {
                 return;
             }
 
-            if (game == null) { // Add new game
+            if (game == null) {
                 Game newGame = new Game(0, name, genre, price, "Available", 0);
                 if (adminController.addGame(newGame)) {
                     JOptionPane.showMessageDialog(dialog, "Game added successfully!");
@@ -242,7 +238,7 @@ public class AdminDashboard extends JPanel {
                 } else {
                     JOptionPane.showMessageDialog(dialog, "Failed to add game.", "Error", JOptionPane.ERROR_MESSAGE);
                 }
-            } else { // Update existing game
+            } else {
                 game.setName(name);
                 game.setGenre(genre);
                 game.setPrice(price);

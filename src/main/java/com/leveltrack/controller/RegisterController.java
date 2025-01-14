@@ -35,7 +35,6 @@ public class RegisterController {
     public boolean register(String name, String email, String password) {
         JOptionPane JOptionPane = new JOptionPane();
         try {
-            // Check if the email is already in use
             if (userService.emailExists(email)) {
                 JOptionPane.showMessageDialog(null,
                         "Email already in use. Please use a different email.",
@@ -43,7 +42,6 @@ public class RegisterController {
                         JOptionPane.ERROR_MESSAGE);
                 return false;
             }
-            // Register the user as a regular user
             return userService.registerUser(name, email, password, "REGULAR_USER");
         } catch (IllegalArgumentException e) {
             JOptionPane.showMessageDialog(null,

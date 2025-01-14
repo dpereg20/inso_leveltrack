@@ -7,7 +7,6 @@ public abstract class UserBase {
     private String password;
     private String role;
 
-    // Constructor
     public UserBase(int id, String name, String email, String role) {
         this.id = id;
         this.name = name;
@@ -15,7 +14,6 @@ public abstract class UserBase {
         this.role = role;
     }
 
-    // Getters y Setters
     public int getId() {
         return id;
     }
@@ -51,11 +49,6 @@ public abstract class UserBase {
     public String getRole() {
         return role;
     }
-
-    public void setRole(String role) {
-        this.role = role;
-    }
-    public abstract void performAction();
 }
 
 

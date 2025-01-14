@@ -97,7 +97,7 @@ public class GameDAOImpl implements GameDAO {
 
     @Override
     public List<Game> searchGamesByName(String keyword) {
-        String query = "SELECT id, name, genre, price FROM Games WHERE name LIKE ?";
+        String query = QueryLoader.getQuery("game.findByName");
         List<Game> games = new ArrayList<>();
         try (PreparedStatement stmt = connection.prepareStatement(query)) {
             stmt.setString(1, "%" + keyword + "%");

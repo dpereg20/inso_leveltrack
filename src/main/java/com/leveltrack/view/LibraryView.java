@@ -24,10 +24,8 @@ class LibraryView extends JPanel {
 
         setLayout(new BorderLayout());
 
-        // Panel superior para búsqueda y filtrado
         JPanel topPanel = new JPanel(new BorderLayout());
 
-        // Búsqueda por nombre (arriba a la izquierda)
         JPanel searchPanel = new JPanel(new BorderLayout());
         JLabel searchLabel = new JLabel("Search by Name: ");
         JTextField searchField = new JTextField(12);
@@ -44,7 +42,6 @@ class LibraryView extends JPanel {
         searchPanel.add(searchField, BorderLayout.CENTER);
         searchPanel.add(searchButton, BorderLayout.EAST);
 
-        // Filtrado por género (arriba a la derecha)
         JPanel filterPanel = new JPanel(new BorderLayout());
         JLabel filterLabel = new JLabel("Filter by Genre: ");
         JComboBox<String> genreComboBox = new JComboBox<>();
@@ -71,7 +68,6 @@ class LibraryView extends JPanel {
 
         add(topPanel, BorderLayout.NORTH);
 
-        // Configuración de la tabla de juegos
         String[] columnNames = {"ID", "Name", "Genre", "Price", "State", "Score"};
         tableModel = new DefaultTableModel(columnNames, 0) {
             @Override
@@ -85,14 +81,12 @@ class LibraryView extends JPanel {
         JScrollPane scrollPane = new JScrollPane(gamesTable);
         add(scrollPane, BorderLayout.CENTER);
 
-        // Configuración del desplegable para los estados
         String[] states = {"Available", "Playing", "Paused", "Completed", "Dropped", "Wishlist", "Replaying"};
         JComboBox<String> stateComboBox = new JComboBox<>(states);
 
         TableColumn stateColumn = gamesTable.getColumnModel().getColumn(4); // Columna de estado
         stateColumn.setCellEditor(new DefaultCellEditor(stateComboBox));
 
-        // Detectar cambios en el estado y la puntuación
         gamesTable.getModel().addTableModelListener(e -> {
             if (tableModel.getRowCount() == 0) {
                 return;
@@ -101,7 +95,7 @@ class LibraryView extends JPanel {
             int column = e.getColumn();
             int gameId = (int) tableModel.getValueAt(row, 0);
 
-            if (column == 4) { // Columna de estado
+            if (column == 4) {
                 String newState = (String) tableModel.getValueAt(row, column);
                 try {
                     boolean success = libraryController.updateGameState(gameId, userId, newState);
@@ -113,7 +107,7 @@ class LibraryView extends JPanel {
                 } catch (Exception ex) {
                     JOptionPane.showMessageDialog(this, "Error updating game state: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
                 }
-            } else if (column == 5) { // Columna de puntuación
+            } else if (column == 5) {
                 try {
                     String scoreInput = (String) tableModel.getValueAt(row, column);
                     int score = Integer.parseInt(scoreInput);
@@ -127,16 +121,15 @@ class LibraryView extends JPanel {
                         }
                     } else {
                         JOptionPane.showMessageDialog(this, "Score must be between 0 and 10.", "Invalid Input", JOptionPane.ERROR_MESSAGE);
-                        tableModel.setValueAt(0, row, column); // Limpiar el campo inválido
+                        tableModel.setValueAt(0, row, column);
                     }
                 } catch (NumberFormatException ex) {
                     JOptionPane.showMessageDialog(this, "Score must be a valid integer.", "Invalid Input", JOptionPane.ERROR_MESSAGE);
-                    tableModel.setValueAt(0, row, column); // Limpiar el campo inválido
+                    tableModel.setValueAt(0, row, column);
                 }
             }
         });
 
-        // Panel de controles
         JPanel controlsPanel = new JPanel(new GridLayout(1, 2, 10, 10));
         JButton addGameButton = new JButton("Add Game");
         JButton removeGameButton = new JButton("Remove Game");
@@ -148,7 +141,6 @@ class LibraryView extends JPanel {
 
         add(controlsPanel, BorderLayout.SOUTH);
 
-        // Acción del botón para añadir juegos
         addGameButton.addActionListener((ActionEvent e) -> {
             String gameNameInput = JOptionPane.showInputDialog("Enter Game Name to Add:");
             try {

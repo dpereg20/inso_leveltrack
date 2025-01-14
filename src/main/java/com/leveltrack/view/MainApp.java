@@ -19,7 +19,6 @@ public class MainApp {
                 throw new RuntimeException(e);
             }
 
-            // Pass a valid callback to the LoginPanel
             frame.add(new LoginPanel(frame, loginController, user -> {
                 frame.getContentPane().removeAll();
                 System.out.println(user.getRole());

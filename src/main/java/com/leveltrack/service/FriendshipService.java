@@ -14,7 +14,6 @@ public class FriendshipService {
     public FriendshipService() throws Exception {
         this.friendshipDAO = new FriendshipDAOImpl();
     }
-    
 
     public List<UserBase> searchUsers(String keyword) {
         return friendshipDAO.searchUsers(keyword);

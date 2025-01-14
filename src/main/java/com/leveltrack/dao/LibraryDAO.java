@@ -8,7 +8,7 @@ public interface LibraryDAO {
     List<Game> getGamesByUserId(int userId);
     boolean addGameToLibrary(int libraryId, int gameId, String state);
     boolean removeGameFromLibrary(int libraryId, int gameId);
-     boolean updateGameState(int gameId, int userId, String newState);
+    boolean updateGameState(int gameId, int userId, String newState);
     Game getGameByName(String gameName);
     int getLibraryIdByUserId(int userId);
     List<Game> getGamesByGenreUser(int userId, String genre);

@@ -14,11 +14,11 @@ class UserDashboard extends JPanel {
     public UserDashboard(JFrame parentFrame, int userId, String userRole) {
         this.userId = userId;
         this.userRole = userRole;
-        setLayout(new GridLayout(5, 1)); // Cambiado para agregar el nuevo botón
+        setLayout(new GridLayout(5, 1));
 
         JButton viewLibraryButton = new JButton("View Library");
         JButton manageFriendsButton = new JButton("Manage Friends");
-        JButton viewGameDatabaseButton = new JButton("View Game Database"); // Nuevo botón
+        JButton viewGameDatabaseButton = new JButton("View Game Database");
         JButton modifyProfileButton = new JButton("Modify Profile");
         JButton logoutButton = new JButton("Logout");
 
@@ -69,7 +69,7 @@ class UserDashboard extends JPanel {
 
         add(viewLibraryButton);
         add(manageFriendsButton);
-        add(viewGameDatabaseButton); // Agregar el nuevo botón
+        add(viewGameDatabaseButton);
         add(modifyProfileButton);
         add(logoutButton);
     }
@@ -90,7 +90,7 @@ class UserDashboard extends JPanel {
 
     private void openGameDatabaseView(JFrame parentFrame) throws Exception {
         parentFrame.getContentPane().removeAll();
-        parentFrame.add(new GameDatabaseView(userId, userRole, parentFrame)); // Asegurarse de que GameDatabaseView tenga un constructor adecuado
+        parentFrame.add(new GameDatabaseView(userId, userRole, parentFrame));
         parentFrame.revalidate();
         parentFrame.repaint();
     }

@@ -17,7 +17,6 @@ class GameDatabaseView extends JPanel {
 
         libraryController = new LibraryController();
 
-        // Panel principal de la tabla de juegos
         JPanel databasePanel = new JPanel(new BorderLayout());
         JLabel databaseLabel = new JLabel("Available Games in Database:");
         databaseLabel.setHorizontalAlignment(SwingConstants.CENTER);
@@ -29,13 +28,11 @@ class GameDatabaseView extends JPanel {
         databasePanel.add(databaseLabel, BorderLayout.NORTH);
         databasePanel.add(new JScrollPane(databaseTable), BorderLayout.CENTER);
 
-        // Panel de búsqueda
         JPanel searchPanel = new JPanel(new GridBagLayout());
         GridBagConstraints gbc = new GridBagConstraints();
         gbc.fill = GridBagConstraints.HORIZONTAL;
         gbc.insets = new Insets(5, 5, 5, 5);
 
-        // Búsqueda por nombre
         gbc.gridx = 0;
         gbc.gridy = 0;
         searchPanel.add(new JLabel("Search by Name:"), gbc);
@@ -57,13 +54,12 @@ class GameDatabaseView extends JPanel {
             }
         });
 
-        // Búsqueda por género
         gbc.gridx = 0;
         gbc.gridy = 1;
         searchPanel.add(new JLabel("Search by Genre:"), gbc);
 
         List<String> genres = libraryController.getAllGenres();
-        genres.add(0, "All"); // Opción para mostrar todos
+        genres.add(0, "All");
         JComboBox<String> genreComboBox = new JComboBox<>(genres.toArray(new String[0]));
         gbc.gridx = 1;
         searchPanel.add(genreComboBox, gbc);
@@ -81,7 +77,6 @@ class GameDatabaseView extends JPanel {
             }
         });
 
-        // Botón para añadir juego
         JButton addGameButton = new JButton("Add to Library");
         addGameButton.addActionListener((ActionEvent e) -> {
             int selectedRow = databaseTable.getSelectedRow();
@@ -105,7 +100,6 @@ class GameDatabaseView extends JPanel {
         gbc.anchor = GridBagConstraints.CENTER;
         searchPanel.add(addGameButton, gbc);
 
-        // Botón para regresar
         JButton backButton = new JButton("Back");
         backButton.addActionListener((ActionEvent e) -> {
             parentFrame.getContentPane().removeAll();

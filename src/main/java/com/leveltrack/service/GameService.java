@@ -3,12 +3,8 @@ package com.leveltrack.service;
 import com.leveltrack.dao.GameDAO;
 import com.leveltrack.dao.GameDAOImpl;
 import com.leveltrack.model.Game;
-import com.leveltrack.util.GameAPIClient;
-
-import org.json.JSONObject;
 
 import java.util.List;
-import java.util.ResourceBundle;
 
 public class GameService {
     private final GameDAO gameDAO;

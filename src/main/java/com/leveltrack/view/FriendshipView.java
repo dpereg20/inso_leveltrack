@@ -19,7 +19,6 @@ class FriendshipView extends JPanel {
         setLayout(new BorderLayout());
         friendshipController = new FriendshipController();
 
-        // Tabla de amigos
         JPanel friendsPanel = new JPanel(new BorderLayout());
         JLabel friendsLabel = new JLabel("Friends:");
         JTable friendsTable = new JTable(new DefaultTableModel(new String[]{"Name", "Email"}, 0));
@@ -29,7 +28,6 @@ class FriendshipView extends JPanel {
 
         add(friendsPanel, BorderLayout.WEST);
 
-        // Tabla de solicitudes pendientes
         JPanel requestsPanel = new JPanel(new BorderLayout());
         JLabel requestsLabel = new JLabel("Pending Friend Requests:");
         JTable requestsTable = new JTable(new DefaultTableModel(new String[]{"Request ID", "Requester Email", "Status"}, 0));
@@ -37,7 +35,6 @@ class FriendshipView extends JPanel {
         requestsPanel.add(requestsLabel, BorderLayout.NORTH);
         requestsPanel.add(new JScrollPane(requestsTable), BorderLayout.CENTER);
 
-        // Botones para aceptar/rechazar solicitudes
         JButton acceptButton = new JButton("Accept");
         JButton rejectButton = new JButton("Reject");
 
@@ -73,7 +70,6 @@ class FriendshipView extends JPanel {
 
         add(requestsPanel, BorderLayout.CENTER);
 
-        // Botón para enviar solicitud de amistad
         JButton sendRequestButton = new JButton("Send Friend Request");
         sendRequestButton.addActionListener((ActionEvent e) -> {
             String receiverEmail = JOptionPane.showInputDialog("Enter the User email of the person you want to add:");
@@ -92,7 +88,6 @@ class FriendshipView extends JPanel {
             }
         });
 
-        // Botón "Back" para regresar al menú de usuario
         JButton backButton = new JButton("Back");
         backButton.addActionListener((ActionEvent e) -> {
             parentFrame.getContentPane().removeAll();
@@ -110,16 +105,13 @@ class FriendshipView extends JPanel {
         viewFriendLibraryButton.addActionListener((ActionEvent e) -> {
             int selectedRow = friendsTable.getSelectedRow();
             if (selectedRow != -1) {
-                String email = (String) friendsTable.getValueAt(selectedRow, 1);  // Obtener el email del amigo seleccionado
-
-                // Obtener el userId del email utilizando el método getUserIdByEmail
+                String email = (String) friendsTable.getValueAt(selectedRow, 1);
                 int friendId = friendshipController.getUserIdByEmail(email);
 
                 if (friendId != -1) {
                     try {
-                        // Abrir la nueva clase para mostrar la librería del amigo
                         parentFrame.getContentPane().removeAll();
-                        parentFrame.add(new FriendLibraryView(userId, userRole, friendId, parentFrame)); // Clase específica para la librería del amigo
+                        parentFrame.add(new FriendLibraryView(userId, userRole, friendId, parentFrame));
                         parentFrame.revalidate();
                         parentFrame.repaint();
                     } catch (Exception ex) {
@@ -141,9 +133,8 @@ class FriendshipView extends JPanel {
         deleteFriend.addActionListener((ActionEvent e) ->{
             int selectedRow = friendsTable.getSelectedRow();
             if (selectedRow != -1) {
-                String email = (String) friendsTable.getValueAt(selectedRow, 1);  // Obtener el email de la fila seleccionada
+                String email = (String) friendsTable.getValueAt(selectedRow, 1);
 
-                // Obtener el userId del email utilizando el metodo getUserIdByEmail
                 int friendId = friendshipController.getUserIdByEmail(email);
 
                 if(friendshipController.deleteFriend(userId, friendId)){
@@ -179,7 +170,7 @@ class FriendshipView extends JPanel {
             if (!searchResults.isEmpty()) {
                 UserBase requester = searchResults.get(0);
                 if(checkValidRequest(userId, request.getId())){
-                    tableModel.addRow(new Object[]{request.getId(), requester.getEmail()/*requester.getName()*/, request.getStatus()});
+                    tableModel.addRow(new Object[]{request.getId(), requester.getEmail(), request.getStatus()});
                 }
             } else {
                 tableModel.addRow(new Object[]{request.getId(), "Unknown User", request.getStatus()});
@@ -189,14 +180,6 @@ class FriendshipView extends JPanel {
 
     private boolean checkValidRequest(int userId, int receiverId){
         return friendshipController.checkValidRequest(userId, receiverId);
-    }
-
-    private void displayGames(List<Game> games, JTextArea gamesList) {
-        StringBuilder sb = new StringBuilder();
-        for (Game game : games) {
-            sb.append(game).append("\n");
-        }
-        gamesList.setText(sb.toString());
     }
 }
 

@@ -21,12 +21,10 @@ class FriendLibraryView extends JPanel {
 
         setLayout(new BorderLayout());
 
-        // Panel de filtrado y búsqueda
         JPanel filterSearchPanel = new JPanel(new BorderLayout());
         JPanel searchPanel = new JPanel(new BorderLayout());
         JPanel filterPanel = new JPanel(new BorderLayout());
 
-        // Búsqueda por nombre
         JLabel searchLabel = new JLabel("Search by Name: ");
         JTextField searchField = new JTextField(10);
         JButton searchButton = new JButton("Search");
@@ -42,7 +40,6 @@ class FriendLibraryView extends JPanel {
         searchPanel.add(searchField, BorderLayout.CENTER);
         searchPanel.add(searchButton, BorderLayout.EAST);
 
-        // Filtrado por género
         JLabel filterLabel = new JLabel("Filter by Genre: ");
         JComboBox<String> genreComboBox = new JComboBox<>();
         genreComboBox.addItem("All");
@@ -68,7 +65,6 @@ class FriendLibraryView extends JPanel {
 
         add(filterSearchPanel, BorderLayout.NORTH);
 
-        // Configuración de la tabla
         String[] columnNames = {"ID", "Name", "Genre", "Price", "State", "Score"};
         tableModel = new DefaultTableModel(columnNames, 0);
         gamesTable = new JTable(tableModel);
@@ -77,7 +73,6 @@ class FriendLibraryView extends JPanel {
         JScrollPane scrollPane = new JScrollPane(gamesTable);
         add(scrollPane, BorderLayout.CENTER);
 
-        // Botón para regresar
         JButton backButton = new JButton("Back");
         backButton.addActionListener(e -> {
             parentFrame.getContentPane().removeAll();

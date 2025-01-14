@@ -21,16 +21,8 @@ public class Friendship {
         return requesterId;
     }
 
-    public int getReceiverId() {
-        return receiverId;
-    }
-
     public String getStatus() {
         return status;
-    }
-
-    public void setStatus(String status) {
-        this.status = status;
     }
 
     @Override
