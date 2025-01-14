@@ -153,4 +153,20 @@ public class LibraryController {
     public int getGameScore(int gameId, int userId) {
         return libraryService.getGameScore(gameId, userId);
     }
+
+    public Game findGameByName(String selectedName) {
+        try {
+            List<Game> games = libraryService.getAllGames();
+            for (Game game : games) {
+                if (game.getName().equalsIgnoreCase(selectedName)) {
+                    return game;
+                }
+            }
+            System.out.println("Game not found with name: " + selectedName);
+            return null;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
 }

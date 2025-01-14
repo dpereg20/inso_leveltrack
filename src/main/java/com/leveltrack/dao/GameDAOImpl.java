@@ -19,20 +19,6 @@ public class GameDAOImpl implements GameDAO {
     }
 
     @Override
-    public boolean saveGame(Game game) {
-        String query = QueryLoader.getQuery("game.add");
-        try (PreparedStatement stmt = connection.prepareStatement(query)) {
-            stmt.setString(1, game.getName());
-            stmt.setString(2, game.getGenre());
-            stmt.setDouble(3, game.getPrice());
-            return stmt.executeUpdate() > 0;
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return false;
-    }
-
-    @Override
     public boolean isGameInDatabase(String gameName) {
         String query = QueryLoader.getQuery("game.existsByName");
         try (PreparedStatement stmt = connection.prepareStatement(query)) {
@@ -43,75 +29,6 @@ public class GameDAOImpl implements GameDAO {
             e.printStackTrace();
             return false;
         }
-    }
-
-
-    @Override
-    public Game findGameBySteamAppId(int steamAppId) {
-        String query = "SELECT * FROM Games WHERE steam_app_id = ?";
-        try (PreparedStatement stmt = connection.prepareStatement(query)) {
-            stmt.setInt(1, steamAppId);
-            ResultSet rs = stmt.executeQuery();
-            if (rs.next()) {
-                return new Game(
-                        rs.getInt("id"),
-                        rs.getString("name"),
-                        rs.getString("genre"),
-                        rs.getDouble("price"),
-                        rs.getString("state"),
-                        0
-                );
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return null;
-    }
-
-    @Override
-    public List<Game> findGamesByGenre(String genre) {
-        List<Game> games = new ArrayList<>();
-        String query = QueryLoader.getQuery("game.findByGenre");
-        try (PreparedStatement stmt = connection.prepareStatement(query)) {
-            stmt.setString(1, "%" + genre + "%");
-            ResultSet rs = stmt.executeQuery();
-            while (rs.next()) {
-                games.add(new Game(
-                        rs.getInt("id"),
-                        rs.getString("name"),
-                        rs.getString("genre"),
-                        rs.getDouble("price"),
-                        rs.getString("state"),
-                        0
-                        )
-                );
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return games;
-    }
-
-    @Override
-    public Game findGameByName(String name) {
-        String query = QueryLoader.getQuery("game.findByName");
-        try (PreparedStatement stmt = connection.prepareStatement(query)) {
-            stmt.setString(1, name);
-            ResultSet rs = stmt.executeQuery();
-            if (rs.next()) {
-                return new Game(
-                        rs.getInt("id"),
-                        rs.getString("name"),
-                        rs.getString("genre"),
-                        rs.getDouble("price"),
-                        rs.getString("state"),
-                        0
-                );
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return null;
     }
 
     @Override
@@ -168,7 +85,7 @@ public class GameDAOImpl implements GameDAO {
                         rs.getString("name"),
                         rs.getString("genre"),
                         rs.getDouble("price"),
-                        "Available", // Default state or fetch it if stored in DB
+                        "Available",
                         0
                 ));
             }

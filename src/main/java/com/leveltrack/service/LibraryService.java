@@ -45,16 +45,16 @@ public class LibraryService {
         return libraryDAO.isGameInDatabase(gameName);
     }
 
+    public boolean removeGame(int userId, int gameId){
+        return libraryDAO.removeGameFromLibrary(userId, gameId);
+    }
+
     public Game getGameByName(String gameName) {
         return libraryDAO.getGameByName(gameName);
     }
 
     public int getLibraryIdByUserId(int userId) {
         return libraryDAO.getLibraryIdByUserId(userId);
-    }
-
-    public List<Game> getAllGamesFromDatabase() {
-        return libraryDAO.getAllGames();
     }
 
     public List<Game> getAllGames() {
@@ -73,12 +73,10 @@ public class LibraryService {
         return libraryDAO.getAllGenres();
     }
 
-    // Nuevo método para actualizar la puntuación de un juego
     public boolean updateGameScore(int gameId, int userId, int score) {
         return libraryDAO.updateGameScore(gameId, userId, score);
     }
 
-    // Nuevo método para obtener la puntuación de un juego
     public int getGameScore(int gameId, int userId) {
         return libraryDAO.getGameScore(gameId, userId);
     }

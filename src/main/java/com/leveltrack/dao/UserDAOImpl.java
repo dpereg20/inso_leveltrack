@@ -29,7 +29,7 @@ public class UserDAOImpl implements UserDAO {
             ResultSet rs = stmt.executeQuery();
             if (rs.next()) {
                 String role = rs.getString("role");
-                System.out.println("Role from database: " + role);  // Verifica si el rol es correcto
+                System.out.println("Role from database: " + role);
                 user = createUserInstance(
                         role,
                         rs.getInt("id"),
@@ -134,15 +134,12 @@ public class UserDAOImpl implements UserDAO {
         String query = QueryLoader.getQuery("user.insert");
         String query2 = QueryLoader.getQuery("library.insert");
 
-        // Manejo de transacciones
         try {
-            // Desactivamos autocommit para manejar la transacción
             connection.setAutoCommit(false);
 
             try (PreparedStatement stmt = connection.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
                  PreparedStatement stmt2 = connection.prepareStatement(query2)) {
 
-                // Insertamos el nuevo usuario
                 stmt.setString(1, user.getName());
                 stmt.setString(2, user.getEmail());
                 stmt.setString(3, user.getPassword());
@@ -150,24 +147,20 @@ public class UserDAOImpl implements UserDAO {
 
                 int rowsAffected = stmt.executeUpdate();
 
-                // Obtenemos el user_id generado
                 if (rowsAffected > 0) {
                     try (ResultSet rs = stmt.getGeneratedKeys()) {
                         if (rs.next()) {
-                            int userId = rs.getInt(1);  // El user_id generado automáticamente
+                            int userId = rs.getInt(1);
 
-                            // Insertamos la librería para el nuevo usuario
-                            stmt2.setInt(1, userId);  // Usamos el userId obtenido
+                            stmt2.setInt(1, userId);
                             stmt2.executeUpdate();
 
-                            // Confirmamos la transacción
                             connection.commit();
                             return true;
                         }
                     }
                 }
             } catch (SQLException e) {
-                // En caso de error, revertimos la transacción
                 connection.rollback();
                 e.printStackTrace();
             }
@@ -230,7 +223,7 @@ public class UserDAOImpl implements UserDAO {
         try (PreparedStatement stmt = connection.prepareStatement(query)) {
             stmt.setString(1, email);
             ResultSet rs = stmt.executeQuery();
-            return rs.next(); // Returns true if a row is found
+            return rs.next();
         } catch (SQLException e) {
             e.printStackTrace();
             return false;

@@ -44,8 +44,6 @@ public class FriendshipService {
         return friendshipDAO.getUserIdByEmail(userEmail);
     }
 
-    public List<Game> getGamesByUserId;
-
     public boolean deleteFriend(int userId, int friendId){
         return friendshipDAO.deleteFriend(userId, friendId);
     }

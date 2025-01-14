@@ -94,7 +94,7 @@ public class FriendshipDAOImpl implements FriendshipDAO {
         try (PreparedStatement stmt = connection.prepareStatement(query)) {
             stmt.setInt(1, userId);
             stmt.setInt(2, userId);
-            stmt.setInt(3, userId); // To exclude the current user from the friends list
+            stmt.setInt(3, userId);
             ResultSet rs = stmt.executeQuery();
             while (rs.next()) {
                 String role = rs.getString("role");
@@ -152,7 +152,7 @@ public class FriendshipDAOImpl implements FriendshipDAO {
             checkFriendshipStmt.setInt(4, requesterId);
             try (ResultSet rs = checkFriendshipStmt.executeQuery()) {
                 if (rs.next()) {
-                    return false; // Ya son amigos
+                    return false;
                 }
             }
 
@@ -164,12 +164,11 @@ public class FriendshipDAOImpl implements FriendshipDAO {
             checkPendingRequestStmt.setInt(4, requesterId);
             try (ResultSet rs = checkPendingRequestStmt.executeQuery()) {
                 if (rs.next()) {
-                    return false; // Ya hay una solicitud pendiente
+                    return false;
                 }
             }
         }
 
-        // Si no son amigos y no hay solicitudes pendientes, se puede enviar la solicitud
         return true;
     } catch (SQLException e) {
         e.printStackTrace();
@@ -219,19 +218,19 @@ public class FriendshipDAOImpl implements FriendshipDAO {
 
     @Override
     public int getUserIdByEmail(String email) {
-        String query = QueryLoader.getQuery("friendship.getUserIdByUserEmail");  // Consulta SQL
+        String query = QueryLoader.getQuery("friendship.getUserIdByUserEmail");
         try (PreparedStatement stmt = connection.prepareStatement(query)) {
-            stmt.setString(1, email);  // Establecer el email como parámetro en la consulta
+            stmt.setString(1, email);
             ResultSet rs = stmt.executeQuery();
 
             if (rs.next()) {
-                return rs.getInt("id");  // Retorna el userId si se encuentra el email
+                return rs.getInt("id");
             } else {
-                return -1;  // Si no se encuentra el usuario, retorna -1
+                return -1;
             }
         } catch (SQLException e) {
             e.printStackTrace();
-            return -1;  // Retorna -1 en caso de error en la consulta
+            return -1;
         }
     }
 

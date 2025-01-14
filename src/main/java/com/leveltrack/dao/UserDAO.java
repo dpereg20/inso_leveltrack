@@ -10,7 +10,6 @@ public interface UserDAO {
     UserBase findByEmailAndPassword(String email, String password);
     boolean createUser(UserBase user);
     boolean updateProfiled(UserBase user);
-
     boolean updateUserRole(int userId, String newRole);
     boolean updateProfile(int id, String name, String email, String password);
     boolean emailExists(String email);

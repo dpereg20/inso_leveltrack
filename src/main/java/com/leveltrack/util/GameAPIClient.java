@@ -20,7 +20,7 @@ public class GameAPIClient {
         }
         in.close();
 
-        return response.toString(); // Devuelve el JSON
+        return response.toString();
     }
 }
 

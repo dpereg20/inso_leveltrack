@@ -41,6 +41,6 @@ public class LoginController {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return null; // Return null if authentication fails
+        return null;
     }
 }

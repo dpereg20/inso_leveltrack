@@ -7,6 +7,9 @@ import com.leveltrack.model.Moderator;
 import com.leveltrack.model.Regular_User;
 import com.leveltrack.model.UserBase;
 
+import java.nio.charset.StandardCharsets;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.util.List;
 
 public class UserService {
@@ -29,7 +32,7 @@ public class UserService {
 
         UserBase user = userDAO.findByEmailAndPassword(email, password);
         if (user == null) {
-            return null; // Authentication failed
+            return null;
         }
 
         return createUserInstance(user.getRole(), user);
@@ -117,21 +120,36 @@ public class UserService {
     }
 
     public boolean partialUpdateUserProfile(int id, String name, String email, String password) {
-        // Fetch the current user details
         UserBase existingUser = userDAO.findById(id);
 
         if (existingUser == null) {
             throw new IllegalArgumentException("User not found.");
         }
 
-        // Use existing values if new ones are empty
         String updatedName = (name == null || name.isEmpty()) ? existingUser.getName() : name;
         String updatedEmail = (email == null || email.isEmpty()) ? existingUser.getEmail() : email;
-        String updatedPassword = (password == null || password.isEmpty()) ? existingUser.getPassword() : password;
+        String updatedPassword = (password == null || password.isEmpty()) ? existingUser.getPassword() : hashPassword(password);
 
         return userDAO.updateProfile(id, updatedName, updatedEmail, updatedPassword);
     }
 
+    private String hashPassword(String password) {
+        try {
+            MessageDigest digest = MessageDigest.getInstance("SHA-256");
+            byte[] encodedhash = digest.digest(password.getBytes(StandardCharsets.UTF_8));
+            StringBuilder hexString = new StringBuilder();
+            for (byte b : encodedhash) {
+                String hex = Integer.toHexString(0xff & b);
+                if (hex.length() == 1) {
+                    hexString.append('0');
+                }
+                hexString.append(hex);
+            }
+            return hexString.toString();
+        } catch (NoSuchAlgorithmException e) {
+            throw new RuntimeException("Error al inicializar el algoritmo de hash", e);
+        }
+    }
 
 
     public boolean isValidRole(String role) {
@@ -186,19 +204,11 @@ public class UserService {
         return user;
     }
 
-
-
-
     public boolean emailExists(String email) {
         if (email == null || email.isEmpty()) {
             throw new IllegalArgumentException("Email is required.");
         }
         return userDAO.emailExists(email);
-    }
-
-
-    public List<UserBase> findAllUsers() {
-        return userDAO.findAll();
     }
 
     public List<UserBase> getAllUsers() {

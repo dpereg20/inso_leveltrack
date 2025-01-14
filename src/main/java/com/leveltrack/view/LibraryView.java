@@ -76,7 +76,7 @@ class LibraryView extends JPanel {
         tableModel = new DefaultTableModel(columnNames, 0) {
             @Override
             public boolean isCellEditable(int row, int column) {
-                return column == 4 || column == 5; // Solo permite editar el estado y la puntuación
+                return column == 4 || column == 5;
             }
         };
         gamesTable = new JTable(tableModel);
@@ -85,20 +85,23 @@ class LibraryView extends JPanel {
         JScrollPane scrollPane = new JScrollPane(gamesTable);
         add(scrollPane, BorderLayout.CENTER);
 
-        // Configuración del desplegable para cambiar estado
+        // Configuración del desplegable para los estados
         String[] states = {"Available", "Playing", "Paused", "Completed", "Dropped", "Wishlist", "Replaying"};
         JComboBox<String> stateComboBox = new JComboBox<>(states);
 
-        TableColumn stateColumn = gamesTable.getColumnModel().getColumn(4);
+        TableColumn stateColumn = gamesTable.getColumnModel().getColumn(4); // Columna de estado
         stateColumn.setCellEditor(new DefaultCellEditor(stateComboBox));
 
-        // Detectar cambios en la tabla
+        // Detectar cambios en el estado y la puntuación
         gamesTable.getModel().addTableModelListener(e -> {
+            if (tableModel.getRowCount() == 0) {
+                return;
+            }
             int row = e.getFirstRow();
             int column = e.getColumn();
             int gameId = (int) tableModel.getValueAt(row, 0);
 
-            if (column == 4) { // Cambio de estado
+            if (column == 4) { // Columna de estado
                 String newState = (String) tableModel.getValueAt(row, column);
                 try {
                     boolean success = libraryController.updateGameState(gameId, userId, newState);
@@ -110,7 +113,7 @@ class LibraryView extends JPanel {
                 } catch (Exception ex) {
                     JOptionPane.showMessageDialog(this, "Error updating game state: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
                 }
-            } else if (column == 5) { // Cambio de puntuación
+            } else if (column == 5) { // Columna de puntuación
                 try {
                     String scoreInput = (String) tableModel.getValueAt(row, column);
                     int score = Integer.parseInt(scoreInput);
@@ -124,29 +127,28 @@ class LibraryView extends JPanel {
                         }
                     } else {
                         JOptionPane.showMessageDialog(this, "Score must be between 0 and 10.", "Invalid Input", JOptionPane.ERROR_MESSAGE);
-                        tableModel.setValueAt(0, row, column); // Restablece valor inválido
+                        tableModel.setValueAt("", row, column); // Limpiar el campo inválido
                     }
                 } catch (NumberFormatException ex) {
                     JOptionPane.showMessageDialog(this, "Score must be a valid integer.", "Invalid Input", JOptionPane.ERROR_MESSAGE);
-                    tableModel.setValueAt(0, row, column); // Restablece valor inválido
+                    tableModel.setValueAt(0, row, column); // Limpiar el campo inválido
                 }
             }
         });
 
-        // Panel inferior para botones
-        JPanel controlsPanel = new JPanel(new BorderLayout());
-
-        // Botón de volver atrás (abajo a la izquierda)
-        JButton backButton = new JButton("Back to Main Menu");
-        backButton.addActionListener((ActionEvent e) -> {
-            parentFrame.getContentPane().removeAll();
-            parentFrame.add(new UserDashboard(parentFrame, userId, userRole));
-            parentFrame.revalidate();
-            parentFrame.repaint();
-        });
-
-        // Botón de añadir juego (abajo al centro)
+        // Panel de controles
+        JPanel controlsPanel = new JPanel(new GridLayout(1, 2, 10, 10));
         JButton addGameButton = new JButton("Add Game");
+        JButton removeGameButton = new JButton("Remove Game");
+        JButton backButton = new JButton("Back to Main Menu");
+
+        controlsPanel.add(addGameButton);
+        controlsPanel.add(removeGameButton);
+        controlsPanel.add(backButton);
+
+        add(controlsPanel, BorderLayout.SOUTH);
+
+        // Acción del botón para añadir juegos
         addGameButton.addActionListener((ActionEvent e) -> {
             String gameNameInput = JOptionPane.showInputDialog("Enter Game Name to Add:");
             try {
@@ -161,10 +163,28 @@ class LibraryView extends JPanel {
             }
         });
 
-        controlsPanel.add(backButton, BorderLayout.WEST);
-        controlsPanel.add(addGameButton, BorderLayout.CENTER);
+        removeGameButton.addActionListener((ActionEvent e) ->{
+            int selectedRow = gamesTable.getSelectedRow();
+            if (selectedRow != -1) {
+                String selectedName = gamesTable.getValueAt(selectedRow, 0).toString();
+                Game selectedGame = libraryController.findGameByName(selectedName);
+                if (libraryController.removeGame(userId, selectedGame.getId())) {
+                    JOptionPane.showMessageDialog(this, "Game deleted successfully!");
+                    refreshGamesList();
+                } else {
+                    JOptionPane.showMessageDialog(this, "Failed to delete game.", "Error", JOptionPane.ERROR_MESSAGE);
+                }
+            }else{
+                JOptionPane.showMessageDialog(this, "Game not found.");
+            }
+        });
 
-        add(controlsPanel, BorderLayout.SOUTH);
+        backButton.addActionListener((ActionEvent e) -> {
+            parentFrame.getContentPane().removeAll();
+            parentFrame.add(new UserDashboard(parentFrame, userId, userRole));
+            parentFrame.revalidate();
+            parentFrame.repaint();
+        });
     }
 
     private void refreshGamesList() {

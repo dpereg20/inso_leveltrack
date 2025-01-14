@@ -46,8 +46,7 @@ public class LibraryDAOImpl implements LibraryDAO {
     public boolean addGameToLibrary(int userId, int gameId, String state) {
         String query = QueryLoader.getQuery("library.addGame");
         try (PreparedStatement stmt = connection.prepareStatement(query)) {
-            // Cambiar los índices para reflejar la consulta
-            stmt.setInt(1, getLibraryIdByUserId(userId)); // Método para obtener el libraryId
+            stmt.setInt(1, getLibraryIdByUserId(userId));
             stmt.setInt(2, userId);
             stmt.setInt(3, gameId);
             stmt.setString(4, state);
@@ -79,7 +78,7 @@ public class LibraryDAOImpl implements LibraryDAO {
         try (PreparedStatement stmt = connection.prepareStatement(query)) {
             stmt.setString(1, newState);
             stmt.setInt(2, gameId);
-            stmt.setInt(3, userId); // Agrega el userId aquí
+            stmt.setInt(3, userId);
             return stmt.executeUpdate() > 0;
         } catch (SQLException e) {
             e.printStackTrace();
@@ -151,7 +150,7 @@ public class LibraryDAOImpl implements LibraryDAO {
                         rs.getString("name"),
                         rs.getString("genre"),
                         rs.getDouble("price"),
-                        "Available", // Default state when fetching from database
+                        "Available",
                         rs.getInt("game_score")
                 ));
             }
@@ -164,10 +163,10 @@ public class LibraryDAOImpl implements LibraryDAO {
     @Override
     public List<Game> getGamesByGenreUser(int userId, String genre) {
         List<Game> games = new ArrayList<>();
-        String query = QueryLoader.getQuery("library.getGamesByGenreUser"); // Carga la consulta desde el archivo
+        String query = QueryLoader.getQuery("library.getGamesByGenreUser");
         try (PreparedStatement stmt = connection.prepareStatement(query)) {
-            stmt.setInt(1, userId); // Establece el ID del usuario
-            stmt.setString(2, "%" + genre + "%"); // Género con comodines para LIKE
+            stmt.setInt(1, userId);
+            stmt.setString(2, "%" + genre + "%");
             ResultSet rs = stmt.executeQuery();
             while (rs.next()) {
                 games.add(new Game(
@@ -180,18 +179,18 @@ public class LibraryDAOImpl implements LibraryDAO {
                 ));
             }
         } catch (SQLException e) {
-            e.printStackTrace(); // Imprime cualquier excepción SQL
+            e.printStackTrace();
         }
-        return games; // Devuelve la lista de juegos
+        return games;
     }
 
     @Override
     public List<Game> getGamesByGenre(String genre) {
         List<Game> games = new ArrayList<>();
-        String query = QueryLoader.getQuery("library.getGamesByGenre"); // Define la consulta en tu archivo de queries
+        String query = QueryLoader.getQuery("library.getGamesByGenre");
 
         try (PreparedStatement stmt = connection.prepareStatement(query)) {
-            stmt.setString(1, genre); // Género exacto
+            stmt.setString(1, genre);
             try (ResultSet rs = stmt.executeQuery()) {
                 while (rs.next()) {
                     games.add(new Game(
@@ -214,7 +213,7 @@ public class LibraryDAOImpl implements LibraryDAO {
         }
 
 
-        return games; // Devuelve la lista de juegos
+        return games;
     }
 
 
@@ -232,7 +231,6 @@ public class LibraryDAOImpl implements LibraryDAO {
         return false;
     }
 
-    // Nuevo método para actualizar la puntuación de un juego
     @Override
     public boolean updateGameScore(int gameId, int userId, int score) {
         String query = QueryLoader.getQuery("library.updateGameScore");
@@ -249,7 +247,6 @@ public class LibraryDAOImpl implements LibraryDAO {
         return false;
     }
 
-    // Nuevo método para obtener la puntuación de un juego
     @Override
     public int getGameScore(int gameId, int userId) {
         String query = QueryLoader.getQuery("library.getGameScore");
@@ -264,7 +261,7 @@ public class LibraryDAOImpl implements LibraryDAO {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        return -1; // Retorna -1 si no se encuentra la puntuación
+        return -1;
     }
 
     @Override
