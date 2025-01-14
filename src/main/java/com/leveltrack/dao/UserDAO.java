@@ -15,4 +15,3 @@ public interface UserDAO {
     boolean updateProfile(int id, String name, String email, String password);
     boolean emailExists(String email);
 }
-
