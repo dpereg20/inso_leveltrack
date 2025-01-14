@@ -1,0 +1,99 @@
+-- Inserting games into the Games table
+INSERT INTO Games (name, genre, price) VALUES
+('Counter-Strike: Global Offensive', 'Action', 0.00),
+('The Witcher 3: Wild Hunt', 'RPG', 39.99),
+('Stardew Valley', 'Simulation', 14.99),
+('Hollow Knight', 'Adventure', 15.00),
+('Minecraft', 'Sandbox', 26.95),
+('Cyberpunk 2077', 'RPG', 59.99),
+('Call of Duty: Modern Warfare II', 'Shooter', 69.99),
+('League of Legends', 'MOBA', 0.00),
+('Among Us', 'Party', 4.99),
+('Fortnite', 'Battle Royale', 0.00),
+('Red Dead Redemption 2', 'Action-Adventure', 59.99),
+('Celeste', 'Platformer', 19.99),
+('Doom Eternal', 'Shooter', 59.99),
+('Elden Ring', 'RPG', 59.99),
+('Valheim', 'Survival', 19.99),
+('Apex Legends', 'Shooter', 0.00),
+('FIFA 23', 'Sports', 49.99),
+('Animal Crossing: New Horizons', 'Simulation', 59.99),
+('Hades', 'Roguelike', 24.99),
+('Terraria', 'Sandbox', 9.99);
+
+-- Adding more games to the Games table
+INSERT INTO Games (name, genre, price) VALUES
+('Portal 2', 'Puzzle-Platformer', 9.99),
+('Dark Souls III', 'RPG', 59.99),
+('The Legend of Zelda: Breath of the Wild', 'Adventure', 59.99),
+('Fall Guys: Ultimate Knockout', 'Party', 19.99),
+('Dead by Daylight', 'Survival Horror', 19.99),
+('The Sims 4', 'Simulation', 39.99),
+('Ghost of Tsushima', 'Action-Adventure', 59.99),
+('Rocket League', 'Sports', 0.00),
+('Overwatch 2', 'Shooter', 0.00),
+('Grand Theft Auto V', 'Action-Adventure', 29.99),
+('Resident Evil Village', 'Survival Horror', 59.99),
+('Factorio', 'Simulation', 35.00),
+('Outer Wilds', 'Adventure', 24.99),
+('Sekiro: Shadows Die Twice', 'Action-Adventure', 59.99),
+('Battlefield 2042', 'Shooter', 59.99),
+('Slay the Spire', 'Card Game', 24.99),
+('Subnautica', 'Survival', 29.99),
+('Cuphead', 'Platformer', 19.99),
+('Halo Infinite', 'Shooter', 0.00),
+('God of War (2018)', 'Action-Adventure', 49.99),
+('Divinity: Original Sin 2', 'RPG', 44.99),
+('Civilization VI', 'Strategy', 59.99),
+('Total War: Warhammer III', 'Strategy', 59.99),
+('Destiny 2', 'Shooter', 0.00),
+('Rainbow Six Siege', 'Shooter', 19.99),
+('Metro Exodus', 'Shooter', 39.99),
+('Ori and the Will of the Wisps', 'Adventure', 29.99),
+('Cities: Skylines', 'Simulation', 29.99),
+('Horizon Zero Dawn', 'Action-Adventure', 49.99),
+('The Binding of Isaac: Rebirth', 'Roguelike', 14.99),
+('Dota 2', 'MOBA', 0.00),
+('PUBG: Battlegrounds', 'Battle Royale', 29.99),
+('Monster Hunter: World', 'RPG', 29.99),
+('CyberConnect Dungeon', 'Roguelike', 19.99),
+('Pillars of Eternity II: Deadfire', 'RPG', 49.99),
+('Satisfactory', 'Simulation', 29.99),
+('Planet Zoo', 'Simulation', 44.99),
+('Path of Exile', 'RPG', 0.00);
+
+-- Adding Fallout, The Elder Scrolls, The Sims, House Flipper, Baldur's Gate, and Dragon Age games
+INSERT INTO Games (name, genre, price) VALUES
+-- Fallout Series
+('Fallout', 'RPG', 9.99),
+('Fallout 2', 'RPG', 9.99),
+('Fallout 3', 'RPG', 19.99),
+('Fallout: New Vegas', 'RPG', 19.99),
+('Fallout 4', 'RPG', 29.99),
+('Fallout 76', 'RPG', 39.99),
+-- The Elder Scrolls Series
+('The Elder Scrolls: Arena', 'RPG', 0.00),
+('The Elder Scrolls II: Daggerfall', 'RPG', 0.00),
+('The Elder Scrolls III: Morrowind', 'RPG', 14.99),
+('The Elder Scrolls IV: Oblivion', 'RPG', 19.99),
+('The Elder Scrolls V: Skyrim', 'RPG', 39.99),
+('The Elder Scrolls Online', 'MMORPG', 19.99),
+-- The Sims Series
+('The Sims', 'Simulation', 29.99),
+('The Sims 2', 'Simulation', 39.99),
+('The Sims 3', 'Simulation', 39.99),
+('The Sims 4', 'Simulation', 39.99),
+-- House Flipper
+('House Flipper', 'Simulation', 24.99),
+-- Baldur's Gate Series
+('Baldur\'\s Gate', 'RPG', 9.99),
+('Baldur\'\s Gate: Enhanced Edition', 'RPG', 19.99),
+('Baldur\'\s Gate II: Shadows of Amn', 'RPG', 9.99),
+('Baldur\'\s Gate II: Enhanced Edition', 'RPG', 19.99),
+('Baldur\'\s Gate III', 'RPG', 59.99),
+-- Dragon Age Series
+('Dragon Age: Origins', 'RPG', 19.99),
+('Dragon Age II', 'RPG', 19.99),
+('Dragon Age: Inquisition', 'RPG', 29.99);
+
+
