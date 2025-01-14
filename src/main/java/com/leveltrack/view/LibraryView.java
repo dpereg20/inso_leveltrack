@@ -24,18 +24,59 @@ class LibraryView extends JPanel {
 
         setLayout(new BorderLayout());
 
-        // Título
-        JLabel titleLabel = new JLabel("Your Library", SwingConstants.CENTER);
-        titleLabel.setFont(new Font("Arial", Font.BOLD, 18));
-        add(titleLabel, BorderLayout.NORTH);
+        // Panel superior para búsqueda y filtrado
+        JPanel topPanel = new JPanel(new BorderLayout());
 
-        // Configuración de la tabla
+        // Búsqueda por nombre (arriba a la izquierda)
+        JPanel searchPanel = new JPanel(new BorderLayout());
+        JLabel searchLabel = new JLabel("Search by Name: ");
+        JTextField searchField = new JTextField(12);
+        JButton searchButton = new JButton("Search");
+        searchButton.addActionListener((ActionEvent e) -> {
+            String keyword = searchField.getText().trim();
+            if (!keyword.isEmpty()) {
+                refreshGamesListByName(keyword);
+            } else {
+                refreshGamesList();
+            }
+        });
+        searchPanel.add(searchLabel, BorderLayout.WEST);
+        searchPanel.add(searchField, BorderLayout.CENTER);
+        searchPanel.add(searchButton, BorderLayout.EAST);
+
+        // Filtrado por género (arriba a la derecha)
+        JPanel filterPanel = new JPanel(new BorderLayout());
+        JLabel filterLabel = new JLabel("Filter by Genre: ");
+        JComboBox<String> genreComboBox = new JComboBox<>();
+        genreComboBox.addItem("All");
+        List<String> genres = libraryController.getAllGenres();
+        for (String genre : genres) {
+            genreComboBox.addItem(genre);
+        }
+        JButton filterButton = new JButton("Filter");
+        filterButton.addActionListener((ActionEvent e) -> {
+            String selectedGenre = (String) genreComboBox.getSelectedItem();
+            if ("All".equalsIgnoreCase(selectedGenre)) {
+                refreshGamesList();
+            } else {
+                refreshGamesListByGenre(selectedGenre);
+            }
+        });
+        filterPanel.add(filterLabel, BorderLayout.WEST);
+        filterPanel.add(genreComboBox, BorderLayout.CENTER);
+        filterPanel.add(filterButton, BorderLayout.EAST);
+
+        topPanel.add(searchPanel, BorderLayout.WEST);
+        topPanel.add(filterPanel, BorderLayout.EAST);
+
+        add(topPanel, BorderLayout.NORTH);
+
+        // Configuración de la tabla de juegos
         String[] columnNames = {"ID", "Name", "Genre", "Price", "State", "Score"};
         tableModel = new DefaultTableModel(columnNames, 0) {
             @Override
             public boolean isCellEditable(int row, int column) {
-                // Permitir edición solo en la columna de Score y State
-                return column == 4 || column == 5;
+                return column == 4 || column == 5; // Solo permite editar el estado y la puntuación
             }
         };
         gamesTable = new JTable(tableModel);
@@ -44,20 +85,20 @@ class LibraryView extends JPanel {
         JScrollPane scrollPane = new JScrollPane(gamesTable);
         add(scrollPane, BorderLayout.CENTER);
 
-        // Configuración del desplegable para los estados
+        // Configuración del desplegable para cambiar estado
         String[] states = {"Available", "Playing", "Paused", "Completed", "Dropped", "Wishlist", "Replaying"};
         JComboBox<String> stateComboBox = new JComboBox<>(states);
 
-        TableColumn stateColumn = gamesTable.getColumnModel().getColumn(4); // Columna de estado
+        TableColumn stateColumn = gamesTable.getColumnModel().getColumn(4);
         stateColumn.setCellEditor(new DefaultCellEditor(stateComboBox));
 
-        // Detectar cambios en el estado y la puntuación
+        // Detectar cambios en la tabla
         gamesTable.getModel().addTableModelListener(e -> {
             int row = e.getFirstRow();
             int column = e.getColumn();
             int gameId = (int) tableModel.getValueAt(row, 0);
 
-            if (column == 4) { // Columna de estado
+            if (column == 4) { // Cambio de estado
                 String newState = (String) tableModel.getValueAt(row, column);
                 try {
                     boolean success = libraryController.updateGameState(gameId, userId, newState);
@@ -69,7 +110,7 @@ class LibraryView extends JPanel {
                 } catch (Exception ex) {
                     JOptionPane.showMessageDialog(this, "Error updating game state: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
                 }
-            } else if (column == 5) { // Columna de puntuación
+            } else if (column == 5) { // Cambio de puntuación
                 try {
                     String scoreInput = (String) tableModel.getValueAt(row, column);
                     int score = Integer.parseInt(scoreInput);
@@ -83,26 +124,29 @@ class LibraryView extends JPanel {
                         }
                     } else {
                         JOptionPane.showMessageDialog(this, "Score must be between 0 and 10.", "Invalid Input", JOptionPane.ERROR_MESSAGE);
-                        tableModel.setValueAt("", row, column); // Limpiar el campo inválido
+                        tableModel.setValueAt(0, row, column); // Restablece valor inválido
                     }
                 } catch (NumberFormatException ex) {
                     JOptionPane.showMessageDialog(this, "Score must be a valid integer.", "Invalid Input", JOptionPane.ERROR_MESSAGE);
-                    tableModel.setValueAt(0, row, column); // Limpiar el campo inválido
+                    tableModel.setValueAt(0, row, column); // Restablece valor inválido
                 }
             }
         });
 
-        // Panel de controles
-        JPanel controlsPanel = new JPanel(new GridLayout(1, 2, 10, 10));
-        JButton addGameButton = new JButton("Add Game");
+        // Panel inferior para botones
+        JPanel controlsPanel = new JPanel(new BorderLayout());
+
+        // Botón de volver atrás (abajo a la izquierda)
         JButton backButton = new JButton("Back to Main Menu");
+        backButton.addActionListener((ActionEvent e) -> {
+            parentFrame.getContentPane().removeAll();
+            parentFrame.add(new UserDashboard(parentFrame, userId, userRole));
+            parentFrame.revalidate();
+            parentFrame.repaint();
+        });
 
-        controlsPanel.add(addGameButton);
-        controlsPanel.add(backButton);
-
-        add(controlsPanel, BorderLayout.SOUTH);
-
-        // Acción del botón para añadir juegos
+        // Botón de añadir juego (abajo al centro)
+        JButton addGameButton = new JButton("Add Game");
         addGameButton.addActionListener((ActionEvent e) -> {
             String gameNameInput = JOptionPane.showInputDialog("Enter Game Name to Add:");
             try {
@@ -117,13 +161,10 @@ class LibraryView extends JPanel {
             }
         });
 
-        // Acción del botón para regresar
-        backButton.addActionListener((ActionEvent e) -> {
-            parentFrame.getContentPane().removeAll();
-            parentFrame.add(new UserDashboard(parentFrame, userId, userRole));
-            parentFrame.revalidate();
-            parentFrame.repaint();
-        });
+        controlsPanel.add(backButton, BorderLayout.WEST);
+        controlsPanel.add(addGameButton, BorderLayout.CENTER);
+
+        add(controlsPanel, BorderLayout.SOUTH);
     }
 
     private void refreshGamesList() {
@@ -136,8 +177,40 @@ class LibraryView extends JPanel {
                     game.getGenre(),
                     game.getPrice(),
                     game.getState(),
-                    game.getScore(), // Campo Score inicial vacío
+                    game.getScore()
+            });
+        }
+    }
+
+    private void refreshGamesListByName(String name) {
+        tableModel.setRowCount(0);
+        List<Game> games = libraryController.searchGamesByName(name);
+        for (Game game : games) {
+            tableModel.addRow(new Object[]{
+                    game.getId(),
+                    game.getName(),
+                    game.getGenre(),
+                    game.getPrice(),
+                    game.getState(),
+                    game.getScore()
+            });
+        }
+    }
+
+    private void refreshGamesListByGenre(String genre) {
+        tableModel.setRowCount(0);
+        List<Game> games = libraryController.getGamesByGenreUser(userId, genre);
+        for (Game game : games) {
+            tableModel.addRow(new Object[]{
+                    game.getId(),
+                    game.getName(),
+                    game.getGenre(),
+                    game.getPrice(),
+                    game.getState(),
+                    game.getScore()
             });
         }
     }
 }
+
+

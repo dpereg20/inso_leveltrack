@@ -6,18 +6,12 @@
   <component name="ChangeListManager">
     <list default="true" id="83ec2d2c-8ca2-4ce5-863a-fac5b017337d" name="Changes" comment="Ya se pueden añadir juegos a las librerias de los usuarios y filtrarlos por genero, también funcionan creo que todos los botones de back&#10;Tamnbien se crea una entrada de la tabla libreria cada vesz que se crea un usuario, es decir cada vez que se crea un usuario se crea una libreria asociada a este">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/inso_leveltrack/com/leveltrack/controller/LibraryController.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/inso_leveltrack/com/leveltrack/controller/LibraryController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/inso_leveltrack/com/leveltrack/dao/LibraryDAO.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/inso_leveltrack/com/leveltrack/dao/LibraryDAO.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/inso_leveltrack/com/leveltrack/dao/LibraryDAOImpl.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/inso_leveltrack/com/leveltrack/dao/LibraryDAOImpl.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/inso_leveltrack/com/leveltrack/service/LibraryService.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/inso_leveltrack/com/leveltrack/service/LibraryService.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/inso_leveltrack/com/leveltrack/view/LibraryView.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/inso_leveltrack/com/leveltrack/view/LibraryView.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/inso_leveltrack/main/resources/queries.properties" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/inso_leveltrack/main/resources/queries.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/inso_leveltrack/queries.properties" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/inso_leveltrack/queries.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/leveltrack/controller/LibraryController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/leveltrack/controller/LibraryController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/leveltrack/dao/LibraryDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/leveltrack/dao/LibraryDAO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/leveltrack/dao/LibraryDAOImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/leveltrack/dao/LibraryDAOImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/leveltrack/model/Game.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/leveltrack/model/Game.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/leveltrack/service/LibraryService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/leveltrack/service/LibraryService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/leveltrack/controller/UserController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/leveltrack/controller/UserController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/leveltrack/dao/UserDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/leveltrack/dao/UserDAO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/leveltrack/dao/UserDAOImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/leveltrack/dao/UserDAOImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/leveltrack/service/UserService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/leveltrack/service/UserService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/leveltrack/view/FriendshipView.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/leveltrack/view/FriendshipView.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/leveltrack/view/LibraryView.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/leveltrack/view/LibraryView.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/queries.properties" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/queries.properties" afterDir="false" />
     </list>
@@ -35,6 +29,7 @@
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+    <option name="RESET_MODE" value="HARD" />
   </component>
   <component name="GitHubPullRequestSearchHistory">{
   &quot;lastFilter&quot;: {
@@ -42,12 +37,12 @@
     &quot;assignee&quot;: &quot;eondig00&quot;
   }
 }</component>
-  <component name="GithubPullRequestsUISettings">{
-  &quot;selectedUrlAndAccountId&quot;: {
-    &quot;url&quot;: &quot;https://github.com/dpereg20/inso_leveltrack.git&quot;,
-    &quot;accountId&quot;: &quot;08519b9d-d934-4805-89e9-d2edb20ec919&quot;
+  <component name="GithubPullRequestsUISettings"><![CDATA[{
+  "selectedUrlAndAccountId": {
+    "url": "https://github.com/dpereg20/inso_leveltrack.git",
+    "accountId": "228f39f6-8df9-4bd8-8591-6d5be5a00f01"
   }
-}</component>
+}]]></component>
   <component name="KubernetesApiPersistence">{}</component>
   <component name="KubernetesApiProvider">{
   &quot;isMigrated&quot;: true
@@ -66,37 +61,37 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;Application.LoginView.executor&quot;: &quot;Run&quot;,
-    &quot;Application.MainApp.executor&quot;: &quot;Run&quot;,
-    &quot;Application.RegisterView.executor&quot;: &quot;Run&quot;,
-    &quot;Application.UserManagementView.executor&quot;: &quot;Run&quot;,
-    &quot;Docker.docker-compose.yml: Compose Deployment.executor&quot;: &quot;Run&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
-    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
-    &quot;full.screen.before.presentation.mode&quot;: &quot;false&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
-    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;D:/Descargas/mysql-connector-j-9.1.0.jar&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;project.structure.last.edited&quot;: &quot;Project&quot;,
-    &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
-    &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;Errors&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "Application.LoginView.executor": "Run",
+    "Application.MainApp.executor": "Run",
+    "Application.RegisterView.executor": "Run",
+    "Application.UserManagementView.executor": "Run",
+    "Docker.docker-compose.yml: Compose Deployment.executor": "Run",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.git.unshallow": "true",
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "full.screen.before.presentation.mode": "false",
+    "git-widget-placeholder": "main",
+    "kotlin-language-version-configured": "true",
+    "last_opened_file_path": "D:/Descargas/mysql-connector-j-9.1.0.jar",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "project.structure.last.edited": "Project",
+    "project.structure.proportion": "0.15",
+    "project.structure.side.proportion": "0.2",
+    "settings.editor.selected.configurable": "Errors",
+    "vue.rearranger.settings.migration": "true"
   },
-  &quot;keyToStringList&quot;: {
-    &quot;DatabaseDriversLRU&quot;: [
-      &quot;mysql&quot;
+  "keyToStringList": {
+    "DatabaseDriversLRU": [
+      "mysql"
     ]
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="C:\Users\elena\IdeaProjects\inso_leveltrack\" />
@@ -184,10 +179,10 @@
     <recent_temporary>
       <list>
         <item itemvalue="Application.MainApp" />
-        <item itemvalue="Application.UserManagementView" />
         <item itemvalue="Docker.docker-compose.yml: Compose Deployment" />
         <item itemvalue="Application.com.leveltrack.view.RegisterView" />
         <item itemvalue="Application.com.leveltrack.view.LoginView" />
+        <item itemvalue="Application.UserManagementView" />
       </list>
     </recent_temporary>
   </component>
@@ -222,6 +217,7 @@
       <workItem from="1736698948678" duration="7460000" />
       <workItem from="1736782191407" duration="1420000" />
       <workItem from="1736786015684" duration="4026000" />
+      <workItem from="1736844200093" duration="3822000" />
     </task>
     <task id="LOCAL-00001" summary="prueba login">
       <option name="closed" value="true" />
@@ -262,6 +258,21 @@
     <option name="version" value="3" />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
+    <option name="RECENT_FILTERS">
+      <map>
+        <entry key="Branch">
+          <value>
+            <list>
+              <RecentGroup>
+                <option name="FILTER_VALUES">
+                  <option value="main" />
+                </option>
+              </RecentGroup>
+            </list>
+          </value>
+        </entry>
+      </map>
+    </option>
     <option name="TAB_STATES">
       <map>
         <entry key="MAIN">

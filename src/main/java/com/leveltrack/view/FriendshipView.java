@@ -12,7 +12,7 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.util.List;
 
-public class FriendshipView extends JPanel {
+class FriendshipView extends JPanel {
     private final FriendshipController friendshipController;
 
     public FriendshipView(int userId, String userRole, JFrame parentFrame) throws Exception {
@@ -110,31 +110,21 @@ public class FriendshipView extends JPanel {
         viewFriendLibraryButton.addActionListener((ActionEvent e) -> {
             int selectedRow = friendsTable.getSelectedRow();
             if (selectedRow != -1) {
-                String email = (String) friendsTable.getValueAt(selectedRow, 1);  // Obtener el email de la fila seleccionada
+                String email = (String) friendsTable.getValueAt(selectedRow, 1);  // Obtener el email del amigo seleccionado
 
-                // Obtener el userId del email utilizando el metodo getUserIdByEmail
+                // Obtener el userId del email utilizando el método getUserIdByEmail
                 int friendId = friendshipController.getUserIdByEmail(email);
 
                 if (friendId != -1) {
-                    // Obtener la lista de juegos de la librería del usuario seleccionado
-                    LibraryController libraryController = null;
                     try {
-                        libraryController = new LibraryController();
+                        // Abrir la nueva clase para mostrar la librería del amigo
+                        parentFrame.getContentPane().removeAll();
+                        parentFrame.add(new FriendLibraryView(userId, userRole, friendId, parentFrame)); // Clase específica para la librería del amigo
+                        parentFrame.revalidate();
+                        parentFrame.repaint();
                     } catch (Exception ex) {
-                        throw new RuntimeException(ex);
-                    }
-                    List<Game> userLibrary = libraryController.getGamesByUserId(friendId);
-
-                    // Verificar si la librería tiene juegos y mostrarlos
-                    if (!userLibrary.isEmpty()) {
-                        JTextArea libraryTextArea = new JTextArea();
-                        libraryTextArea.setEditable(false);  // No editable
-                        displayGames(userLibrary, libraryTextArea);
-
-                        // Mostrar la librería en un JOptionPane
-                        JOptionPane.showMessageDialog(this, new JScrollPane(libraryTextArea), "User Library", JOptionPane.INFORMATION_MESSAGE);
-                    } else {
-                        JOptionPane.showMessageDialog(this, "This user does not have any games in their library.", "Empty Library", JOptionPane.INFORMATION_MESSAGE);
+                        JOptionPane.showMessageDialog(this, "Error loading friend's library: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+                        ex.printStackTrace();
                     }
                 } else {
                     JOptionPane.showMessageDialog(this, "User not found with email: " + email, "Error", JOptionPane.ERROR_MESSAGE);
@@ -143,6 +133,8 @@ public class FriendshipView extends JPanel {
                 JOptionPane.showMessageDialog(this, "Please select a user to view their library.", "Error", JOptionPane.ERROR_MESSAGE);
             }
         });
+
+
 
         JButton deleteFriend = new JButton("Delete Friend");
 
@@ -207,5 +199,6 @@ public class FriendshipView extends JPanel {
         gamesList.setText(sb.toString());
     }
 }
+
 
 
