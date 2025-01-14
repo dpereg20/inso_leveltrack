@@ -12,6 +12,9 @@ public class MainApp {
             frame.setSize(600, 400);
             frame.setLocationRelativeTo(null);
 
+            ImageIcon icon = new ImageIcon(MainApp.class.getClassLoader().getResource("LevelTrackLogo.png"));
+            frame.setIconImage(icon.getImage());
+
             LoginController loginController = null;
             try {
                 loginController = new LoginController();

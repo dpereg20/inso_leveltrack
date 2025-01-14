@@ -4,17 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="83ec2d2c-8ca2-4ce5-863a-fac5b017337d" name="Changes" comment="Mas limpio el codigo aún">
+    <list default="true" id="83ec2d2c-8ca2-4ce5-863a-fac5b017337d" name="Changes" comment="Borrada otra clase que no se usa">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/leveltrack/controller/AdminController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/leveltrack/controller/AdminController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/leveltrack/controller/LibraryController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/leveltrack/controller/LibraryController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/leveltrack/dao/LibraryDAOImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/leveltrack/dao/LibraryDAOImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/leveltrack/dao/UserDAOImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/leveltrack/dao/UserDAOImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/leveltrack/model/Library.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/leveltrack/service/UserService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/leveltrack/service/UserService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/leveltrack/util/GameAPIClient.java" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/leveltrack/view/MainApp.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/leveltrack/view/MainApp.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/leveltrack/view/RegisterPanel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/leveltrack/view/RegisterPanel.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -282,7 +274,23 @@
       <option name="project" value="LOCAL" />
       <updated>1736868931714</updated>
     </task>
-    <option name="localTasksCounter" value="9" />
+    <task id="LOCAL-00009" summary="Borradas clases que no sirven y system.out.println">
+      <option name="closed" value="true" />
+      <created>1736870007104</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1736870007104</updated>
+    </task>
+    <task id="LOCAL-00010" summary="Borrada otra clase que no se usa">
+      <option name="closed" value="true" />
+      <created>1736870056011</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1736870056011</updated>
+    </task>
+    <option name="localTasksCounter" value="11" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -309,6 +317,8 @@
     <MESSAGE value="Cosas de archivos .class y demas" />
     <MESSAGE value="Limpiando un poco el codigo" />
     <MESSAGE value="Mas limpio el codigo aún" />
-    <option name="LAST_COMMIT_MESSAGE" value="Mas limpio el codigo aún" />
+    <MESSAGE value="Borradas clases que no sirven y system.out.println" />
+    <MESSAGE value="Borrada otra clase que no se usa" />
+    <option name="LAST_COMMIT_MESSAGE" value="Borrada otra clase que no se usa" />
   </component>
 </project>
